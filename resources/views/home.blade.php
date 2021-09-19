@@ -9,8 +9,7 @@
               <div class="card bg-gradient-info text-white">
                 <div class="card-body">
                   <h4 class="font-weight-normal mb-3">Saldo anda</h4>
-                  <h2 class="font-weight-normal mb-5" id="online"> {{FormatRupiah($saldo)}}</h2>
-                  {{-- <p class="card-text">Note : Klik untuk lihat list uang masuk anda</p> --}}
+                  {{-- <h2 class="font-weight-normal mb-5" id="online"> {{FormatRupiah($saldo)}}</h2> --}}
                 </div>
               </div>
             </div>
@@ -21,8 +20,7 @@
               <div class="card bg-gradient-warning text-white">
                 <div class="card-body">
                   <h4 class="font-weight-normal mb-3">Keluaran anda bulan ini</h4>
-                  <h2 class="font-weight-normal mb-5" id="offline"> {{FormatRupiah($uangkeluar)}}</h2>
-                  {{-- <p class="card-text">Note : Klik untuk lihat list uang keluar anda</p> --}}
+                  {{-- <h2 class="font-weight-normal mb-5" id="offline"> {{FormatRupiah($uangkeluar)}}</h2> --}}
                 </div>
               </div>
             </div>
@@ -33,8 +31,7 @@
               <div class="card bg-gradient-success text-white">
                 <div class="card-body">
                   <h4 class="font-weight-normal mb-3">Tagihan anda bulan ini (Belom dibayar)</h4>
-                  <h2 class="font-weight-normal mb-5" id="offline"> {{FormatRupiah($tagihan)}}</h2>
-                  {{-- <p class="card-text">Note : Klik untuk lihat list tagihan anda</p> --}}
+                  {{-- <h2 class="font-weight-normal mb-5" id="offline"> {{FormatRupiah($tagihan)}}</h2> --}}
                 </div>
               </div>
             </div>

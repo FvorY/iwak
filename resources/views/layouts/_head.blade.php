@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>DompetQu</title>
+  <title>Iwak Admin</title>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/jquery-bar-rating/dist/themes/css-stars.css')}}">
   <link rel="stylesheet" href="{{asset('assets/checkbox/awesome-bootstrap-checkbox.css')}}">
@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/style-op.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{asset('assets/dompetqu.png')}}" />
+  <link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}" />
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/data-table.min.css')}}"> -->
 
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/datepicker/css/bootstrap-datepicker3.min.css')}}"> -->

@@ -11,64 +11,31 @@
 |
 */
 
-// Route::get('/', 'HomefrontController@index')->name('/');
-
-
+//Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
-    Route::get('/', function () {
+    Route::get('/admin', function () {
         return view('auth.login');
     })->name('admin');
 
-    Route::get('login', 'loginController@authenticate')->name('login');
-    Route::get('register', 'RegisterController@index')->name('register');
-    Route::get('doregister', 'RegisterController@doregister')->name('doregister');
-    Route::get("verification/{id}", 'VerificationController@index');
-    Route::get("resendverification/{id}", 'VerificationController@resend');
-    Route::get("doverification", 'VerificationController@doverification');
-    Route::get("forgotpassword", 'ForgotpasswordController@index');
-    Route::get("doforgot", 'ForgotpasswordController@doforgot');
-    Route::get("forgotlink/{id}/{accesstoken}", 'ForgotpasswordController@forgotlink');
-    Route::get("doforgotlink", 'ForgotpasswordController@doforgotlink');
-    Route::get("forgotlogin/{id}", 'ForgotpasswordController@forgotlogin');
+    Route::get('loginadmin', 'loginController@authenticate')->name('loginadmin');
 
-    Route::get("generatetagihan", 'TagihanController@generatetagihan');
-
-    Route::get("tesemail", 'VerificationController@tesemail');
-    // Route::post('login', 'loginController@authenticate')->name('login');
 });
 
+//Route untuk user admin
+Route::group(['middleware' => 'admin'], function () {
 
-Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index')->name('index');
-Route::get('logout', 'HomeController@logout')->name('logout');
+    Route::get('homeadmin', 'HomeController@index')->name('homeadmin');
 
-Route::get('mastertagihan', 'MastertagihanController@index');
-Route::get('mastertagihantable', 'MastertagihanController@datatable');
-Route::get('simpanmastertagihan', 'MastertagihanController@simpan');
-Route::get('hapusmastertagihan', 'MastertagihanController@hapus');
-Route::get('editmastertagihan', 'MastertagihanController@edit');
+    Route::get('logoutadmin', 'HomeController@logout')->name('logoutadmin');
 
-Route::get('tagihan', 'TagihanController@index');
-Route::get('tagihantable', 'TagihanController@datatable');
-Route::get('bayartagihan', 'TagihanController@bayar');
+});
 
-Route::get('uangmasuk', 'UangmasukController@index');
-Route::get('uangmasuktable', 'UangmasukController@datatable');
-Route::get('simpanuangmasuk', 'UangmasukController@simpan');
-Route::get('hapusuangmasuk', 'UangmasukController@hapus');
-Route::get('edituangmasuk', 'UangmasukController@edit');
+//Route untuk user pembeli / penjual
+Route::group(['middleware' => 'member'], function () {
 
-Route::get('uangkeluar', 'UangkeluarController@index');
-Route::get('uangkeluartable', 'UangkeluarController@datatable');
-Route::get('simpanuangkeluar', 'UangkeluarController@simpan');
-Route::get('hapusuangkeluar', 'UangkeluarController@hapus');
-Route::get('edituangkeluar', 'UangkeluarController@edit');
 
-// Route::get("mutasi", "MutasiController@index");
 
-Route::get("statistik", "StatistikController@index");
-Route::get("getstatistik", "StatistikController@get");
-
-}); // End Route Groub middleware auth
+});

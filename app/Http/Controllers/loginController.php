@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\mMember;
+use App\Account;
 use Validator;
 use Carbon\Carbon;
 use Session;
@@ -21,8 +21,8 @@ class loginController extends Controller
     public function login(Request $req) {
         $username = $req->username;
         $password = $req->password;
-        $user = mMember::where("users_username", $username)->first();
-        if ($user && $user->m_passwd == sha1(md5('passwordAllah') + $req->password)) {
+        $user = Account::where("email", $username)->where("role", "admin")->first();
+        if ($user && $user->m_passwd == $req->password) {
             return response()->json([
                         'success' => 'succes',
             ]);
@@ -48,36 +48,31 @@ class loginController extends Controller
         } else {
             $username  = $req->username;
             $password  = $req->password;
-           	$pass_benar=sha1(md5('passwordAllah').$password);
+           	$pass_benar = $password;
             // $pass_benar=$password;
             // $username = str_replace('\'', '', $username);
 
-            $user = mMember::where("users_username", $username)->first();
+            $user = Account::where("email", $username)->where("role", "admin")->first();
 
             $user_valid = [];
             // dd($req->all());
 
            	if ($user != null) {
-           		$user_pass = mMember::where('users_username',$username)
-	            			          ->where('users_password',$pass_benar)
+           		$user_pass = Account::where('email',$username)
+	            			          ->where('password',$pass_benar)
 	            			          ->first();
 
             	if ($user_pass != null) {
-           			mMember::where('users_username',$username)->update([
-                     'users_lastlogin'=>Carbon::now(),
-                 	  ]);
+           			// Account::where('email',$username)->update([
+                //      'users_lastlogin'=>Carbon::now(),
+                //  	  ]);
 
                     // mMember::where('users_username',$username)->update([
                     //      'm_statuslogin'=>'Y',
                     //  	  ]);
-                if ($user_pass->users_verification == "Y") {
-                  Auth::login($user);
-                  // logController::inputlog('Login', 'Login', $username);
-                  return Redirect('/home');
-                } else {
-                  $id = $user_pass->users_id;
-                  return redirect("/verification/".encrypt($id)."");
-                }
+                Auth::login($user);
+                // logController::inputlog('Login', 'Login', $username);
+                return Redirect('/homeadmin');
             	}else{
                 Session::flash('password','Password Yang Anda Masukan Salah!');
                 return back()->with('password','username');

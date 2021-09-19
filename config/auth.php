@@ -44,6 +44,7 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -67,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\mMember::class,
+            'model' => App\Account::class,
         ],
 
         // 'users' => [
@@ -95,7 +96,7 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 1360,
+            'expire' => 60,
         ],
     ],
 

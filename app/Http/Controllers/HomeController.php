@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     /**
@@ -37,22 +37,15 @@ class HomeController extends Controller
      */
 
      public function index() {
-
-       $uangkeluar = DB::table("uangkeluar")->where("uangkeluar_users_id", Auth::user()->users_id)->whereMonth("created_at", date('m'))->whereYear("created_at", date('Y'))->sum("uangkeluar_nominal");
-
-       $tagihan = DB::table("daftar_tagihan")->join('tagihan','tagihan_id','=','daftar_tagihan_tagihan_id')->where("tagihan_users_id", Auth::user()->users_id)->where("daftar_tagihan_bayar", "N")->whereMonth("daftar_tagihan.created_at", date('m'))->whereYear("daftar_tagihan.created_at", date('Y'))->sum("tagihan_nominal");
-
-       $saldo = SaldoController::ceksaldo();
-
-       return view("home", compact("saldo", "uangkeluar", "tagihan"));
+       return view("home");
      }
 
     public function logout(){
         Session::flush();
-        mMember::where('users_id', Auth::user()->users_id)->update([
-             'users_lastlogout' => Carbon::now('Asia/Jakarta'),
-             "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
-        ]);
+        // mMember::where('users_id', Auth::user()->id_account)->update([
+        //      'users_lastlogout' => Carbon::now('Asia/Jakarta'),
+        //      "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
+        // ]);
 
         // mMember::where('m_id', Auth::user()->m_id)->update([
         //      'm_statuslogin' => 'N'
@@ -62,6 +55,6 @@ class HomeController extends Controller
         Auth::logout();
 
         Session::forget('key');
-        return Redirect('/login');
+        return Redirect('/');
     }
 }

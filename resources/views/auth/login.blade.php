@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>DompetQu</title>
+  <title>Iwak Admin</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-  <link rel="shortcut icon" href="{{asset('assets/dompetqu.png')}}" />
+  <link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}" />
 <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/login-v3/vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
@@ -37,7 +37,7 @@
   <div class="limiter">
     <div class="container-login100" style="background-image: url('assets/login-v3/images/bg-01.jpg');">
       <div class="wrap-login100">
-        <form class="login100-form validate-form" autocomplete="off" method="GET" action="{{ url('login') }}">
+        <form class="login100-form validate-form" autocomplete="off" method="GET" action="{{ url('loginadmin') }}">
           {{ csrf_field() }}
          <!--  <span class="login100-form-logo">
             <i class="zmdi zmdi-landscape"></i>
@@ -48,14 +48,14 @@
           </div> --}}
 
           <span class="login100-form-title p-b-34 p-t-27">
-            DompetQu
+            Iwak Admin
           </span>
 
-          <div class="wrap-input100 validate-input" data-validate = "Enter Username">
-            <input required="" class="input100" autocomplete="off" value="" type="text" name="username" id="username" placeholder="Username" autofocus="">
+          <div class="wrap-input100 validate-input" data-validate = "Enter Email">
+            <input required="" class="input100" autocomplete="off" value="" type="text" name="username" id="username" placeholder="Email" autofocus="">
             <span class="focus-input100" data-placeholder="&#xf207;"></span>
             @if (session('username'))
-              <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
+              <div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
             @endif
           </div>
           <div class="wrap-input100 validate-input" data-validate="Enter password">
@@ -64,26 +64,6 @@
             @if (session('password'))
             <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
             @endif
-          </div>
-
-          {{-- <div class="text-center p-t-90">
-             <a class="txt1" href="#">
-               Forgot Password?
-             </a>
-           </div> --}}
-
-          <div class="contact100-form-checkbox text-center">
-            {{-- <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
-            <label class="label-checkbox100" for="ckb1"> --}}
-              Belom punya akun?, <a href="{{url('/register')}}" style="color: white;">Register now!</a>
-            </label>
-          </div>
-
-          <div class="contact100-form-checkbox text-center">
-            {{-- <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember"> --}}
-            {{-- <label class="label-checkbox100" for="ckb1"> --}}
-             <a href="{{url('/forgotpassword')}}" style="color: white;">Lupa password?</a>
-            </label>
           </div>
 
           <div class="container-login100-form-btn">

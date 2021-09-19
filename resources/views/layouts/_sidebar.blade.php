@@ -3,11 +3,11 @@
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="{{url('/home')}}">
           {{-- <img src="{{asset('assets/atonergi.png')}}" alt="logo" style="margin-left: auto;"> --}}
-          <h1 style="margin:auto; ">DompetQu</h1>
+          <h1 style="margin:auto; ">Iwak</h1>
         </a>
         <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
           {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/> --}}
-          <h1 style="margin:auto; ">DoQu</h1>
+          <h1 style="margin:auto; ">IW</h1>
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -96,22 +96,22 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
-              <span class="d-none d-lg-inline">{{Auth::user()->users_username}}</span>
+              <span class="d-none d-lg-inline">{{Auth::user()->fullname}}</span>
             </a>
             <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-              <a class="dropdown-item" href="{{ url('logout') }}">
+              <a class="dropdown-item" href="{{ url('logoutadmin') }}">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 Signout
               </a>
             </div>
           </li>
           <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
-            <a class="nav-link" href="{{ url('logout') }}">
+            <a class="nav-link" href="{{ url('logoutadmin') }}">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
-          <form id="logout-form" action="{{ url('logout') }}" method="post" style="display: none;">
+          <form id="logout-form" action="{{ url('logoutadmin') }}" method="post" style="display: none;">
               {{ csrf_field() }}
           </form>
         </ul>
@@ -135,35 +135,19 @@
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('mastertagihan') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/mastertagihan')}}">
-                <span class="menu-title">Setup Master Tagihan</span>
+            <li class="nav-item {{Request::is('manageuser') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/manageuser')}}">
+                <span class="menu-title">Manage User</span>
+                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                <i class="mdi mdi-account menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {{Request::is('settingshop') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/settingshop')}}">
+                <span class="menu-title">Setting Online Shop</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-settings menu-icon mdi-spin"></i>
-              </a>
-            </li>
-
-            <li class="nav-item {{Request::is('uangmasuk') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/uangmasuk')}}">
-                <span class="menu-title">Uang Masuk</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="fa fa-cloud-download-alt"></i>
-              </a>
-            </li>
-
-            <li class="nav-item {{Request::is('uangkeluar') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/uangkeluar')}}">
-                <span class="menu-title">Uang Keluar</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="fa fa-cloud-upload-alt"></i>
-              </a>
-            </li>
-
-            <li class="nav-item {{Request::is('tagihan') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/tagihan')}}">
-                <span class="menu-title">Tagihan</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="fa fa-money-bill-alt"></i>
               </a>
             </li>
 
@@ -174,14 +158,6 @@
                 {{-- <i class="fa fa-history"></i>
               </a>
             </li> --}}
-
-            <li class="nav-item {{Request::is('statistik') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/statistik')}}">
-                <span class="menu-title">Statistik</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="fa fa-bar-chart"></i>
-              </a>
-            </li>
               {{-- <li class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
                   <span class="menu-title">Setup</span>
