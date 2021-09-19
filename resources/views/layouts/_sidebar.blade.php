@@ -127,8 +127,8 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav" id="ayaysir">
-            <li class="nav-item {{Request::is('home') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/home')}}">
+            <li class="nav-item {{Request::is('homeadmin') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
+              <a class="nav-link" href="{{url('/homeadmin')}}">
                 <span class="menu-title">Dashboard</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-home menu-icon"></i>
