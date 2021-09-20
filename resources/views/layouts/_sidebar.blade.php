@@ -143,12 +143,47 @@
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('settingshop') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/settingshop')}}">
-                <span class="menu-title">Setting Online Shop</span>
+            <li class="nav-item {{Request::is('managetoko') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/managetoko')}}">
+                <span class="menu-title">Manage Toko</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                <i class="mdi mdi-account menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {{Request::is('managefeed') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/managefeed')}}">
+                <span class="menu-title">Manage Feedback</span>
+                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                <i class="mdi mdi-account menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {{Request::is('managecategory') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/managecategory')}}">
+                <span class="menu-title">Manage Category</span>
+                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                <i class="mdi mdi-account menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Setting Online Shop</span>
+                <span class="d-none">
+                  Edit Info
+                  Manage Info
+                </span>
+                <i class="menu-arrow"></i>
                 <i class="mdi mdi-settings menu-icon mdi-spin"></i>
               </a>
+              <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/editinfo') ? 'active' : '' || Request::is('setting/editinfo/*') ? 'active' : '' }}" href="{{url('setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/managesocial') ? 'active' : '' || Request::is('setting/managesocial/*') ? 'active' : '' }}" href="{{url('setting/managesocial')}}">Manage Social<span class="d-none">Setting</span></a></li>
+
+                </ul>
+                </div>
             </li>
 
             {{-- <li class="nav-item {{Request::is('mutasi') ? 'active' : ''}}">
