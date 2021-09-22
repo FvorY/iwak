@@ -54,11 +54,11 @@ class UserController extends Controller
 
     public function simpan(Request $req) {
       // dd(;
-      if (!$this->cekemail($req->email)) {
-          return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
-      }
 
       if ($req->id == null) {
+        if (!$this->cekemail($req->email)) {
+            return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
+        }
         DB::beginTransaction();
         try {
 
@@ -107,11 +107,13 @@ class UserController extends Controller
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
 
-          dd($e);
           DB::rollback();
           return response()->json(["status" => 2]);
         }
       } else {
+        if (!$this->cekemail($req->email, $req->id)) {
+            return response()->json(["status" => 7, "message" => "Data email sudah digunakan, tidak dapat disimpan!"]);
+        }
         DB::beginTransaction();
         try {
 
@@ -140,7 +142,7 @@ class UserController extends Controller
           }
 
           if ($imgPath == null) {
-            DB::table("homecontent")
+            DB::table("account")
                 ->where('id_account', $req->id)
                 ->update([
                 "fullname" => $req->fullname,
@@ -154,8 +156,8 @@ class UserController extends Controller
                 "updated_at" => Carbon::now('Asia/Jakarta'),
               ]);
           } else {
-            DB::table("homecontent")
-                ->where('id', $req->id)
+            DB::table("account")
+                ->where('id_account', $req->id)
                 ->update([
                 "fullname" => $req->fullname,
                 "email" => $req->email,
@@ -173,6 +175,7 @@ class UserController extends Controller
           DB::commit();
           return response()->json(["status" => 3]);
         } catch (\Exception $e) {
+          dd($e);
           DB::rollback();
           return response()->json(["status" => 4]);
         }
@@ -205,12 +208,20 @@ class UserController extends Controller
       return response()->json($data);
     }
 
-    public static function cekemail($email) {
+    public static function cekemail($email, $id = null) {
 
       $cek = DB::table('account')->where("email", $email)->first();
 
       if ($cek != null) {
-        return false;
+        if ($id != null) {
+          if ($cek->id_account != $id) {
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          return false;
+        }
       } else {
         return true;
       }

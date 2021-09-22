@@ -49,7 +49,7 @@
           <tr>
             <td>Address</td>
             <td>
-              <textarea class="form-control form-control-sm inputtext address" name="address" rows="8" cols="80"></textarea>
+              <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
             </td>
           </tr>
           <tr>
