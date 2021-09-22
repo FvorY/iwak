@@ -1,7 +1,7 @@
 <html>
 
       <head>
-          <title>DompetQu | 403</title>
+          <title>iWak | 403</title>
           <link rel="stylesheet" href="{{ asset('assets/css/404.css') }}"/>
       </head>
 

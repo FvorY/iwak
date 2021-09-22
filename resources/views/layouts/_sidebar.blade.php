@@ -3,7 +3,7 @@
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="{{url('/home')}}">
           {{-- <img src="{{asset('assets/atonergi.png')}}" alt="logo" style="margin-left: auto;"> --}}
-          <h1 style="margin:auto; ">Iwak</h1>
+          <h1 style="margin:auto; ">iWak</h1>
         </a>
         <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
           {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/> --}}
@@ -100,18 +100,18 @@
             </a>
             <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-              <a class="dropdown-item" href="{{ url('logoutadmin') }}">
+              <a class="dropdown-item" href="{{ url('admin/logout') }}">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 Signout
               </a>
             </div>
           </li>
           <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
-            <a class="nav-link" href="{{ url('logoutadmin') }}">
+            <a class="nav-link" href="{{ url('admin/logout') }}">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
-          <form id="logout-form" action="{{ url('logoutadmin') }}" method="post" style="display: none;">
+          <form id="logout-form" action="{{ url('admin/logout') }}" method="post" style="display: none;">
               {{ csrf_field() }}
           </form>
         </ul>
@@ -127,40 +127,40 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav" id="ayaysir">
-            <li class="nav-item {{Request::is('homeadmin') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
-              <a class="nav-link" href="{{url('/homeadmin')}}">
+            <li class="nav-item {{Request::is('admin/home') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
+              <a class="nav-link" href="{{url('admin/home')}}">
                 <span class="menu-title">Dashboard</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('manageuser') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/manageuser')}}">
+            <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('admin/user')}}">
                 <span class="menu-title">Manage User</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('managetoko') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/managetoko')}}">
+            <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('admin/toko')}}">
                 <span class="menu-title">Manage Toko</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('managefeed') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/managefeed')}}">
+            <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('admin/feed')}}">
                 <span class="menu-title">Manage Feedback</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('managecategory') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('/managecategory')}}">
+            <li class="nav-item {{Request::is('admin/Category') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('admin/Category')}}">
                 <span class="menu-title">Manage Category</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-account menu-icon"></i>
@@ -177,10 +177,10 @@
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-settings menu-icon mdi-spin"></i>
               </a>
-              <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
+              <div class="collapse {{Request::is('admin/setting') ? 'show' : '' || Request::is('admin/setting/*') ? 'show' : '' }}" id="setting">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/editinfo') ? 'active' : '' || Request::is('setting/editinfo/*') ? 'active' : '' }}" href="{{url('setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/managesocial') ? 'active' : '' || Request::is('setting/managesocial/*') ? 'active' : '' }}" href="{{url('setting/managesocial')}}">Manage Social<span class="d-none">Setting</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/managesocial') ? 'active' : '' || Request::is('admin/setting/managesocial/*') ? 'active' : '' }}" href="{{url('admin/setting/managesocial')}}">Manage Social<span class="d-none">Setting</span></a></li>
 
                 </ul>
                 </div>

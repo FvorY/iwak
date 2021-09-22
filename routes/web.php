@@ -14,7 +14,7 @@
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
-    Route::get('/admin', function () {
+    Route::get('admin', function () {
         return view('auth.login');
     })->name('admin');
 
@@ -27,9 +27,17 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/', 'HomeController@index');
 
-    Route::get('homeadmin', 'HomeController@index')->name('homeadmin');
+    Route::get('admin/home', 'HomeController@index')->name('homeadmin');
 
-    Route::get('logoutadmin', 'HomeController@logout')->name('logoutadmin');
+    Route::get('admin/logout', 'HomeController@logout')->name('logoutadmin');
+
+    //User
+    Route::get('admin/user', 'UserController@index');
+    Route::get('admin/user/table', 'UserController@datatable');
+    Route::post('admin/user/simpan', 'UserController@simpan');
+    Route::get('admin/user/edit', 'UserController@edit');
+    Route::get('admin/user/hapus', 'UserController@hapus');
+
 
 });
 

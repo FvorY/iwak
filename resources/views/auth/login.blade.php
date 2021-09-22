@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Iwak Admin</title>
+  <title>iWak Admin</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -48,7 +48,7 @@
           </div> --}}
 
           <span class="login100-form-title p-b-34 p-t-27">
-            Iwak Admin
+            iWak Admin
           </span>
 
           <div class="wrap-input100 validate-input" data-validate = "Enter Email">

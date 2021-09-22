@@ -210,7 +210,8 @@
 
   });
   var t ;
-  var baseUrl = '{{ url('/') }}';
+  let baseUrl = '{{ url('/') }}' + "/";
+  var baseUrlChange = '{{ url('/') }}';
   // var regex_huruf = replace(/[A-Za-z$. ,-]/g, "");
   // var regex_angka = replace(/[^0-9\-]+/g,"");
 
