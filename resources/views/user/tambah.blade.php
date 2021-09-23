@@ -50,6 +50,9 @@
             <td>Address</td>
             <td>
               <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
+              <div class="alert alert-warning" role="alert">
+                Alamat ini juga akan digunakan untuk alamat toko
+              </div>
             </td>
           </tr>
           <tr>

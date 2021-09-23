@@ -212,6 +212,8 @@
   var t ;
   let baseUrl = '{{ url('/') }}' + "/";
   var baseUrlChange = '{{ url('/') }}';
+
+  var allowloading = true
   // var regex_huruf = replace(/[A-Za-z$. ,-]/g, "");
   // var regex_angka = replace(/[^0-9\-]+/g,"");
 
@@ -512,13 +514,18 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 </script>
 
 <script type="text/javascript">
+
   $(document).ajaxStart(function(){
-    waitingDialog.show();
+    if (allowloading == true) {
+      waitingDialog.show();
+    }
   })
 
   $(document).ajaxComplete(function(){
-    setTimeout(function () {
-      waitingDialog.hide();
-    }, 500);
+    if (allowloading == true) {
+      setTimeout(function () {
+          waitingDialog.hide();
+      }, 500);
+    }
   })
 </script>

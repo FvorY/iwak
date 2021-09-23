@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\mMember;
+use App\Account;
 
 use App\Authentication;
 
@@ -19,6 +19,8 @@ use DB;
 use File;
 
 use Yajra\Datatables\Datatables;
+
+use Response;
 
 class UserController extends Controller
 {
@@ -175,7 +177,6 @@ class UserController extends Controller
           DB::commit();
           return response()->json(["status" => 3]);
         } catch (\Exception $e) {
-          dd($e);
           DB::rollback();
           return response()->json(["status" => 4]);
         }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\mMember;
+use App\Account;
 
 use App\Authentication;
 
@@ -17,6 +17,8 @@ use Carbon\Carbon;
 use Session;
 
 use DB;
+
+use Response;
 
 class HomeController extends Controller
 {
@@ -37,7 +39,22 @@ class HomeController extends Controller
      */
 
      public function index() {
-       return view("home");
+
+       $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
+
+       foreach ($cekuseronline as $key => $value) {
+          if (Carbon::now()->diffInMinutes($value->last_online) == 120) {
+              DB::table('account')->update(['islogin'=>'N']);
+          }
+       }
+
+       $useronline = DB::table("account")->where("islogin", 'Y')->count();
+
+       $alluser = DB::table("account")->count();
+
+       $alltoko = DB::table("account")->where("istoko", 'Y')->count();
+
+       return view("home", compact('useronline', 'alluser', 'alltoko'));
      }
 
     public function logout(){
@@ -47,9 +64,10 @@ class HomeController extends Controller
         //      "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
         // ]);
 
-        // mMember::where('m_id', Auth::user()->m_id)->update([
-        //      'm_statuslogin' => 'N'
-        //     ]);
+        Account::where('id_account', Auth::user()->id_account)->update([
+             'last_online' => Carbon::now(),
+             'islogin' => "N",
+        ]);
 
         // logController::inputlog('Logout', 'Logout', Auth::user()->m_username);
         Auth::logout();

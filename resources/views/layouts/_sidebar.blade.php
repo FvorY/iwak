@@ -7,7 +7,7 @@
         </a>
         <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
           {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/> --}}
-          <h1 style="margin:auto; ">IW</h1>
+          <h1 style="margin:auto; ">{{getsingkatan("iWak")}}</h1>
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -147,7 +147,7 @@
               <a class="nav-link" href="{{url('admin/toko')}}">
                 <span class="menu-title">Manage Toko</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-account menu-icon"></i>
+                <i class="mdi mdi-store menu-icon"></i>
               </a>
             </li>
 
@@ -155,7 +155,7 @@
               <a class="nav-link" href="{{url('admin/feed')}}">
                 <span class="menu-title">Manage Feedback</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-account menu-icon"></i>
+                <i class="mdi mdi-comment menu-icon"></i>
               </a>
             </li>
 
@@ -163,7 +163,7 @@
               <a class="nav-link" href="{{url('admin/Category')}}">
                 <span class="menu-title">Manage Category</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-account menu-icon"></i>
+                <i class="mdi mdi-book-open-variant menu-icon"></i>
               </a>
             </li>
 

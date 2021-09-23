@@ -14,7 +14,7 @@
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
-    Route::get('admin', function () {
+    Route::get('/admin', function () {
         return view('auth.login');
     })->name('admin');
 
@@ -25,19 +25,28 @@ Route::group(['middleware' => 'guest'], function () {
 //Route untuk user admin
 Route::group(['middleware' => 'admin'], function () {
 
-    Route::get('/', 'HomeController@index');
+    //Admin Module
+    Route::prefix('admin')->group(function () {
 
-    Route::get('admin/home', 'HomeController@index')->name('homeadmin');
+        Route::get('/home', 'HomeController@index')->name('homeadmin');
 
-    Route::get('admin/logout', 'HomeController@logout')->name('logoutadmin');
+        Route::get('/logout', 'HomeController@logout')->name('logoutadmin');
 
-    //User
-    Route::get('admin/user', 'UserController@index');
-    Route::get('admin/user/table', 'UserController@datatable');
-    Route::post('admin/user/simpan', 'UserController@simpan');
-    Route::get('admin/user/edit', 'UserController@edit');
-    Route::get('admin/user/hapus', 'UserController@hapus');
+        Route::get('/user', 'UserController@index');
+        Route::get('/user/table', 'UserController@datatable');
+        Route::post('/user/simpan', 'UserController@simpan');
+        Route::get('/user/edit', 'UserController@edit');
+        Route::get('/user/hapus', 'UserController@hapus');
 
+        Route::get('/toko', 'TokoController@index');
+        Route::get('/toko/table', 'TokoController@datatable');
+        Route::post('/toko/simpan', 'TokoController@simpan');
+        Route::get('/toko/edit', 'TokoController@edit');
+        Route::get('/toko/aktif', 'TokoController@aktif');
+        Route::get('/toko/nonaktif', 'TokoController@nonaktif');
+        Route::get('/toko/autocompleteuser', 'TokoController@autocomplete');
+
+    });
 
 });
 

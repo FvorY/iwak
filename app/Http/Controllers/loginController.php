@@ -11,6 +11,8 @@ use Session;
 use DB;
 use App\Http\Controllers\logController;
 
+use Response;
+
 class loginController extends Controller
 {
 
@@ -67,9 +69,10 @@ class loginController extends Controller
                 //      'users_lastlogin'=>Carbon::now(),
                 //  	  ]);
 
-                    // mMember::where('users_username',$username)->update([
-                    //      'm_statuslogin'=>'Y',
-                    //  	  ]);
+                Account::where('email',$username)->update([
+                     'last_online'=>Carbon::now(),
+                     'islogin'=>'Y',
+                 	  ]);
                 Auth::login($user);
                 // logController::inputlog('Login', 'Login', $username);
                 return Redirect('/admin/home');
