@@ -32,12 +32,14 @@ Route::group(['middleware' => 'admin'], function () {
 
         Route::get('/logout', 'HomeController@logout')->name('logoutadmin');
 
+        //User
         Route::get('/user', 'UserController@index');
         Route::get('/user/table', 'UserController@datatable');
         Route::post('/user/simpan', 'UserController@simpan');
         Route::get('/user/edit', 'UserController@edit');
         Route::get('/user/hapus', 'UserController@hapus');
 
+        //Toko
         Route::get('/toko', 'TokoController@index');
         Route::get('/toko/table', 'TokoController@datatable');
         Route::post('/toko/simpan', 'TokoController@simpan');
@@ -45,6 +47,18 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/toko/aktif', 'TokoController@aktif');
         Route::get('/toko/nonaktif', 'TokoController@nonaktif');
         Route::get('/toko/autocompleteuser', 'TokoController@autocomplete');
+
+        //Feedback
+        Route::get('/feed', 'FeedController@index');
+        Route::get('/feed/table', 'FeedController@datatable');
+        Route::get('/feed/hapus', 'FeedController@hapus');
+
+        //Category
+        Route::get('/category', 'CategoryController@index');
+        Route::get('/category/simpan', 'CategoryController@dosavecategory');
+        Route::get('/category/edit', 'CategoryController@doeditcategory');
+        Route::get('/category/update', 'CategoryController@doupdatecategory');
+        Route::get('/category/hapus', 'CategoryController@dodeletecategory');
 
     });
 

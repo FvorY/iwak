@@ -30,9 +30,10 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Message</th>
+                                <th>Image Feedback / Review</th>
+                                <th>User Name</th>
+                                <th>Star / Rating</th>
+                                <th>Comment</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -54,6 +55,8 @@
 @section('extra_script')
 <script>
 
+baseUrlChange += '/admin/feed'
+
 var table = $('#table-data').DataTable({
         processing: true,
         // responsive:true,
@@ -66,7 +69,7 @@ var table = $('#table-data').DataTable({
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],
         ajax: {
-            url:'{{ url('/contacttable') }}',
+            url: baseUrlChange + "/table",
         },
         columnDefs: [
 
@@ -89,13 +92,18 @@ var table = $('#table-data').DataTable({
               {
                  targets: 4,
                  className: 'center'
+              },
+              {
+                 targets: 5,
+                 className: 'center'
               }
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
-          {data: 'email', name: 'email'},
-          {data: 'phone', name: 'phone'},
-          {data: 'message', name: 'message'},
+          {data: 'image', name: 'image'},
+          {data: 'username', name: 'username'},
+          {data: 'star', name: 'star'},
+          {data: 'feedback', name: 'feedback'},
           {data: 'aksi', name: 'aksi'},
 
         ]
@@ -113,7 +121,7 @@ var table = $('#table-data').DataTable({
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
           $.ajax({
-            url:baseUrl + '/hapuscontact',
+            url:baseUrl + '/hapus',
             data:{id},
             dataType:'json',
             success:function(data){

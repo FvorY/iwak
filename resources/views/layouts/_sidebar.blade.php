@@ -153,15 +153,15 @@
 
             <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
               <a class="nav-link" href="{{url('admin/feed')}}">
-                <span class="menu-title">Manage Feedback</span>
+                <span class="menu-title">Manage Feedback / Review</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-comment menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('admin/Category') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('admin/Category')}}">
-                <span class="menu-title">Manage Category</span>
+            <li class="nav-item {{Request::is('admin/category') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('admin/category')}}">
+                <span class="menu-title">Manage Category Product</span>
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
               </a>

@@ -108,7 +108,6 @@ class UserController extends Controller
           DB::commit();
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
-
           DB::rollback();
           return response()->json(["status" => 2]);
         }
@@ -191,6 +190,10 @@ class UserController extends Controller
         DB::table("account")
             ->where("id_account", $req->id)
             ->delete();
+
+        $dir = 'image/uploads/User/' . $req->id;
+
+        $this->deleteDir($dir);
 
         DB::commit();
         return response()->json(["status" => 3]);
