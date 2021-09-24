@@ -32,6 +32,7 @@
                               <tr>
                                 <th>No</th>
                                 <th>Store Pict</th>
+                                <th>Account Store</th>
                                 <th>Name</th>
                                 <th>Rating Review</th>
                                 <th>Status</th>
@@ -123,6 +124,7 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'image', name: 'image'},
+          {data: 'fullname', name: 'fullname'},
           {data: 'namatoko', name: 'namatoko'},
           {data: 'star', name: 'star'},
           {data: 'status', name: 'status'},

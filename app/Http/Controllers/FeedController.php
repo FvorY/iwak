@@ -43,7 +43,7 @@ class FeedController extends Controller
         return Datatables::of($data)
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
-              return "User tidak ditemukan (Dihapus dari sistem)";
+              return "<span style='color: red;'> User tidak ditemukan (Dihapus dari sistem) <span>";
             } else {
               return $data->fullname;
             }
