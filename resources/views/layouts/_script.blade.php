@@ -471,16 +471,16 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
     })
   });
 
-  var lockscreen = '{{Session::get('lockscreen')}}';
-  if (lockscreen == 'yes') {
-    window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}"
-  } else {
-    var timeout;
-    document.onmousemove = function(){
-      clearTimeout(timeout);
-      timeout = setTimeout(function(){ window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}" }, 6000000);
-    }
-  }
+  // var lockscreen = '{{Session::get('lockscreen')}}';
+  // if (lockscreen == 'yes') {
+  //   window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}"
+  // } else {
+  //   var timeout;
+  //   document.onmousemove = function(){
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(function(){ window.location.href = "{{url('/lockscreen')}}?url={{encrypt(url()->full())}}" }, 6000000);
+  //   }
+  // }
 
   function get_currency(v) {
 	if( /^\d([0-9\.]+)$/.test(v) ) {

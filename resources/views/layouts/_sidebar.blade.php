@@ -1,11 +1,11 @@
 <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="{{url('/home')}}">
+        <a class="navbar-brand brand-logo" href="{{url('/admin/home')}}">
           {{-- <img src="{{asset('assets/atonergi.png')}}" alt="logo" style="margin-left: auto;"> --}}
           <h1 style="margin:auto; ">iWak</h1>
         </a>
-        <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
+        <a class="navbar-brand brand-logo-mini" href="{{url('/admin/home')}}">
           {{-- <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/> --}}
           <h1 style="margin:auto; ">{{getsingkatan("iWak")}}</h1>
         </a>
