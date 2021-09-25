@@ -28,7 +28,7 @@ Route::group(['middleware' => 'admin'], function () {
     //Admin Module
     Route::prefix('admin')->group(function () {
 
-        Route::get('/home', 'HomeController@index')->name('homeadmin');
+        Route::get('/', 'HomeController@index')->name('homeadmin');
 
         Route::get('/logout', 'HomeController@logout')->name('logoutadmin');
 
