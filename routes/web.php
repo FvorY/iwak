@@ -11,10 +11,12 @@
 |
 */
 
+Route::get('/admin', 'HomeController@checklogin');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
-    Route::get('/adminlogin', function () {
+    Route::get('/admin/login', function () {
         return view('auth.login');
     })->name('adminlogin');
 
@@ -27,12 +29,6 @@ Route::group(['middleware' => 'admin'], function () {
 
     //Admin Module
     Route::prefix('admin')->group(function () {
-
-        // Route::get('/', function () {
-        //     dd("asd");
-        // });
-
-        Route::get('/', 'HomeController@index');
 
         Route::get('/home', 'HomeController@index')->name('homeadmin');
 

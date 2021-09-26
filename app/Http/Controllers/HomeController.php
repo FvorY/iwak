@@ -75,4 +75,14 @@ class HomeController extends Controller
         Session::forget('key');
         return Redirect('/');
     }
+
+    public function checklogin() {
+      if (Auth::check()) {
+        if(Auth::user()->role == "admin") {
+          return Redirect('/admin/home');
+        }
+      } else {
+        return Redirect('/admin/login');
+      }
+    }
 }
