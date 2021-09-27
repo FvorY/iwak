@@ -179,9 +179,9 @@
               </a>
               <div class="collapse {{Request::is('admin/setting') ? 'show' : '' || Request::is('admin/setting/*') ? 'show' : '' }}" id="setting">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/backgroundheader/*') ? 'active' : '' }}" href="{{url('admin/setting/backgroundheader')}}">Background Header<span class="d-none">Setting</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/managesocial') ? 'active' : '' || Request::is('admin/setting/managesocial/*') ? 'active' : '' }}" href="{{url('admin/setting/managesocial')}}">Manage Social<span class="d-none">Setting</span></a></li>
-
                 </ul>
                 </div>
             </li>
