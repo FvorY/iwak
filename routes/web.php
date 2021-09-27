@@ -12,6 +12,8 @@
 */
 
 Route::get('/admin', 'HomeController@checklogin');
+Route::get('/', 'HomepageController@index');
+
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
