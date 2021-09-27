@@ -40,13 +40,13 @@ class HomeController extends Controller
 
      public function index() {
 
-       $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
+       // $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
 
-       foreach ($cekuseronline as $key => $value) {
-          if (Carbon::now()->diffInMinutes($value->last_online) == 120) {
-              DB::table('account')->update(['islogin'=>'N']);
-          }
-       }
+       // foreach ($cekuseronline as $key => $value) {
+       //    if (Carbon::now()->diffInMinutes($value->last_online) == 120) {
+       //        DB::table('account')->update(['islogin'=>'N']);
+       //    }
+       // }
 
        $useronline = DB::table("account")->where("islogin", 'Y')->count();
 

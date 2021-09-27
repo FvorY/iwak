@@ -11,17 +11,18 @@
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
-          <tr>
+          {{-- <tr>
             <td>Pilih User</td>
             <td>
               <input type="text" class="form-control form-control-md autocomplete pilihuser" name="pilihuser">
               <input type="hidden" class="form-control form-control-sm id" name="id">
             </td>
-          </tr>
+          </tr> --}}
           <tr>
             <td>Nama Toko</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext namatoko" name="namatoko">
+              <input type="hidden" class="form-control form-control-sm id" name="id">
             </td>
           </tr>
           <tr>
