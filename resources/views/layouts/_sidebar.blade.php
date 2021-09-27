@@ -167,7 +167,7 @@
               </a>
             </li>
 
-            <li class="nav-item {{Request::is('admin/setting') ? 'active' : Request::is('admin/setting/*') ? 'active' : '' }}">
+            <li class="nav-item {{Request::is('admin/setting') ? 'active' : ''}} {{Request::is('admin/setting/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Setting Online Shop</span>
                 <span class="d-none">
