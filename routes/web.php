@@ -64,6 +64,14 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/category/update', 'CategoryController@doupdatecategory');
         Route::get('/category/hapus', 'CategoryController@dodeletecategory');
 
+        //Setting backgroundheader
+        Route::get('/setting/backgroundheader', 'BackgroundheaderController@index');
+        Route::post('/setting/backgroundheader/save', 'BackgroundheaderController@save');
+
+        //Setting edit info
+        Route::get('/setting/editinfo', 'EditinfoController@index');
+        Route::get('/setting/editinfo/save', 'EditinfoController@save');
+
     });
 
 });
