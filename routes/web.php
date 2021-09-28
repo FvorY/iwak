@@ -13,6 +13,9 @@
 
 Route::get('/admin', 'HomeController@checklogin');
 Route::get('/', 'HomepageController@index');
+Route::get('/product', 'ProductController@index');
+Route::get('/lelang', 'LelangController@index');
+Route::get('/contact', 'KontakController@index');
 
 
 //Route untuk umum

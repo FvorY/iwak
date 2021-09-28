@@ -170,118 +170,18 @@
 											<a class="drop-link" href="homepage1.html">HOME <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
 											
 										</li>
-										<li class="drop">
-											<a href="product-grid-view.html">PRODUCTS <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-											<!-- mt dropmenu start here -->
-											<div class="mt-dropmenu text-left">
-												<!-- mt frame start here -->
-												<div class="mt-frame">
-													<!-- mt f box start here -->
-													<div class="mt-f-box">
-														<!-- mt col3 start here -->
-														<div class="mt-col-3">
-															<div class="sub-dropcont">
-																<strong class="title"><a href="product-grid-view.html" class="mt-subopener">PRODUCTS</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="product-grid-view.html">Product Grid View</a></li>
-																		<li><a href="product-list-view.html">Product List View</a></li>
-																		<li><a href="product-detail.html">Product Detail</a></li>
-																	</ul>
-																</div>
-															</div>
-															<div class="sub-dropcont">
-																<strong class="title"><a href="#" class="mt-subopener">404 Pages</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="404-page.html">404 Page</a></li>
-																		<li><a href="404-page2.html">404 Page2</a></li>
-																	</ul>
-																</div>
-															</div>
-														</div>
-														<!-- mt col3 end here -->
-
-														<!-- mt col3 start here -->
-														<div class="mt-col-3">
-															<div class="sub-dropcont">
-																<strong class="title"><a href="#" class="mt-subopener">About US</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="about-us.html">About</a></li>
-																	</ul>
-																</div>
-															</div>
-															<div class="sub-dropcont">
-																<strong class="title"><a href="#" class="mt-subopener">Contact US</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="contact-us.html">Contact</a></li>
-																		<li><a href="contact-us2.html">Contact 2</a></li>
-																	</ul>
-																</div>
-															</div>
-															<div class="sub-dropcont">
-																<strong class="title"><a href="#" class="mt-subopener">Coming Soon</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="coming-soon.html">Coming Soon</a></li>
-																		<li><a href="coming-soon2.html">Coming Soon2</a></li>
-																	</ul>
-																</div>
-															</div>
-														</div>
-														<!-- mt col3 end here -->
-
-														<!-- mt col3 start here -->
-														<div class="mt-col-3">
-															<div class="sub-dropcont">
-																<strong class="title"><a href="#" class="mt-subopener">KITCHEN FURNITURE</a></strong>
-																<div class="sub-drop">
-																	<ul>
-																		<li><a href="#">Kitchen Taps</a></li>
-																		<li><a href="#">Breakfast time</a></li>
-																		<li><a href="#">Cooking</a></li>
-																		<li><a href="#">Food Storage Boxes</a></li>
-																		<li><a href="#">Spice Jars</a></li>
-																		<li><a href="#">Napskins</a></li>
-																		<li><a href="#">Oven Gloves</a></li>
-																		<li><a href="#">Placemats</a></li>
-																		<li><a href="#">Cooking</a></li>
-																		<li><a href="#">Food Storage Boxes</a></li>
-																		<li><a href="#">Spice Jars</a></li>
-																	</ul>
-																</div>
-															</div>
-														</div>
-														<!-- mt col3 end here -->
-
-														<!-- mt col3 start here -->
-														<div class="mt-col-3 promo">
-															<div class="mt-promobox">
-																<a href="#"><img src="http://placehold.it/295x320" alt="promo banner" class="img-responsive"></a>
-															</div>
-														</div>
-														<!-- mt col3 end here -->
-													</div>
-													<!-- mt f box end here -->
-												</div>
-												<!-- mt frame end here -->
-											</div>
-											<!-- mt dropmenu end here -->
-											<span class="mt-mdropover"></span>
-										</li>
-										
-										
-									
 										<li>
-											<a class="drop-link" href="contact-us.html">Contact <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+											<a class="drop-link" href="">Product <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
 											<div class="s-drop">
 												<ul>
-													<li><a href="contact-us.html">Contact</a></li>
-													<li><a href="contact-us2.html">Contact 2</a></li>
+													<li><a href="{{ url('/product') }}">For Sale</a></li>
+													<li><a href="{{ url('/lelang') }}">For Auction</a></li>
 												</ul>
 											</div>
+										</li>
+										<li>
+											<a href="{{ url('contact') }}">Contact <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+											
 										</li>
 									</ul>
 								</nav>
@@ -406,5 +306,7 @@
 	<script src="assets/js/plugins.js"></script>
 	<!-- include jQuery -->
 	<script src="assets/js/jquery.main.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+	
 </body>
 </html>
