@@ -40,15 +40,6 @@
                               <div class="row">
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Nama Toko</label>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                  <div class="form-group">
-                                      <input type="text" class="form-control form-control-sm" name="nama" value="@isset($data) {{$data[0]->nama}} @endisset" placeholder="Nama Toko">
-                                  </div>
-                                </div>
-
-                                <div class="col-md-2 col-sm-6 col-xs-12">
                                   <label>Description</label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">

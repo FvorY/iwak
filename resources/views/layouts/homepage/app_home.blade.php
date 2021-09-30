@@ -5,7 +5,9 @@
 	<meta charset="utf-8">
 	<!-- set the viewport width and initial-scale on mobile devices -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Schön. | eCommerce HTML5 Template</title>
+	<title>iWak Store</title>
+
+	<link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}" />
 	<!-- include the site stylesheet -->
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic%7cMontserrat:400,700%7cOxygen:400,300,700' rel='stylesheet' type='text/css'>
 	<!-- include the site stylesheet -->
@@ -25,7 +27,7 @@
 		<!-- Page Loader -->
     <div id="pre-loader" class="loader-container">
       <div class="loader">
-        <img src="images/svg/rings.svg" alt="loader">
+        <img src="assets/images/rings.svg" alt="loader">
       </div>
     </div>
 		<!-- W1 start here -->
@@ -38,8 +40,8 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- mt logo start here -->
-								<div class="mt-logo"><a href="#">
-								<h4>iWak</h4>
+								<div class="mt-logo"><a href="{{url('/')}}">
+								<b><h4>iWak Store</h4></b>
 								<!-- <img src="images/mt-logo.png" alt="schon"> -->
 								</a></div>
 								<!-- mt icon list start here -->
@@ -168,7 +170,7 @@
 									<ul>
 										<li>
 											<a class="drop-link" href="homepage1.html">HOME <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
-											
+
 										</li>
 										<li>
 											<a class="drop-link" href="">Product <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
@@ -181,7 +183,7 @@
 										</li>
 										<li>
 											<a href="{{ url('contact') }}">Contact <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
-											
+
 										</li>
 									</ul>
 								</nav>
@@ -195,7 +197,7 @@
 			</header><!-- mt header style4 end here -->
 
             @yield('content')
-			
+
 			<!-- footer of the Page -->
 			<footer id="mt-footer" class="style1 wow fadeInUp" data-wow-delay="0.4s">
 				<!-- Footer Holder of the Page -->
@@ -206,42 +208,14 @@
 								<!-- F Widget About of the Page -->
 								<div class="f-widget-about">
 									<div class="logo">
-										<a href="index.html"><img src="images/logo.png" alt="Schon"></a>
+										<a href="{{url('/')}}">iWak</a>
 									</div>
 									<p>Exercitation ullamco laboris nisi ut aliquip ex commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-									<!-- Social Network of the Page -->
-									<ul class="list-unstyled social-network">
-										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-										<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-										<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-										<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-										<li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
-									</ul>
-									<!-- Social Network of the Page end -->
+
 								</div>
 								<!-- F Widget About of the Page end -->
 							</div>
-							<div class="col-xs-12 col-sm-6 col-md-3 mt-paddingbottomsm">
-								<div class="f-widget-news">
-									<h3 class="f-widget-heading">Twitter</h3>
-									<div class="news-articles">
-										<div class="news-column">
-											<i class="fa fa-twitter"></i>
-											<div class="txt-box">
-												<p>Laboris nisi ut <a href="#">#schön</a> aliquip econse- <br>quat. <a href="#">https://t.co/vreNJ9nEDt</a></p>
-											</div>
-										</div>
-										<div class="news-column">
-											<i class="fa fa-twitter"></i>
-											<div class="txt-box">
-												<p>Ficia deserunt mollit anim id est labo- <br>rum. incididunt ut labore et dolore <br><a href="#">https://t.co/vreNJ9nEDt</a></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-3 mt-paddingbottomxs">
+							<div class="col-xs-12 col-sm-6 col-md-6 mt-paddingbottomxs">
 								<!-- Footer Tabs of the Page -->
 								<div class="f-widget-tabs">
 									<h3 class="f-widget-heading">Product Tags</h3>
@@ -285,13 +259,13 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
-								<p>© <a href="index.html">schön.</a> - All rights Reserved</p>
+								<p>© <a href="index.html">iWak.</a> - All rights Reserved</p>
 							</div>
-							<div class="col-xs-12 col-sm-6 text-right">
+							{{-- <div class="col-xs-12 col-sm-6 text-right">
 								<div class="bank-card">
 									<img src="images/bank-card.png" alt="bank-card">
 								</div>
-							</div>
+							</div> --}}
 						</div>
 					</div>
 				</div>
@@ -307,6 +281,6 @@
 	<!-- include jQuery -->
 	<script src="assets/js/jquery.main.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-	
+
 </body>
 </html>

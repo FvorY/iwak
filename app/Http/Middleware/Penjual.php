@@ -4,7 +4,7 @@ use Closure;
 use Auth;
 use Session;
 use App\Account;
-class Member
+class penjual
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,11 @@ class Member
         /*dd(Auth::user()->m_token.'!='.Session::get('m_token'));*/
         if (Auth::check()) {
           if(Auth::user()->role != "member"){
-                  return Redirect('/');
+            if Auth::user()->istoko != "Y" {
+              return Redirect('/');
+            }
+          } else {
+            return Redirect('/');
           }
         } else {
           return Redirect('/');

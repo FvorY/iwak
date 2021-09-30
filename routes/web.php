@@ -11,12 +11,11 @@
 |
 */
 
-Route::get('/admin', 'HomeController@checklogin');
 Route::get('/', 'HomepageController@index');
+Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
 Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
-
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
@@ -80,7 +79,7 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 //Route untuk user pembeli / penjual
-Route::group(['middleware' => 'member'], function () {
+Route::group(['middleware' => 'penjual'], function () {
 
 
 
