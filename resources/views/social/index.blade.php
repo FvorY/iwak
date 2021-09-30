@@ -154,7 +154,7 @@ function dosave() {
     function doupdate(id){
       $.ajax({
         type: 'get',
-        data: {socialname: $("#socialname").val(), sociallink: $("#sociallink").val()},
+        data: {socialname: $("#socialname").val(), sociallink: $("#sociallink").val(), id:id},
         dataType: 'json',
         url: baseUrlChange + "/update",
         success : function(response) {
