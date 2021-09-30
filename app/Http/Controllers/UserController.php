@@ -102,6 +102,8 @@ class UserController extends Controller
               "address" => $req->address,
               "gender" => $req->gender,
               "profile_picture" => $imgPath,
+              "nomor_rekening" => $req->nomor_rekening,
+              "bank" => $req->bank,
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
@@ -154,6 +156,8 @@ class UserController extends Controller
                 "phone" => $req->phone,
                 "address" => $req->address,
                 "gender" => $req->gender,
+                "nomor_rekening" => $req->nomor_rekening,
+                "bank" => $req->bank,
                 "updated_at" => Carbon::now('Asia/Jakarta'),
               ]);
           } else {
@@ -169,6 +173,8 @@ class UserController extends Controller
                 "address" => $req->address,
                 "gender" => $req->gender,
                 "profile_picture" => $imgPath,
+                "nomor_rekening" => $req->nomor_rekening,
+                "bank" => $req->bank,
                 "updated_at" => Carbon::now('Asia/Jakarta'),
               ]);
           }

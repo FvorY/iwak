@@ -131,6 +131,8 @@ var table = $('#table-data').DataTable({
           $('.role').val(data.role).change();
           $('.phone').val(data.phone);
           $('.gender').val(data.gender).change();
+          $('.nomor_rekening').val(data.nomor_rekening);
+          $('.bank').val(data.bank);
 
           var image_holder = $(".image-holder");
           image_holder.empty();

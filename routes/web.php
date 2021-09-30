@@ -74,6 +74,12 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/setting/editinfo', 'EditinfoController@index');
         Route::get('/setting/editinfo/save', 'EditinfoController@save');
 
+        //Social
+        Route::get('/setting/social', 'SocialController@index');
+        Route::get('/setting/social/simpan', 'SocialController@dosavecategory');
+        Route::get('/setting/social/edit', 'SocialController@doeditcategory');
+        Route::get('/setting/social/update', 'SocialController@doupdatecategory');
+        Route::get('/setting/social/hapus', 'SocialController@dodeletecategory');
     });
 
 });

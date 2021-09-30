@@ -19,6 +19,18 @@
             </td>
           </tr>
           <tr>
+            <td>Nomor Rekening</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nomor_rekening" name="nomor_rekening">
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Bank</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext bank" name="bank">
+            </td>
+          </tr>
+          <tr>
             <td>Email</td>
             <td>
               <input type="email" class="form-control form-control-sm inputtext email" name="email">

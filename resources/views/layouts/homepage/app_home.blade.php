@@ -169,7 +169,7 @@
 								<nav id="nav">
 									<ul>
 										<li>
-											<a class="drop-link" href="homepage1.html">HOME <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+											<a class="drop-link" href="{{url('/')}}">HOME <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
 
 										</li>
 										<li>
