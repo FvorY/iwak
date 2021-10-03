@@ -45,26 +45,22 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 hidden-xs">
-								<a href="#" class="tel"> <i aria-hidden="true" class="fa fa-envelope-o"></i> info@schon.chairs</a>
+								<a href="mailto:webmaster@example.com" class="tel mailto"> <i aria-hidden="true" class="fa fa-envelope-o"></i> <span class="mailtotext"> info@schon.chairs <span> </a>
 							</div>
 							<div class="col-xs-12 col-sm-6 text-right" >
 								<!-- mt top lang start here -->
 								<div class="mt-top-lang">
-									<a href="#" class="lang-opener text-capitalize" style="color:#A1A1A1; font-weight: bold">{{Auth::user()->fullname}}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+
+									<a href="#" class="lang-opener text-capitalize" style="color:#A1A1A1; font-weight: bold;"> {{Auth::user()->fullname}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
-											<li><a href="#">My Account</a></li>
-											<li><a href="{{ url('/logoutmember') }}">Log Out</a></li>
-											<form id="logout-form" action="{{ url('/logoutmember') }}" method="post" style="display: none;">
-												<input type="hidden" name="id_member" value="{{Auth::user()->id_account}}">
-              				{{ csrf_field() }}
-          						</form>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="#">My Account</a></li>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}/{{Auth::user()->id_account}}">Log Out</a></li>
 										</ul>
 									</div>
 								</div><!-- mt top lang end here -->
 								<span class="account">
-									<a href="#" style="color:#A1A1A1">History</a> 
-									
+									<a href="#" style="color:#A1A1A1">History</a>
 								</span>
 							</div>
 						</div>
@@ -195,7 +191,7 @@
 										</div><!-- mt drop end here -->
 										<span class="mt-mdropover"></span>
 									</li>
-														@if(Auth::check() == NULL)
+									@if(Auth::check() == NULL)
 									<li>
 										 @if (session('password'))
 										<a href="#" class="bar-opener side-opener active">
@@ -325,7 +321,7 @@
 									<div class="logo">
 										<a href="{{url('/')}}">iWak</a>
 									</div>
-									<p>Exercitation ullamco laboris nisi ut aliquip ex commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+									<p class="desctext">Exercitation ullamco laboris nisi ut aliquip ex commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 
 								</div>
 								<!-- F Widget About of the Page end -->
@@ -334,7 +330,7 @@
 								<!-- Footer Tabs of the Page -->
 								<div class="f-widget-tabs">
 									<h3 class="f-widget-heading">Product Tags</h3>
-									<ul class="list-unstyled tabs">
+									<ul class="list-unstyled tabs categorylist">
 										<li><a href="#">Sofas</a></li>
 										<li><a href="#">Armchairs</a></li>
 										<li><a href="#">Living</a></li>
@@ -358,9 +354,9 @@
 								<div class="f-widget-about">
 									<h3 class="f-widget-heading">Information</h3>
 									<ul class="list-unstyled address-list align-right">
-										<li><i class="fa fa-map-marker"></i><address>Connaugt Road Central Suite 18B, 148 <br>New Yankee</address></li>
-										<li><i class="fa fa-phone"></i><a href="tel:15553332211">+1 (555) 333 22 11</a></li>
-										<li><i class="fa fa-envelope-o"></i><a href="mailto:&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;">&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;</a></li>
+										<li><i class="fa fa-map-marker"></i><address class="addresstext">Connaugt Road Central Suite 18B, 148 </address></li>
+										{{-- <li><i class="fa fa-phone"></i><a href="tel:15553332211">+1 (555) 333 22 11</a></li> --}}
+										<li><i class="fa fa-envelope-o"></i><a class="mailto" href="mailto:&#105;&#110;&#102;&#111;&#064;&#115;&#099;&#104;&#111;&#110;&#046;&#099;&#104;&#097;&#105;&#114;"><span class="mailtotext"> </span></a></li>
 									</ul>
 								</div>
 								<!-- F Widget About of the Page end -->
@@ -396,6 +392,32 @@
 	<!-- include jQuery -->
 	<script src="assets/js/jquery.main.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				url: "{{url('/')}}" + '/getinfo',
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+
+					$('.mailto').attr("href", "mailto:"+data.info[0].email+"");
+					$('.mailtotext').text(data.info[0].email);
+					$('.desctext').text(data.info[0].description);
+					$('.addresstext').text(data.info[0].address);
+
+					var htmlcat = ""
+					for (var i = 0; i < data.category.length; i++) {
+						 var res = data.category[i];
+
+						 htmlcat += "<li><a href=''>"+res.category_name+"</a></li>";
+					}
+
+					$('.categorylist').html(htmlcat);
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>
