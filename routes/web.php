@@ -18,7 +18,7 @@ Route::get('/product', 'ProductController@index');
 Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
-Route::get('/logoutmember/{id}', 'MemberController@logout');
+Route::get('/logoutmember', 'MemberController@logout');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

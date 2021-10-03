@@ -55,7 +55,7 @@
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
 											<li style="padding-top: 5px; padding-bottom: 5px"><a href="#">My Account</a></li>
-											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}/{{Auth::user()->id_account}}">Log Out</a></li>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Log Out</a></li>
 										</ul>
 									</div>
 								</div><!-- mt top lang end here -->

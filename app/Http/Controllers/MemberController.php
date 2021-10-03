@@ -76,9 +76,9 @@ class MemberController extends Controller
 
         }
     }
-    public function logout($id){
+    public function logout(){
 
-      Account::where('id_account',$id)->update([
+      Account::where('id_account', Auth::user()->id_account)->update([
            'last_online' => Carbon::now(),
            'islogin' => "N",
       ]);

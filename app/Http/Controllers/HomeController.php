@@ -77,9 +77,19 @@ class HomeController extends Controller
     }
 
     public function checklogin() {
+      // dd("asd");
       if (Auth::check()) {
         if(Auth::user()->role == "admin") {
           return Redirect('/admin/home');
+        } else {
+          Account::where('id_account', Auth::user()->id_account)->update([
+               'last_online' => Carbon::now(),
+               'islogin' => "N",
+          ]);
+
+          Auth::logout();
+
+          return Redirect('/admin/login');
         }
       } else {
         return Redirect('/admin/login');
