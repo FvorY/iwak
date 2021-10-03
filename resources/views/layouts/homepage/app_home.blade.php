@@ -21,7 +21,11 @@
 	<!-- include the site stylesheet -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
 </head>
+@if (session('password'))
+<body class="side-col-active">
+@else
 <body>
+@endif
 	<!-- main container of all the page elements -->
 	<div id="wrapper">
 		<!-- Page Loader -->
@@ -33,7 +37,41 @@
 		<!-- W1 start here -->
 		<div class="w1">
 			<!-- mt header style4 start here -->
-			<header id="mt-header" class="style4">
+			<header id="mt-header" class="style17">
+				<!-- mt top bar start here -->
+				@if(Auth::check())
+				<!-- mt top bar start here -->
+				<div class="mt-top-bar">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 hidden-xs">
+								<a href="#" class="tel"> <i aria-hidden="true" class="fa fa-envelope-o"></i> info@schon.chairs</a>
+							</div>
+							<div class="col-xs-12 col-sm-6 text-right" >
+								<!-- mt top lang start here -->
+								<div class="mt-top-lang">
+									<a href="#" class="lang-opener text-capitalize" style="color:#A1A1A1; font-weight: bold">{{Auth::user()->fullname}}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<div class="drop" style="width:100px; font-size:12px">
+										<ul>
+											<li><a href="#">My Account</a></li>
+											<li><a href="{{ url('/logoutmember') }}">Log Out</a></li>
+											<form id="logout-form" action="{{ url('/logoutmember') }}" method="post" style="display: none;">
+												<input type="hidden" name="id_member" value="{{Auth::user()->id_account}}">
+              				{{ csrf_field() }}
+          						</form>
+										</ul>
+									</div>
+								</div><!-- mt top lang end here -->
+								<span class="account">
+									<a href="#" style="color:#A1A1A1">History</a> 
+									
+								</span>
+							</div>
+						</div>
+					</div>
+				</div><!-- mt top bar end here -->
+				@endif
+				<!-- mt top bar start here -->
 				<!-- mt bottom bar start here -->
 				<div class="mt-bottom-bar">
 					<div class="container-fluid">
@@ -157,13 +195,20 @@
 										</div><!-- mt drop end here -->
 										<span class="mt-mdropover"></span>
 									</li>
+														@if(Auth::check() == NULL)
 									<li>
+										 @if (session('password'))
+										<a href="#" class="bar-opener side-opener active">
+											@else
 										<a href="#" class="bar-opener side-opener">
+            				@endif
+
 											<span class="bar"></span>
 											<span class="bar small"></span>
 											<span class="bar"></span>
 										</a>
 									</li>
+									@endif
 								</ul><!-- mt icon list end here -->
 								<!-- navigation start here -->
 								<nav id="nav">
@@ -173,7 +218,7 @@
 
 										</li>
 										<li>
-											<a class="drop-link" href="">Product <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+											<a class="drop-link" href="">Product <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 											<div class="s-drop">
 												<ul>
 													<li><a href="{{ url('/product') }}">For Sale</a></li>
@@ -193,8 +238,78 @@
 					</div>
 				</div>
 				<!-- mt bottom bar end here -->
+				@if (session('password'))
+				<span class="mt-side-over active"></span>
+				@else
 				<span class="mt-side-over"></span>
-			</header><!-- mt header style4 end here -->
+				@endif
+			</header>
+			<!-- mt side menu start here -->
+			<div class="mt-side-menu">
+				<!-- mt holder start here -->
+				<div class="mt-holder">
+					<a href="#" class="side-close"><span></span><span></span></a>
+					<strong class="mt-side-title">MY ACCOUNTss</strong>
+					<!-- mt side widget start here -->
+					<div class="mt-side-widget">
+						<header>
+							<span class="mt-side-subtitle">SIGN IN</span>
+							<p>Welcome back! Sign in to Your Account</p>
+						</header>
+						<form class="" autocomplete="off" method="GET" action="{{ url('loginmember') }}">
+          {{ csrf_field() }}
+							<fieldset>
+								<input type="text" placeholder="Username or email address" class="input" name="username">
+								 @if (session('username'))
+              	<div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
+            		@endif
+								<input type="password" placeholder="Password" class="input" name="password">
+								 @if (session('password'))
+              	<div class="red"  style="color: red"><b>Passsword Tidak Ada</b></div>
+            		@endif
+								<div class="box">
+									<span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span>
+									<a href="#" class="help">Help?</a>
+								</div>
+								<button type="submit" class="btn-type1">Login</button>
+							</fieldset>
+						</form>
+					</div>
+					<!-- mt side widget end here -->
+					<div class="or-divider"><span class="txt">or</span></div>
+					<!-- mt side widget start here -->
+					<div class="mt-side-widget">
+						<header>
+							<span class="mt-side-subtitle">CREATE NEW ACCOUNT</span>
+							<p>Create your very own account</p>
+						</header>
+						<form action="#">
+							<fieldset>
+								<input type="text" placeholder="Username or email address" class="input">
+								<button type="submit" class="btn-type1">Register</button>
+							</fieldset>
+						</form>
+					</div>
+					<!-- mt side widget end here -->
+				</div>
+				<!-- mt holder end here -->
+			</div><!-- mt side menu end here -->
+			<!-- mt search popup start here -->
+			<div class="mt-search-popup">
+				<div class="mt-holder">
+					<a href="#" class="search-close"><span></span><span></span></a>
+					<div class="mt-frame">
+						<form action="#">
+							<fieldset>
+								<input type="text" placeholder="Search...">
+								<span class="icon-microphone"></span>
+								<button class="icon-magnifier" type="submit"></button>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div><!-- mt search popup end here -->
+			<!-- mt header style4 end here -->
 
             @yield('content')
 

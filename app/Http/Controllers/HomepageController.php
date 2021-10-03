@@ -4,6 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+
+use App\Account;
+
+use App\Authentication;
+
+use Auth;
+
+use Carbon\Carbon;
+
+use Session;
+
+use DB;
+
+use Response;
+
 class HomepageController extends Controller
 {
     /**
@@ -13,7 +29,9 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        return view("homepage");
+       $useronline = DB::table("account")->where("islogin", 'Y')->count();
+
+        return view("homepage", compact('useronline'));
     }
 
     /**
