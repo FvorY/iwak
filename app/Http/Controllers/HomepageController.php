@@ -29,9 +29,20 @@ class HomepageController extends Controller
      */
     public function index()
     {
-       $useronline = DB::table("account")->where("islogin", 'Y')->count();
+        $backgroundheader = DB::table("backgroundheader")->where("id", 1)->first();
 
-        return view("homepage", compact('useronline'));
+        return view("homepage", compact('backgroundheader'));
+    }
+
+    public function getinfo() {
+      $info = DB::table("infotoko")->get();
+
+      $category = DB::table("category")->get();
+
+      return response()->json([
+          'info' => $info,
+          'category' => $category
+        ]);
     }
 
     /**

@@ -76,27 +76,16 @@ class MemberController extends Controller
 
         }
     }
-    public function logout(Request $req){
-            $id  = $req->id_member;
+    public function logout($id){
 
-        // Session::flush();
-        // mMember::where('users_id', Auth::user()->id_account)->update([
-        //      'users_lastlogout' => Carbon::now('Asia/Jakarta'),
-        //      "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
-        // ]);
-            if (Auth::logout()) {
-                // code...
-                Account::where('id_account',$id)->update([
-             'last_online' => Carbon::now(),
-             'islogin' => "N",
-        ]);
+      Account::where('id_account',$id)->update([
+           'last_online' => Carbon::now(),
+           'islogin' => "N",
+      ]);
 
-            }
-        
-        // logController::inputlog('Logout', 'Logout', Auth::user()->m_username);
+      Auth::logout();
 
-        // Session::forget('key');
-        return Redirect('/');
+      return Redirect('/');
     }
 
 }

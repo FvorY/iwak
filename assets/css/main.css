@@ -159,7 +159,7 @@
 
 /* // justify nav
 %justify {
- text-align: justify; 
+ text-align: justify;
  font-size: 1px;
  line-height: 0px;
  > * {
@@ -169,7 +169,7 @@
   font-size: $font-size-base;
   line-height: $line-height-base;
  }
- &:after { 
+ &:after {
   content: '';
   width: 100%;
   display: inline-block;
@@ -8638,9 +8638,9 @@ a:hover {
 
 /* Slider */
 
-.slick-loading .slick-list {
+/* .slick-loading .slick-list {
 	background: #fff url("../images/ajax-loader.gif") center center no-repeat;
-}
+} */
 
 @font-face {
 	font-family: slick;
@@ -12623,4 +12623,3 @@ a:focus {
 .changer-active #style-changer {
 	margin: 0;
 }
-
