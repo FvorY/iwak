@@ -7,7 +7,7 @@
 				<!-- slider banner-slider start here -->
 				<div class="slider banner-slider">
 					<!-- holder start here -->
-					<div class="holder text-center" style="background-image: url({{url('/')}}/{{$backgroundheader->image}}); height:50rem; ">
+					<div class="holder text-center" style="background-image: url({{url('/')}}/{{$backgroundheader->image}}); height:60rem; ">
 						<div class="container">
 							<div class="row">
 								<div class="col-xs-12">
