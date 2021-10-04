@@ -96,7 +96,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
-              <span class="d-none d-lg-inline">{{Auth::user()->fullname}}</span>
+              <span class="d-lg-inline">{{Auth::user()->fullname}}</span>
             </a>
             <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
