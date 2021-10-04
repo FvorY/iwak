@@ -12,6 +12,9 @@
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic%7cMontserrat:400,700%7cOxygen:400,300,700' rel='stylesheet' type='text/css'>
 	<!-- include the site stylesheet -->
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
   <!-- include the site stylesheet -->
   <link rel="stylesheet" href="assets/css/animate.css">
 	<!-- include the site stylesheet -->
@@ -20,6 +23,7 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- include the site stylesheet -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
+
 </head>
 @if (session('password'))
 <body class="side-col-active">
@@ -87,53 +91,17 @@
 											<span class="bar"></span>
 										</a>
 									</li>
-									<li class="drop">
-										<a href="#" class="icon-home cart-opener"><span style="margin-bottom: -3px;" class="num">3</span></a>
-										<!-- mt drop start here -->
-										<div class="mt-drop">
-											<!-- mt drop sub start here -->
-											<div class="mt-drop-sub">
-												<!-- mt side widget start here -->
-												<div class="mt-side-widget">
-													<!-- cart row start here -->
-													<div class="cart-row">
-														<a href="#" class="img"><img src="http://placehold.it/75x75" alt="image" class="img-responsive"></a>
-														<div class="mt-h">
-															<span class="mt-h-title"><a href="#">Marvelous Modern 3 Seater</a></span>
-															<span class="price"><i class="fa fa-eur" aria-hidden="true"></i> 599,00</span>
-														</div>
-														<a href="#" class="close fa fa-times"></a>
-													</div><!-- cart row end here -->
-													<!-- cart row start here -->
-													<div class="cart-row">
-														<a href="#" class="img"><img src="http://placehold.it/75x75" alt="image" class="img-responsive"></a>
-														<div class="mt-h">
-															<span class="mt-h-title"><a href="#">Marvelous Modern 3 Seater</a></span>
-															<span class="price"><i class="fa fa-eur" aria-hidden="true"></i> 599,00</span>
-														</div>
-														<a href="#" class="close fa fa-times"></a>
-													</div><!-- cart row end here -->
-													<!-- cart row start here -->
-													<div class="cart-row">
-														<a href="#" class="img"><img src="http://placehold.it/75x75" alt="image" class="img-responsive"></a>
-														<div class="mt-h">
-															<span class="mt-h-title"><a href="#">Marvelous Modern 3 Seater</a></span>
-															<span class="price"><i class="fa fa-eur" aria-hidden="true"></i> 599,00</span>
-														</div>
-														<a href="#" class="close fa fa-times"></a>
-													</div><!-- cart row end here -->
-													<!-- cart row total start here -->
-													<div class="cart-row-total">
-														<span class="mt-total">Add them all</span>
-														<span class="mt-total-txt"><a href="#" class="btn-type2">add to CART</a></span>
-													</div>
-													<!-- cart row total end here -->
-												</div><!-- mt side widget end here -->
-											</div>
-											<!-- mt drop sub end here -->
-										</div><!-- mt drop end here -->
-										<span class="mt-mdropover"></span>
-									</li>
+									@if (Auth::check())
+										@if (Auth::user()->namatoko == null)
+										<li class="drop">
+													<a onclick="opentoko()" class="icon-home"></a>
+										</li>
+										@else
+											<li class="drop">
+													<a href="#" class="icon-home"></a>
+											</li>
+										@endif
+									@endif
 									<li class="drop">
 										<a href="#" class="cart-opener">
 											<span class="icon-handbag"></span>
@@ -210,7 +178,7 @@
 								<nav id="nav">
 									<ul>
 										<li>
-											<a class="drop-link" href="{{url('/')}}">HOME <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+											<a href="{{url('/')}}">HOME</a>
 
 										</li>
 										<li>
@@ -222,10 +190,10 @@
 												</ul>
 											</div>
 										</li>
-										<li>
-											<a href="{{ url('contact') }}">Contact <i class="fa fa-angle-down hidden-lg hidden-md" aria-hidden="true"></i></a>
+										{{-- <li>
+											<a href="{{ url('contact') }}">Contact </a>
 
-										</li>
+										</li> --}}
 									</ul>
 								</nav>
 								<!-- mt icon list end here -->
@@ -255,7 +223,7 @@
 						<form class="" autocomplete="off" method="GET" action="{{ url('loginmember') }}">
           {{ csrf_field() }}
 							<fieldset>
-								<input type="text" placeholder="Username or email address" class="input" name="username">
+								<input type="text" placeholder="Email address" class="input" name="username">
 								 @if (session('username'))
               	<div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
             		@endif
@@ -385,15 +353,129 @@
 		</div><!-- W1 end here -->
 		<span id="back-top" class="fa fa-arrow-up"></span>
 	</div>
+
+	<!-- Modal -->
+	<div id="tambah" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-xs">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-info">
+	        <h4 class="modal-title">Form User</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+	          <table class="table table_modal">
+	          <tr>
+	            <td>Fullname</td>
+	            <td>
+	              <input type="text" class="form-control form-control-sm inputtext fullname" name="fullname">
+	              <input type="hidden" class="form-control form-control-sm id" name="id">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Nomor Rekening</td>
+	            <td>
+	              <input type="text" class="form-control form-control-sm inputtext nomor_rekening" name="nomor_rekening">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Nama Bank</td>
+	            <td>
+	              <input type="text" class="form-control form-control-sm inputtext bank" name="bank">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Email</td>
+	            <td>
+	              <input type="email" class="form-control form-control-sm inputtext email" name="email">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Password</td>
+	            <td>
+	              <input type="text" class="form-control form-control-sm inputtext password" name="password">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Level</td>
+	            <td>
+	              <select class="form-control role" name="role">
+	                <option value="" selected>- Pilih -</option>
+	                <option value="admin"> Admin </option>
+	                <option value="member"> Member </option>
+	              </select>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Phone</td>
+	            <td>
+	              <input type="text" class="form-control form-control-sm inputtext phone" name="phone">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Address</td>
+	            <td>
+	              <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
+	              <div class="alert alert-warning" role="alert">
+	                Alamat ini juga akan digunakan untuk alamat toko
+	              </div>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Gender</td>
+	            <td>
+	              <select class="form-control gender" name="gender">
+	                <option value="" selected>- Pilih -</option>
+	                <option value="L"> Laki - Laki </option>
+	                <option value="P"> Perempuan </option>
+	              </select>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>Image</td>
+	            <td>
+	              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
+	            </td>
+	          </tr>
+	          <tr>
+	            <td align="center" colspan="2">
+	              <div class="col-md-8 col-sm-6 col-xs-12 image-holder" id="image-holder">
+
+	                {{-- <img src="#" class="thumb-image img-responsive" height="100px" alt="image" style="display: none"> --}}
+
+	            </div>
+	            </td>
+	          </tr>
+	          </table>
+	        </div>
+	        <div class="modal-footer">
+	          <button class="btn btn-primary" id="simpan" type="button">Process</button>
+	          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      </div>
+
+	  </div>
+	</div>
+
+@include('modal_toko')
 	<!-- include jQuery -->
 	<script src="assets/js/jquery.js"></script>
 	<!-- include jQuery -->
 	<script src="assets/js/plugins.js"></script>
 	<!-- include jQuery -->
 	<script src="assets/js/jquery.main.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+	<script src="assets/js/sweetalert.js"></script>
+  {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> --}}
 
 	<script type="text/javascript">
+		var email = ""
+		var address = ""
+		var description = ""
+
 		$(document).ready(function() {
 			$.ajax({
 				url: "{{url('/')}}" + '/getinfo',
@@ -406,6 +488,10 @@
 					$('.desctext').text(data.info[0].description);
 					$('.addresstext').text(data.info[0].address);
 
+					email = data.info[0].email
+					address = data.info[0].address
+					description = data.info[0].description
+
 					var htmlcat = ""
 					for (var i = 0; i < data.category.length; i++) {
 						 var res = data.category[i];
@@ -417,6 +503,88 @@
 				}
 			});
 		});
+
+		function opentoko() {
+			swal({
+				title: 'Mau buka toko anda sendiri?',
+			  type: 'question',
+			  showCancelButton: true
+			}).then((result) => {
+				console.log(result);
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.value) {
+			    $('#modal_toko').modal('show');
+			  } else {
+			  }
+			})
+		}
+
+		$(".uploadGambartoko").on('change', function () {
+            $('.save').attr('disabled', false);
+            // waitingDialog.show();
+          if (typeof (FileReader) != "undefined") {
+              var image_holder = $(".image-holder");
+              image_holder.empty();
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                  image_holder.html('<img style="width: 30px; height: 30px;" src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
+                  $('.save').attr('disabled', true);
+                  setTimeout(function(){
+                      image_holder.empty();
+                      $("<img />", {
+                          "src": e.target.result,
+                          "class": "thumb-image img-responsive",
+                          "style": "height: 100px; width:100px; border-radius: 0px;",
+                      }).appendTo(image_holder);
+                      $('.save').attr('disabled', false);
+                  }, 2000)
+              }
+              image_holder.show();
+              reader.readAsDataURL($(this)[0].files[0]);
+
+              // waitingDialog.hide();
+          } else {
+              // waitingDialog.hide();
+              alert("This browser does not support FileReader.");
+          }
+      });
+
+			$('#simpantoko').click(function(){
+
+	    var formdata = new FormData();
+	    formdata.append('image', $('.uploadGambartoko')[0].files[0]);
+
+	    $.ajax({
+	      type: "post",
+	      url: "{{url('/')}}" + "/admin/toko" + '/simpan?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize() + "&id={{Auth::user()->id_account}}",
+	      data: formdata,
+	      processData: false, //important
+	      contentType: false,
+	      cache: false,
+	      success:function(data){
+					$('#modal_toko').modal('hide');
+	        if (data.status == 1) {
+						swal({
+							title: 'Selamat, toko anda berhasil dibuat, atur toko anda sekarang?',
+						  type: 'success',
+						  showCancelButton: true
+						}).then((result) => {
+						  /* Read more about isConfirmed, isDenied below */
+						  if (result.value) {
+
+						  } else {
+						  }
+						})
+	        }else if(data.status == 2){
+						swal(
+						  'Gagal membuat toko :(',
+						  'Silahkan coba lagi nanti',
+						  'info'
+						)
+	        }
+	      }
+	    });
+	  })
 	</script>
 
 </body>

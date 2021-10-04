@@ -20,6 +20,8 @@ Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout');
 
+Route::post('/admin/toko/simpan', 'TokoController@simpan');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
@@ -51,7 +53,7 @@ Route::group(['middleware' => 'admin'], function () {
         //Toko
         Route::get('/toko', 'TokoController@index');
         Route::get('/toko/table', 'TokoController@datatable');
-        Route::post('/toko/simpan', 'TokoController@simpan');
+
         Route::get('/toko/edit', 'TokoController@edit');
         Route::get('/toko/aktif', 'TokoController@aktif');
         Route::get('/toko/nonaktif', 'TokoController@nonaktif');

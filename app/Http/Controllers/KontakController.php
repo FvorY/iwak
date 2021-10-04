@@ -4,6 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+
+use App\Account;
+
+use App\Authentication;
+
+use Auth;
+
+use Carbon\Carbon;
+
+use Session;
+
+use DB;
+
+use Response;
+
 class KontakController extends Controller
 {
     /**
@@ -13,8 +29,7 @@ class KontakController extends Controller
      */
     public function index()
     {
-        //
-        return view('contact');
+      return view("contact");
     }
 
     /**
