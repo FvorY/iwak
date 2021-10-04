@@ -549,6 +549,7 @@
           }
       });
 
+			@if(Auth::check())
 			$('#simpantoko').click(function(){
 
 	    var formdata = new FormData();
@@ -585,6 +586,7 @@
 	      }
 	    });
 	  })
+		@endif
 	</script>
 
 </body>
