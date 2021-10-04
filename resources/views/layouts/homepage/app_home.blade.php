@@ -213,7 +213,7 @@
 				<!-- mt holder start here -->
 				<div class="mt-holder">
 					<a href="#" class="side-close"><span></span><span></span></a>
-					<strong class="mt-side-title">MY ACCOUNTss</strong>
+					<strong class="mt-side-title">MY ACCOUNTS</strong>
 					<!-- mt side widget start here -->
 					<div class="mt-side-widget">
 						<header>
