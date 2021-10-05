@@ -79,7 +79,7 @@ class HomeController extends Controller
 
     public function checklogin() {
       // dd("asd");
-      dd(Auth::user()->role);
+      dd(Auth::user());
       if (Auth::check()) {
         if(Auth::user()->role == "admin") {
           return Redirect('/admin/home');
