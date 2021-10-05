@@ -21,6 +21,7 @@ class Admin
 
         if (Auth::check()) {
           if(Auth::user()->role != "admin"){
+            dd("Masuk sini gan");
                   return Redirect('/');
           }
         } else {
