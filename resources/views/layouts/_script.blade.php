@@ -116,8 +116,9 @@
 
     return url.protocol === "http:";
   }
-  
+
   if (isValidHttpUrl(window.location.href)) {
+    alert("Masuk sini log");
     window.location = window.location.href.replace("https", "https");
   }
 
