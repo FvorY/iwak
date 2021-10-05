@@ -105,8 +105,6 @@
   </script>
 
   <script type="text/javascript">
-  const isMobile = navigator.userAgentData.mobile;
-
   function isValidHttpUrl(string) {
     let url;
 
@@ -118,12 +116,9 @@
 
     return url.protocol === "http:";
   }
-
-  if (isMobile == true) {
-    alert("Masuk sini");
-    if (isValidHttpUrl(window.location.href)) {
-      window.location = window.location.href.replace("https", "https");
-    }
+  
+  if (isValidHttpUrl(window.location.href)) {
+    window.location = window.location.href.replace("https", "https");
   }
 
   iziToast.settings({
