@@ -39,6 +39,7 @@ class HomeController extends Controller
      */
 
      public function index() {
+       dd("asdasda");
 
        // $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
 
