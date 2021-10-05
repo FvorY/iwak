@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomepageController@index');
 Route::get('/getinfo', 'HomepageController@getinfo');
-// Route::get('/admin', 'HomeController@checklogin');
+Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
 Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
@@ -25,7 +25,7 @@ Route::post('/admin/toko/simpan', 'TokoController@simpan');
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
-    Route::get('/admin', function () {
+    Route::get('/admin/login', function () {
         return view('auth.login');
     })->name('adminlogin');
 
