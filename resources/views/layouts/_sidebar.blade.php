@@ -127,64 +127,109 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav" id="ayaysir">
-            <li class="nav-item {{Request::is('admin/home') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
-              <a class="nav-link" href="{{url('admin/home')}}">
-                <span class="menu-title">Dashboard</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-home menu-icon"></i>
-              </a>
-            </li>
 
-            <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('admin/user')}}">
-                <span class="menu-title">Manage User</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-account menu-icon"></i>
-              </a>
-            </li>
+            @if (Auth::user()->role == "admin")
+              <li class="nav-item {{Request::is('admin/home') ? 'active' : ''}} {{Request::is('/') ? 'active' : ''}} ">
+                <a class="nav-link" href="{{url('admin/home')}}">
+                  <span class="menu-title">Dashboard</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
 
-            <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('admin/toko')}}">
-                <span class="menu-title">Manage Toko</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-store menu-icon"></i>
-              </a>
-            </li>
+              <li class="nav-item {{Request::is('admin/user') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('admin/user')}}">
+                  <span class="menu-title">Manage User</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-account menu-icon"></i>
+                </a>
+              </li>
 
-            <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('admin/feed')}}">
-                <span class="menu-title">Manage Feedback / Review</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-comment menu-icon"></i>
-              </a>
-            </li>
+              <li class="nav-item {{Request::is('admin/toko') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('admin/toko')}}">
+                  <span class="menu-title">Manage Toko</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-store menu-icon"></i>
+                </a>
+              </li>
 
-            <li class="nav-item {{Request::is('admin/category') ? 'active' : ''}}">
-              <a class="nav-link" href="{{url('admin/category')}}">
-                <span class="menu-title">Manage Category Product</span>
-                {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
-              </a>
-            </li>
+              <li class="nav-item {{Request::is('admin/feed') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('admin/feed')}}">
+                  <span class="menu-title">Manage Feedback / Review</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-comment menu-icon"></i>
+                </a>
+              </li>
 
-            <li class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
-              <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Setting Online Shop</span>
-                <span class="d-none">
-                  Edit Info
-                  Manage Info
-                </span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-settings menu-icon mdi-spin"></i>
-              </a>
-              <div class="collapse {{Request::is('admin/setting') ? 'show' : '' || Request::is('admin/setting/*') ? 'show' : '' }}" id="setting">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/backgroundheader') ? 'active' : '' || Request::is('admin/setting/backgroundheader/*') ? 'active' : '' }}" href="{{url('admin/setting/backgroundheader')}}">Background Header<span class="d-none">Setting</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/social') ? 'active' : '' || Request::is('admin/setting/social/*') ? 'active' : '' }}" href="{{url('admin/setting/social')}}">Manage Social<span class="d-none">Setting</span></a></li>
-                </ul>
-                </div>
-            </li>
+              <li class="nav-item {{Request::is('admin/category') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('admin/category')}}">
+                  <span class="menu-title">Manage Category Product</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-book-open-variant menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{ ( ( Request::is('admin/setting/*') || Request::is('admin/setting') ) ? ' active' : '' ) }}">
+                <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
+                  <span class="menu-title">Setting Online Shop</span>
+                  <span class="d-none">
+                    Edit Info
+                    Manage Info
+                  </span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-settings menu-icon mdi-spin"></i>
+                </a>
+                <div class="collapse {{Request::is('admin/setting') ? 'show' : '' || Request::is('admin/setting/*') ? 'show' : '' }}" id="setting">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/backgroundheader') ? 'active' : '' || Request::is('admin/setting/backgroundheader/*') ? 'active' : '' }}" href="{{url('admin/setting/backgroundheader')}}">Background Header<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/social') ? 'active' : '' || Request::is('admin/setting/social/*') ? 'active' : '' }}" href="{{url('admin/setting/social')}}">Manage Social<span class="d-none">Setting</span></a></li>
+                  </ul>
+                  </div>
+              </li>
+            @else
+              <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/home')}}">
+                  <span class="menu-title">Laporan Performa Toko</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{Request::is('penjual/toko') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/toko')}}">
+                  <span class="menu-title">Edit Toko</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-store menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{Request::is('penjual/produk') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/produk')}}">
+                  <span class="menu-title">Manage Produk</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{Request::is('penjual/lelang') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/lelang')}}">
+                  <span class="menu-title">Manage Lelang</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-sale menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{Request::is('penjual/listorder') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/listorder')}}">
+                  <span class="menu-title">List Pesanan</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-cart-outline menu-icon"></i>
+                </a>
+              </li>
+
+            @endif
+
 
             {{-- <li class="nav-item {{Request::is('mutasi') ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/mutasi')}}">

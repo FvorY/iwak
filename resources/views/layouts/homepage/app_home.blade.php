@@ -30,6 +30,24 @@
 @else
 <body>
 @endif
+
+<?php
+	use App\Account;
+	use Carbon\Carbon;
+
+	if (Auth::check()){
+		if (Auth::user()->role == "admin") {
+				Account::where('id_account', Auth::user()->id_account)->update([
+						 'last_online' => Carbon::now(),
+						 'islogin' => "N",
+				]);
+
+				Auth::logout();
+
+				header("Refresh:0");
+		}
+	}
+?>
 	<!-- main container of all the page elements -->
 	<div id="wrapper">
 		<!-- Page Loader -->
@@ -94,11 +112,11 @@
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
-													<a onclick="opentoko()" class="icon-home"></a>
+													<a onclick="opentoko()" class="icon-home" data-placement="bottom" data-toggle="tooltip" title="Buka toko anda sekarang?"></a>
 										</li>
 										@else
 											<li class="drop">
-													<a href="#" class="icon-home"></a>
+													<a href="{{url('/penjual/home')}}" class="icon-home" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?"></a>
 											</li>
 										@endif
 									@endif
@@ -472,6 +490,11 @@
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> --}}
 
 	<script type="text/javascript">
+
+	$(document).ready(function(){
+	  $('[data-toggle="tooltip"]').tooltip();
+	});
+
 		var email = ""
 		var address = ""
 		var description = ""
@@ -502,19 +525,6 @@
 					$('.categorylist').html(htmlcat);
 				}
 			});
-
-			@if (Auth::check())
-				@if (Auth::user()->role == "admin")
-					$.ajax({
-						url: "{{url('/')}}" + '/logoutmemberjson',
-						dataType:'json',
-						success:function(data){
-							window.location.reload();
-						}
-					});
-				@endif
-			@endif
-
 		});
 
 		function opentoko() {

@@ -20,10 +20,6 @@ class penjual
         /*dd(Auth::user()->m_token.'!='.Session::get('m_token'));*/
         if (Auth::check()) {
           if(Auth::user()->role != "member"){
-            if Auth::user()->namatoko != null {
-              return Redirect('/');
-            }
-          } else {
             return Redirect('/');
           }
         } else {

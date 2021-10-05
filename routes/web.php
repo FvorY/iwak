@@ -92,6 +92,9 @@ Route::group(['middleware' => 'admin'], function () {
 //Route untuk user pembeli / penjual
 Route::group(['middleware' => 'penjual'], function () {
 
-
+  //Admin Module
+  Route::prefix('penjual')->group(function () {
+     Route::get('/home', 'PenjualHomeController@index');
+  });
 
 });
