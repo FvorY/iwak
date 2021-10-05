@@ -20,7 +20,7 @@ Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 
-Route::post('admin/toko/simpan', 'TokoController@simpan');
+Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

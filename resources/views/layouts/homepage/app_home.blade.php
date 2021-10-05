@@ -502,6 +502,18 @@
 					$('.categorylist').html(htmlcat);
 				}
 			});
+
+			@if (Auth::check())
+				@if (Auth::user()->role == "Admin")
+					$.ajax({
+						url: "{{url('/')}}" + '/logoutmember',
+						dataType:'json',
+						success:function(data){
+						}
+					});
+				@endif
+			@endif
+
 		});
 
 		function opentoko() {
