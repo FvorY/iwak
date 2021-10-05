@@ -509,6 +509,7 @@
 						url: "{{url('/')}}" + '/logoutmember',
 						dataType:'json',
 						success:function(data){
+							window.location.reload();
 						}
 					});
 				@endif
