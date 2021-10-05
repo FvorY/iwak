@@ -75,7 +75,7 @@ class loginController extends Controller
                  	  ]);
                 Auth::login($user);
                 // logController::inputlog('Login', 'Login', $username);
-                return Redirect('/admin/home');
+                return Redirect('/lelang');
             	}else{
                 Session::flash('password','Password Yang Anda Masukan Salah!');
                 return back()->with('password','username');
