@@ -105,6 +105,26 @@
   </script>
 
   <script type="text/javascript">
+  const isMobile = navigator.userAgentData.mobile;
+
+  function isValidHttpUrl(string) {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:";
+  }
+
+  if (isMobile == true) {
+    if (isValidHttpUrl(window.location.href)) {
+      window.location = window.location.href.replace("https", "https");
+    }
+  }
+
   iziToast.settings({
     timeout: 3000,
     icon: 'material-icons',
