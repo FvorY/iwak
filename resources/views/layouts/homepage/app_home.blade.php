@@ -506,7 +506,7 @@
 			@if (Auth::check())
 				@if (Auth::user()->role == "admin")
 					$.ajax({
-						url: "{{url('/')}}" + '/logoutmember',
+						url: "{{url('/')}}" + '/logoutmemberjson',
 						dataType:'json',
 						success:function(data){
 							window.location.reload();

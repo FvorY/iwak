@@ -88,4 +88,16 @@ class MemberController extends Controller
       return Redirect('/');
     }
 
+    public function logoutjson(){
+
+      Account::where('id_account', Auth::user()->id_account)->update([
+           'last_online' => Carbon::now(),
+           'islogin' => "N",
+      ]);
+
+      Auth::logout();
+
+      return response()->json(200);
+    }
+
 }
