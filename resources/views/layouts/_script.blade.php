@@ -105,6 +105,8 @@
   </script>
 
   <script type="text/javascript">
+  var firstcheck = false
+
   function isValidHttpUrl(string) {
     let url;
 
@@ -117,9 +119,12 @@
     return url.protocol === "http:";
   }
 
-  if (isValidHttpUrl(window.location.href)) {
-    alert("Masuk sini log");
-    window.location = window.location.href.replace("https", "https");
+  if firstcheck == false {
+    if (isValidHttpUrl(window.location.href)) {
+      alert("Masuk sini log")
+      window.location = window.location.href.replace("https", "https");
+      firstcheck = true;
+    }
   }
 
   iziToast.settings({
