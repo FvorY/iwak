@@ -74,6 +74,7 @@ class loginController extends Controller
                      'islogin'=>'Y',
                  	  ]);
                 Auth::login($user);
+                dd(Auth::user());
                 // logController::inputlog('Login', 'Login', $username);
                 return Redirect('/admin');
             	}else{
