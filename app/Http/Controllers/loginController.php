@@ -74,9 +74,8 @@ class loginController extends Controller
                      'islogin'=>'Y',
                  	  ]);
                 Auth::login($user);
-                dd(Auth::user());
                 // logController::inputlog('Login', 'Login', $username);
-                return Redirect('/admin');
+                return Redirect('/admin/home');
             	}else{
                 Session::flash('password','Password Yang Anda Masukan Salah!');
                 return back()->with('password','username');
