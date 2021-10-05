@@ -504,7 +504,7 @@
 			});
 
 			@if (Auth::check())
-				@if (Auth::user()->role == "Admin")
+				@if (Auth::user()->role == "admin")
 					$.ajax({
 						url: "{{url('/')}}" + '/logoutmember',
 						dataType:'json',
