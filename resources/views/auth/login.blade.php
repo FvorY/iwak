@@ -35,7 +35,7 @@
 <body>
 
   <div class="limiter">
-    <div class="container-login100" style="background-image: url("{{asset('assets/login-v3/images/bg-01.jpg')}}");">
+    <div class="container-login100" style="background-image: url('{{asset('assets/login-v3/images/bg-01.jpg')}}');">
       <div class="wrap-login100">
         <form class="login100-form validate-form" autocomplete="off" method="GET" action="{{ url('loginadmin') }}">
           {{ csrf_field() }}
