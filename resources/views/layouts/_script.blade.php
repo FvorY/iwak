@@ -120,6 +120,7 @@
   }
 
   if (isMobile == true) {
+    alert("Masuk sini");
     if (isValidHttpUrl(window.location.href)) {
       window.location = window.location.href.replace("https", "https");
     }
