@@ -105,28 +105,6 @@
   </script>
 
   <script type="text/javascript">
-  var firstcheck = false
-
-  function isValidHttpUrl(string) {
-    let url;
-
-    try {
-      url = new URL(string);
-    } catch (_) {
-      return false;
-    }
-
-    return url.protocol === "http:";
-  }
-
-  if firstcheck == false {
-    if (isValidHttpUrl(window.location.href)) {
-      alert("Masuk sini log")
-      window.location = window.location.href.replace("https", "https");
-      firstcheck = true;
-    }
-  }
-
   iziToast.settings({
     timeout: 3000,
     icon: 'material-icons',
