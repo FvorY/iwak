@@ -39,7 +39,6 @@ class HomeController extends Controller
      */
 
      public function index() {
-       // dd("asdasda");
 
        // $cekuseronline = DB::table("account")->where("islogin", 'Y')->get();
 
@@ -79,7 +78,6 @@ class HomeController extends Controller
 
     public function checklogin() {
       // dd("asd");
-      dd(Auth::user());
       if (Auth::check()) {
         if(Auth::user()->role == "admin") {
           return Redirect('/admin/home');
@@ -90,8 +88,6 @@ class HomeController extends Controller
           ]);
 
           Auth::logout();
-
-          return Redirect('/admin/login');
         }
       } else {
         return Redirect('/admin/login');
