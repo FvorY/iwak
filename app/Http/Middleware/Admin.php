@@ -19,6 +19,7 @@ class Admin
         /*'fBaCZemyXbk6uUButDcfLhw1Z21B56Yd4sS4MR3'*/
         /*dd(Auth::user()->m_token.'!='.Session::get('m_token'));*/
 
+        dd(Auth::user());
         if (Auth::check()) {
           if(Auth::user()->role != "admin"){
               return Redirect('/');
