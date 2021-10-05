@@ -29,17 +29,6 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-          if(Auth::user()->role == "admin") {
-            Account::where('id_account', Auth::user()->id_account)->update([
-                 'last_online' => Carbon::now(),
-                 'islogin' => "N",
-            ]);
-
-            Auth::logout();
-          }
-        }
-
         $backgroundheader = DB::table("backgroundheader")->where("id", 1)->first();
 
         return view("homepage", compact('backgroundheader'));
