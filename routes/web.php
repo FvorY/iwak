@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomepageController@index');
+Route::get('/getinfo', 'HomepageController@getinfo');
 Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
 Route::get('/lelang', 'LelangController@index');
