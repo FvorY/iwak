@@ -88,6 +88,8 @@ class HomeController extends Controller
           ]);
 
           Auth::logout();
+
+          return Redirect('/admin/login');
         }
       } else {
         return Redirect('/admin/login');
