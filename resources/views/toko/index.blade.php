@@ -143,11 +143,13 @@ var table = $('#table-data').DataTable({
           $('.id').val(data.id_account);
           $('.namatoko').val(data.namatoko);
           $('.star').val(data.star);
+          $('.nomor_rekening').val(data.nomor_rekening);
+          $('.bank').val(data.bank);
 
           var image_holder = $(".image-holder");
           image_holder.empty();
           $("<img />", {
-              "src": baseUrl + data.profile_picture,
+              "src": baseUrl + data.profile_toko,
               "class": "thumb-image img-responsive",
               "style": "height: 100px; width:100px; border-radius: 0px;",
           }).appendTo(image_holder);

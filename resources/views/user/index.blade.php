@@ -23,7 +23,7 @@
                     <h4 class="card-title">User</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                      <button type="button" class="btn btn-info" onclick="showcreate()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                       {{-- @endif --}}
                     </div>
                     <div class="table-responsive">
@@ -170,7 +170,7 @@ var table = $('#table-data').DataTable({
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Gagal disimpan!',
+              message: 'Data Gagal disimpan!, Periksa data dan koneksi anda!',
           });
         }else if (data.status == 3){
           iziToast.success({
@@ -236,10 +236,22 @@ var table = $('#table-data').DataTable({
     	});
     }
 
+    function showcreate() {
+      $('.table_modal :input').val("");
+      $('.image-holder').empty();
+      $('.role').val('').change();
+      $('.gender').val('').change();
+      table.ajax.reload();
+
+      $('#tambah').modal('show');
+    }
+
     function reloadall() {
       $('.table_modal :input').val("");
       $('.image-holder').empty();
       $('#tambah').modal('hide');
+      $('.role').val('').change();
+      $('.gender').val('').change();
       // // $('#table_modal :input').val('');
       // $(".inputtext").val("");
       // var table1 = $('#table_modal').DataTable();

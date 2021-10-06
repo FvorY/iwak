@@ -95,6 +95,9 @@ Route::group(['middleware' => 'penjual'], function () {
   //Admin Module
   Route::prefix('penjual')->group(function () {
      Route::get('/home', 'PenjualHomeController@index');
+
+     Route::get('/toko', 'EdittokoController@index');
+     Route::post('/toko/save', 'EdittokoController@simpan');
   });
 
 });

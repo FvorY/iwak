@@ -11,8 +11,11 @@
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
+            <div class="alert alert-warning" role="alert">
+              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            </div>
           <tr>
-            <td>Fullname</td>
+            <td>Fullname <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext fullname" name="fullname">
               <input type="hidden" class="form-control form-control-sm id" name="id">
@@ -31,19 +34,19 @@
             </td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td>Email <span style="color:red;">*</span></td>
             <td>
               <input type="email" class="form-control form-control-sm inputtext email" name="email">
             </td>
           </tr>
           <tr>
-            <td>Password</td>
+            <td>Password <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext password" name="password">
             </td>
           </tr>
           <tr>
-            <td>Level</td>
+            <td>Level <span style="color:red;">*</span></td>
             <td>
               <select class="form-control role" name="role">
                 <option value="" selected>- Pilih -</option>
@@ -53,13 +56,13 @@
             </td>
           </tr>
           <tr>
-            <td>Phone</td>
+            <td>Phone <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext phone" name="phone">
             </td>
           </tr>
           <tr>
-            <td>Address</td>
+            <td>Address <span style="color:red;">*</span></td>
             <td>
               <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
               <div class="alert alert-warning" role="alert">
@@ -68,7 +71,7 @@
             </td>
           </tr>
           <tr>
-            <td>Gender</td>
+            <td>Gender <span style="color:red;">*</span></td>
             <td>
               <select class="form-control gender" name="gender">
                 <option value="" selected>- Pilih -</option>

@@ -130,6 +130,8 @@ class TokoController extends Controller
                 ->where('id_account', $req->id)
                 ->update([
                 "namatoko" => $req->namatoko,
+                "star" => $req->star,
+                "bank" => $req->bank,
                 "updated_at" => Carbon::now('Asia/Jakarta'),
               ]);
           } else {
@@ -137,6 +139,9 @@ class TokoController extends Controller
                 ->where('id_account', $req->id)
                 ->update([
                 "namatoko" => $req->namatoko,
+                "star" => $req->star,
+                "nomor_rekening" => $req->nomor_rekening,
+                "bank" => $req->bank,
                 "profile_toko" => $imgPath,
                 "updated_at" => Carbon::now('Asia/Jakarta'),
               ]);
@@ -158,8 +163,10 @@ class TokoController extends Controller
         $cek = DB::table("account")
             ->where("id_account", $req->id)->first();
 
-        if ($cek->namatoko == "" && $cek->profile_toko == "") {
-          return response()->json(["status" => 7, "message" => "Silahkan lengkapi data toko anda terlebih dahulu!"]);
+        if ($cek->namatoko == "") {
+          return response()->json(["status" => 7, "message" => "Silahkan lengkapi nama toko terlebih dahulu!"]);
+        } else if ($cek->profile_toko == "") {
+          return response()->json(["status" => 7, "message" => "Silahkan lengkapi image profil toko terlebih dahulu!"]);
         } else {
           DB::table("account")
               ->where("id_account", $req->id)

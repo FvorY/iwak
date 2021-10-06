@@ -198,7 +198,7 @@
 
               <li class="nav-item {{Request::is('penjual/toko') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/toko')}}">
-                  <span class="menu-title">Edit Toko</span>
+                  <span class="menu-title">Toko</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-store menu-icon"></i>
                 </a>

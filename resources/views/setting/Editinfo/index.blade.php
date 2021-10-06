@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                      <textarea class="form-control form-control-sm description" name="description" rows="8" cols="80" placeholder="Description">@isset($data) {{$data[0]->description}} @endisset</textarea>
+                                      <textarea class="form-control form-control-sm description" name="description" rows="8" cols="80" placeholder="Description">@isset($data){{$data[0]->description}}@endisset</textarea>
                                   </div>
                                 </div>
 
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                      <input type="email" class="form-control form-control-sm" name="email" placeholder="Email" value="@isset($data) {{$data[0]->email}} @endisset">
+                                      <input type="email" class="form-control form-control-sm" name="email" placeholder="Email" value="@isset($data){{$data[0]->email}}@endisset">
                                   </div>
                                 </div>
 
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                    <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80" placeholder="Address" >@isset($data) {{$data[0]->address}} @endisset</textarea>
+                                    <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80" placeholder="Address" >@isset($data){{$data[0]->address}}@endisset</textarea>
                                     </div>
                                   </div>
                               </div>
