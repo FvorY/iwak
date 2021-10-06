@@ -4,7 +4,7 @@ use Closure;
 use Auth;
 use Session;
 use App\Account;
-class penjual
+class Penjual
 {
     /**
      * Handle an incoming request.
