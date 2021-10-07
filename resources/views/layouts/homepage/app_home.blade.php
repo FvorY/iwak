@@ -7,22 +7,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>iWak Store</title>
 
-	<link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}" />
+	<link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}">
 	<!-- include the site stylesheet -->
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic%7cMontserrat:400,700%7cOxygen:400,300,700' rel='stylesheet' type='text/css'>
 	<!-- include the site stylesheet -->
-	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
 
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 
   <!-- include the site stylesheet -->
-  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
 	<!-- include the site stylesheet -->
-	<link rel="stylesheet" href="assets/css/icon-fonts.css">
+	<link rel="stylesheet" href="{{asset('assets/css/icon-fonts.css')}}">
 	<!-- include the site stylesheet -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
 	<!-- include the site stylesheet -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
 </head>
 @if (session('password'))
@@ -35,7 +35,7 @@
 		<!-- Page Loader -->
     <div id="pre-loader" class="loader-container">
       <div class="loader">
-        <img src="assets/images/rings.svg" alt="loader">
+        <img src="{{asset('assets/images/rings.svg')}}" alt="loader">
       </div>
     </div>
 		<!-- W1 start here -->
@@ -162,14 +162,14 @@
 									@if(Auth::check() == NULL)
 									<li>
 										 @if (session('password'))
-										<a href="#" class="bar-opener side-opener active">
+										<a href="#" class=" side-opener active">
 											@else
-										<a href="#" class="bar-opener side-opener">
+										<a href="#" class=" side-opener">
             				@endif
-
-											<span class="bar"></span>
+            				<i class="icon-user"></i>
+											<!-- <span class="bar"></span>
 											<span class="bar small"></span>
-											<span class="bar"></span>
+											<span class="bar"></span> -->
 										</a>
 									</li>
 									@endif
@@ -179,16 +179,12 @@
 									<ul>
 										<li>
 											<a href="{{url('/')}}">HOME</a>
-
 										</li>
 										<li>
-											<a class="drop-link" href="">Product <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-											<div class="s-drop">
-												<ul>
-													<li><a href="{{ url('/product') }}">For Sale</a></li>
-													<li><a href="{{ url('/lelang') }}">For Auction</a></li>
-												</ul>
-											</div>
+											<a href="{{ url('/product') }}">For Sale</a>
+										</li>
+										<li>
+											<a href="{{ url('/lelang') }}">For Auction</a>
 										</li>
 										{{-- <li>
 											<a href="{{ url('contact') }}">Contact </a>
@@ -247,9 +243,13 @@
 							<span class="mt-side-subtitle">CREATE NEW ACCOUNT</span>
 							<p>Create your very own account</p>
 						</header>
-						<form action="#">
+						<form autocomplete="off" method="post" action="{{ url('registermember') }}">
+          {{ csrf_field() }}
+
 							<fieldset>
-								<input type="text" placeholder="Username or email address" class="input">
+								<input type="text" placeholder="Fullname" class="input" name="fullname">
+								<input type="email" placeholder="Email address" class="input" name="email">
+								<input type="password" placeholder="Password" class="input" name="password">
 								<button type="submit" class="btn-type1">Register</button>
 							</fieldset>
 						</form>
@@ -462,14 +462,14 @@
 
 @include('modal_toko')
 	<!-- include jQuery -->
-	<script src="assets/js/jquery.js"></script>
+	<script src="{{asset('assets/js/jquery.js')}}"></script>
 	<!-- include jQuery -->
-	<script src="assets/js/plugins.js"></script>
+	<script src="{{asset('assets/js/plugins.js')}}"></script>
 	<!-- include jQuery -->
-	<script src="assets/js/jquery.main.js"></script>
+	<script src="{{asset('assets/js/jquery.main.js')}}"></script>
 
-	<script src="assets/js/sweetalert.js"></script>
-  {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> --}}
+	<script src="{{asset('assets/js/sweetalert.js')}}"></script>
+  {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js')}}"></script> --}}
 
 	<script type="text/javascript">
 	@if(Auth::check())
@@ -543,7 +543,7 @@
               image_holder.empty();
               var reader = new FileReader();
               reader.onload = function (e) {
-                  image_holder.html('<img style="width: 30px; height: 30px;" src="{{ asset('assets/demo/images/loading.gif') }}" class="img-responsive">');
+                  image_holder.html('<img style="width: 30px; height: 30px;" src="{{ asset('assets/demo/images/loading.gif')}}" class="img-responsive">');
                   $('.save').attr('disabled', true);
                   setTimeout(function(){
                       image_holder.empty();
