@@ -30,24 +30,6 @@
 @else
 <body>
 @endif
-
-<?php
-	use App\Account;
-	use Carbon\Carbon;
-
-	if (Auth::check()){
-		if (Auth::user()->role == "admin") {
-				Account::where('id_account', Auth::user()->id_account)->update([
-						 'last_online' => Carbon::now(),
-						 'islogin' => "N",
-				]);
-
-				Auth::logout();
-
-				header("Refresh:0");
-		}
-	}
-?>
 	<!-- main container of all the page elements -->
 	<div id="wrapper">
 		<!-- Page Loader -->
@@ -490,6 +472,17 @@
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js')}}"></script> --}}
 
 	<script type="text/javascript">
+	@if(Auth::check())
+		@if (Auth::user()->role == "admin")
+		$.ajax({
+			url: "{{url('/')}}" + "/logoutmemberjson",
+			success: function(data) {
+					window.location.reload();
+			},
+			async:false
+		});
+		@endif
+ @endif
 
 	$(document).ready(function(){
 	  $('[data-toggle="tooltip"]').tooltip();
@@ -588,21 +581,11 @@
 	      success:function(data){
 					$('#modal_toko').modal('hide');
 	        if (data.status == 1) {
-						swal({
-							title: 'Selamat, toko anda berhasil dibuat, atur toko anda sekarang?',
-						  type: 'success',
-						  showCancelButton: true
-						}).then((result) => {
-						  /* Read more about isConfirmed, isDenied below */
-						  if (result.value) {
-
-						  } else {
-						  }
-						})
+						window.location.href = "{{url('/penjual/home')}}"
 	        }else if(data.status == 2){
 						swal(
 						  'Gagal membuat toko :(',
-						  'Silahkan coba lagi nanti',
+						  'Cek kembali data anda, dan silahkan coba lagi nanti',
 						  'info'
 						)
 	        }

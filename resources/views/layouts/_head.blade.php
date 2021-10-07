@@ -68,6 +68,9 @@
 
 
 <style type="text/css">
+.checked {
+  color: orange;
+}
 small.text-muted {
   position: absolute;
   right: 0;

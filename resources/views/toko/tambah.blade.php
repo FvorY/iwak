@@ -26,6 +26,24 @@
             </td>
           </tr>
           <tr>
+            <td>Nomor Rekening</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext nomor_rekening" name="nomor_rekening">
+              <div class="alert alert-warning" role="alert">
+                Mohon isi nomor rekening untuk kelancaran pembayaran
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Bank</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext bank" name="bank">
+              <div class="alert alert-warning" role="alert">
+                Mohon isi nama bank untuk kelancaran pembayaran
+              </div>
+            </td>
+          </tr>
+          <tr>
             <td>Rating Review</td>
             <td>
               <input type="number" class="form-control form-control-sm inputtext star" onkeyup="if(parseInt(this.value)>5){ this.value = 5; return false; }" name="star" min="1" max="5">

@@ -181,9 +181,9 @@
                 </a>
                 <div class="collapse {{Request::is('admin/setting') ? 'show' : '' || Request::is('admin/setting/*') ? 'show' : '' }}" id="setting">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/backgroundheader') ? 'active' : '' || Request::is('admin/setting/backgroundheader/*') ? 'active' : '' }}" href="{{url('admin/setting/backgroundheader')}}">Background Header<span class="d-none">Setting</span></a></li>
-                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') ? 'active' : '' || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
-                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/social') ? 'active' : '' || Request::is('admin/setting/social/*') ? 'active' : '' }}" href="{{url('admin/setting/social')}}">Manage Social<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/backgroundheader') || Request::is('admin/setting/backgroundheader/*') ? 'active' : '' }}" href="{{url('admin/setting/backgroundheader')}}">Background Header<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/editinfo') || Request::is('admin/setting/editinfo/*') ? 'active' : '' }}" href="{{url('admin/setting/editinfo')}}">Edit Info<span class="d-none">Setting</span></a></li>
+                    <li class="nav-item"> <a class="nav-link {{Request::is('admin/setting/social') || Request::is('admin/setting/social/*') ? 'active' : '' }}" href="{{url('admin/setting/social')}}">Manage Social<span class="d-none">Setting</span></a></li>
                   </ul>
                   </div>
               </li>
@@ -198,7 +198,7 @@
 
               <li class="nav-item {{Request::is('penjual/toko') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/toko')}}">
-                  <span class="menu-title">Edit Toko</span>
+                  <span class="menu-title">Toko</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-store menu-icon"></i>
                 </a>
@@ -225,6 +225,14 @@
                   <span class="menu-title">List Pesanan</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-cart-outline menu-icon"></i>
+                </a>
+              </li>
+
+              <li class="nav-item {{Request::is('penjual/listfeed') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/listfeed')}}">
+                  <span class="menu-title">List Feedback / Review</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-comment menu-icon"></i>
                 </a>
               </li>
 
