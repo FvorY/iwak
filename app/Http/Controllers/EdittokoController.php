@@ -69,7 +69,7 @@ class EdittokoController extends Controller
                $name = $folder . '.' . $file->getClientOriginalExtension();
                if (!File::exists($path)) {
                    if (File::makeDirectory($path, 0777, true)) {
-                       compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],60);
+                       compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],90);
                        $file->move($path, $name);
                        $imgPath = $childPath . $name;
                    } else
