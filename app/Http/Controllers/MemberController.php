@@ -76,6 +76,44 @@ class MemberController extends Controller
 
         }
     }
+
+    public function register(Request $req){
+        $this->validate($req, [
+            'fullname' => 'required|string|min:4',
+            'email' => 'required|min:4|email',
+            'password' => 'required|min:4',
+        ]);
+
+
+          $max = DB::table("account")->max('id_account') + 1;
+          $email = $req['email'];
+          // $user = Account::where("email", $email)->where("role", "member")->first();
+
+       
+         $regis = Account::create([
+            'id_account' => $max,
+            'fullname' => $req['fullname'],
+            'email' => $req['email'],
+            'password' => $req['password'],
+            'confirm_password' => $req['password'],
+            'role' => 'member',
+            'islogin' => 'Y',
+            'last_online'=>Carbon::now(),
+        ]);
+   
+        //     ]);
+         if ($regis != null) {
+          $user = Account::where("email", $email)->where("role", "member")->first();
+        Auth::login($user);
+        return redirect('/')->with('alert-success','Kamu berhasil Register');
+
+             // code...
+         }
+        // Auth::login($user);
+
+        // return redirect('/')->with('alert-success','Kamu berhasil Register');
+
+    }
     public function logout(){
 
       Account::where('id_account', Auth::user()->id_account)->update([

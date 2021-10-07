@@ -19,6 +19,7 @@ Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
+Route::post('/registermember', 'MemberController@register')->name('registermember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
