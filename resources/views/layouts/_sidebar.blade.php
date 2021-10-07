@@ -228,6 +228,14 @@
                 </a>
               </li>
 
+              <li class="nav-item {{Request::is('penjual/listfeed') ? 'active' : ''}}">
+                <a class="nav-link" href="{{url('penjual/listfeed')}}">
+                  <span class="menu-title">List Feedback / Review</span>
+                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <i class="mdi mdi-comment menu-icon"></i>
+                </a>
+              </li>
+
             @endif
 
 

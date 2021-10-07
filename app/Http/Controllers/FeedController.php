@@ -41,6 +41,17 @@ class FeedController extends Controller
         // return $xyzab;
         // return $xyzab->i_price;
         return Datatables::of($data)
+          ->addColumn("star", function($data) {
+              $html = ""
+              for ($i=0; $i < (Int)$data->star; $i++) {
+                $html += '<span class="fa fa-star checked"></span>';
+              }
+              for ($i=0; $i < (5 - (Int)$data->star); $i++) {
+                $html += '<span class="fa fa-star"></span>';
+              }
+
+              return $html
+          })
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
               return "<span style='color: red;'> User tidak ditemukan (Dihapus dari sistem) <span>";
@@ -57,7 +68,53 @@ class FeedController extends Controller
                      '<label class="fa fa-trash"></label></button>'.
                   '</div>';
           })
-          ->rawColumns(['aksi', 'image', 'username'])
+          ->rawColumns(['aksi', 'image', 'username', 'star'])
+          ->addIndexColumn()
+          ->make(true);
+    }
+
+    public function datatablewtoko() {
+      $data = DB::table('feedback')
+        ->leftjoin("account", "id_account", '=', 'id_user')
+        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "account.fullname", "feedback.feedback")
+        ->orderBy("feedback.created_at", "desc")
+        ->where("id_account", Auth::user()->id_account)
+        ->get();
+
+
+        // return $data;
+        // $xyzab = collect($data);
+        // return $xyzab;
+        // return $xyzab->i_price;
+        return Datatables::of($data)
+          ->addColumn("star", function($data) {
+              $html = ""
+              for ($i=0; $i < (Int)$data->star; $i++) {
+                $html += '<span class="fa fa-star checked"></span>';
+              }
+              for ($i=0; $i < (5 - (Int)$data->star); $i++) {
+                $html += '<span class="fa fa-star"></span>';
+              }
+
+              return $html
+          })
+          ->addColumn("username", function($data) {
+            if ($data->fullname == null) {
+              return "<span style='color: red;'> User tidak ditemukan (Dihapus dari sistem) <span>";
+            } else {
+              return $data->fullname;
+            }
+          })
+          ->addColumn("image", function($data) {
+            return '<div> <img src="'.url('/').'/'.$data->image.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+          })
+          ->addColumn('aksi', function ($data) {
+            return  '<div class="btn-group">'.
+                     '<button type="button" onclick="hapus('.$data->id_feedback.')" class="btn btn-danger btn-lg" title="hapus">'.
+                     '<label class="fa fa-trash"></label></button>'.
+                  '</div>';
+          })
+          ->rawColumns(['aksi', 'image', 'username', 'star'])
           ->addIndexColumn()
           ->make(true);
     }
