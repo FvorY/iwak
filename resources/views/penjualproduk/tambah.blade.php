@@ -119,7 +119,7 @@
                    <div class="col-md-5 col-sm-12 col-xs-12" style="height: 1%;">
                      <div class="row">
                      <div class="col-md-2 col-sm-6 col-xs-12">
-                       <label>Category</label>
+                       <label>Category <span style="color:red;">*</span></label>
                      </div>
                      <div class="col-md-8 col-sm-6 col-xs-12">
                        <div class="form-group">
