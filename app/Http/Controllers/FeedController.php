@@ -28,6 +28,10 @@ class FeedController extends Controller
       return view('feedback.index');
     }
 
+    public function penjualindex() {
+      return view('penjualfeedback.index');
+    }
+
     public function datatable() {
       $data = DB::table('feedback')
         ->leftjoin("account", "id_account", '=', 'id_user')
@@ -42,15 +46,19 @@ class FeedController extends Controller
         // return $xyzab->i_price;
         return Datatables::of($data)
           ->addColumn("star", function($data) {
-              $html = "";
-              for ($i=0; $i < (Int)$data->star; $i++) {
-                $html += '<span class="fa fa-star checked"></span>';
+              if ($data->star == 0) {
+                return '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 1) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 2) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 3) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 4) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 5) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>';
               }
-              for ($i=0; $i < (5 - (Int)$data->star); $i++) {
-                $html += '<span class="fa fa-star"></span>';
-              }
-
-              return $html;
           })
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
@@ -88,15 +96,19 @@ class FeedController extends Controller
         // return $xyzab->i_price;
         return Datatables::of($data)
           ->addColumn("star", function($data) {
-              $html = "";
-              for ($i=0; $i < (Int)$data->star; $i++) {
-                $html += '<span class="fa fa-star checked"></span>';
+              if ($data->star == 0) {
+                return '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 1) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 2) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 3) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 4) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 5) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>';
               }
-              for ($i=0; $i < (5 - (Int)$data->star); $i++) {
-                $html += '<span class="fa fa-star"></span>';
-              }
-
-              return $html;
           })
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
@@ -108,13 +120,7 @@ class FeedController extends Controller
           ->addColumn("image", function($data) {
             return '<div> <img src="'.url('/').'/'.$data->image.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
           })
-          ->addColumn('aksi', function ($data) {
-            return  '<div class="btn-group">'.
-                     '<button type="button" onclick="hapus('.$data->id_feedback.')" class="btn btn-danger btn-lg" title="hapus">'.
-                     '<label class="fa fa-trash"></label></button>'.
-                  '</div>';
-          })
-          ->rawColumns(['aksi', 'image', 'username', 'star'])
+          ->rawColumns(['image', 'username', 'star'])
           ->addIndexColumn()
           ->make(true);
     }

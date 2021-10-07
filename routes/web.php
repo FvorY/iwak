@@ -101,7 +101,7 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::post('/toko/save', 'EdittokoController@simpan');
 
      //List Feedback / Review
-     Route::get('/listfeed', 'FeedController@index');
+     Route::get('/listfeed', 'FeedController@penjualindex');
      Route::get('/listfeed/table', 'FeedController@datatablewtoko');
 
   });
