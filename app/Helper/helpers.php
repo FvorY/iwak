@@ -57,3 +57,7 @@ function compressImage($type,$source, $destination, $quality) {
    imagejpeg($image, $destination, $quality);
 
  }
+
+ function unique_id($l = 3) {
+     return substr(md5(uniqid(mt_rand(), true)), 0, $l);
+ }

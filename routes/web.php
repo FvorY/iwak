@@ -104,6 +104,16 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::get('/listfeed', 'FeedController@penjualindex');
      Route::get('/listfeed/table', 'FeedController@datatablewtoko');
 
+     //Manage Produk
+     Route::get('/produk', 'PenjualProdukController@index');
+     Route::get('/produk/tambahproductcontent', 'PenjualProdukController@tambah');
+     Route::get('/produk/productcontenttable', 'PenjualProdukController@datatable');
+     Route::post('/produk/simpanproductcontent', 'PenjualProdukController@simpan');
+     Route::get('/produk/editproductcontent/{id}', 'PenjualProdukController@edit');
+     Route::get('/produk/doeditproductcontent', 'PenjualProdukController@doedit');
+     Route::get('/produk/removeimageproductcontent', 'PenjualProdukController@removeimage');
+     Route::get('/produk/hapusproductcontent', 'PenjualProdukController@hapus');
+
   });
 
 });
