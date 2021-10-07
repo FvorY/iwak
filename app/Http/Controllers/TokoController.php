@@ -99,6 +99,15 @@ class TokoController extends Controller
     }
 
     public function simpan(Request $req) {
+
+        if ($req->namatoko == null) {
+            return response()->json(["status" => 7, "message" => "Isi nama toko anda terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
+        if ($req->namatoko == "") {
+            return response()->json(["status" => 7, "message" => "Isi nama toko anda terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
         DB::beginTransaction();
         try {
           $imgPath = null;

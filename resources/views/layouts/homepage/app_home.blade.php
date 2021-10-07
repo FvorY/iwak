@@ -593,7 +593,7 @@
 					$('#modal_toko').modal('hide');
 	        if (data.status == 1) {
 						window.location.href = "{{url('/penjual/home')}}"
-	        }else if(data.status == 2){
+	        } else {
 						swal(
 						  'Gagal membuat toko :(',
 						  'Cek kembali data anda, dan silahkan coba lagi nanti',

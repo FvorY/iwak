@@ -10,6 +10,9 @@
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
+            <div class="alert alert-warning" role="alert">
+              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            </div>
           {{-- <tr>
             <td>Pilih User</td>
             <td>
@@ -18,7 +21,7 @@
             </td>
           </tr> --}}
           <tr>
-            <td>Nama Toko</td>
+            <td>Nama Toko <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext namatoko" name="namatoko">
               <input type="hidden" class="form-control form-control-sm id" name="id">

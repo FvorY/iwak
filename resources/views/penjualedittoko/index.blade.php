@@ -17,6 +17,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Toko</h4>
+                    <div class="alert alert-warning" role="alert">
+                      Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+                    </div>
 
                     @if (session('sukses'))
                     <div class="alert alert-success" role="alert">
@@ -26,7 +29,7 @@
 
                     @if (session('gagal'))
                     <div class="alert alert-danger" role="alert">
-                      Gagal, Info Gagal Disimpan
+                      Gagal, Cek Kembali Data Anda, Info Gagal Disimpan
                     </div>
                     @endif
 
@@ -40,7 +43,7 @@
                               <div class="row">
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Nama Toko</label>
+                                  <label>Nama Toko <span style="color:red;">*</span></label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">

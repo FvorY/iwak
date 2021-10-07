@@ -41,6 +41,7 @@
   <!-- <link href="{{asset('assets/jp-list/css/jplist.demo-pages.min.css')}}" rel="stylesheet" type="text/css" /> -->
 
   <!-- inject:css -->
+  <link rel="stylesheet" href="{{asset('assets/css/dropzone.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/style-op.css')}}">
   <!-- endinject -->

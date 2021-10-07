@@ -28,11 +28,35 @@ class PenjualProdukController extends Controller
 
     public function datatable() {
       $data = DB::table('produk')
+        ->leftjoin('category', 'produk.id_category', '=', 'category.id_category')
+        ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+        ->select('imageproduk.image', 'produk.id_produk', 'produk.star', 'produk.price', 'produk.description', 'produk.sold', 'category.category_name', 'produk.stock', 'produk.name')
         ->where("id_account", Auth::user()->id_account)
+        ->groupby("imageproduk.id_produk")
         ->get();
 
-
         return Datatables::of($data)
+          ->addColumn("image", function($data) {
+            return '<div> <img src="'.url('/').'/'.$data->image.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+          })
+          ->addColumn("price", function($data) {
+            return FormatRupiahFront($data->price);
+          })
+          ->addColumn("star", function($data) {
+              if ($data->star == 0) {
+                return '<span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 1) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 2) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 3) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 4) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>';
+              } else if ($data->star == 5) {
+                return '<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>';
+              }
+          })
           ->addColumn('aksi', function ($data) {
             return  '<div class="btn-group">'.
                      '<button type="button" onclick="edit('.$data->id_produk.')" class="btn btn-info btn-lg" title="edit">'.
@@ -41,7 +65,7 @@ class PenjualProdukController extends Controller
                      '<label class="fa fa-trash"></label></button>'.
                   '</div>';
           })
-          ->rawColumns(['aksi'])
+          ->rawColumns(['aksi', 'star', 'image', 'price'])
           ->addIndexColumn()
           ->make(true);
     }
@@ -54,19 +78,22 @@ class PenjualProdukController extends Controller
     }
 
     public function simpan(Request $req) {
-
+      // dd($req);
       if ($req->id == null) {
         DB::beginTransaction();
         try {
 
           $max = DB::table("produk")->max('id_produk') + 1;
 
-          $cek = DB::table("produk")->where("urlsegment", strtolower(str_replace(" ", "-", $req->name)))->first();
+          $cek = DB::table("produk")->where("url_segment", strtolower(str_replace(" ", "-", $req->name)))->first();
 
-          $urlsegment = $req->name;
+          $urlsegment = strtolower(str_replace(" ", "-", $req->name));
           if ($cek != null) {
-              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) + "-" + unique_id(3);
+              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) . "-" . unique_id(3);
           }
+
+          $price = str_replace('.','',$req->price);
+          $price = str_replace('Rp ','',$price);
 
           DB::table("produk")
               ->insert([
@@ -74,12 +101,12 @@ class PenjualProdukController extends Controller
               "id_account" => Auth::user()->id_account,
               "name" => $req->name,
               "id_category" => $req->category,
-              "price" => $req->price,
+              "price" => $price,
               "stock" => $req->stock,
-              "diskon" => $req->diskon,
+              "diskon" => is_null($req->diskon) ? 0 : $req->diskon,
               "isdiskon" => $req->isdiskon,
               "description" => $req->description,
-              "urlsegment" => $urlsegment,
+              "url_segment" => $urlsegment,
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
@@ -100,13 +127,14 @@ class PenjualProdukController extends Controller
                 $name = $folder . '.' . $value->getClientOriginalExtension();
                 if (!File::exists($path)) {
                     if (File::makeDirectory($path, 0777, true)) {
-                        compressImage($_FILES['file']['type'],$_FILES['file']['tmp_name'],$_FILES['file']['tmp_name'],60);
                         $value->move($path, $name);
                         $imgPath = $childPath . $name;
+                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,60);
 
                         DB::table("imageproduk")
                             ->insert([
-                              'id_produk' => $req->id,
+                              'id_produk' => $max,
+                              'id_image' => ($key + 1),
                               'image' => $imgPath,
                         ]);
 
@@ -119,6 +147,8 @@ class PenjualProdukController extends Controller
           }
           }
 
+
+
           DB::commit();
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
@@ -129,25 +159,30 @@ class PenjualProdukController extends Controller
         DB::beginTransaction();
         try {
 
-          $cek = DB::table("produk")->where("urlsegment", strtolower(str_replace(" ", "-", $req->name)))->first();
+          $max = DB::table("imageproduk")->where("id_produk", $req->id)->max('id_image') + 1;
 
-          $urlsegment = $req->name;
+          $cek = DB::table("produk")->where("url_segment", strtolower(str_replace(" ", "-", $req->name)))->first();
+
+          $urlsegment = strtolower(str_replace(" ", "-", $req->name));
           if ($cek != null) {
-              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) + "-" + unique_id(3);
+              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) . "-" . unique_id(3);
           }
 
-          DB::table("product")
-              ->where("id", $req->id)
+          $price = str_replace('.','',$req->price);
+          $price = str_replace('Rp ','',$price);
+
+          DB::table("produk")
+              ->where("id_produk", $req->id)
               ->update([
                 "id_account" => Auth::user()->id_account,
                 "name" => $req->name,
                 "id_category" => $req->category,
-                "price" => $req->price,
+                "price" => $price,
                 "stock" => $req->stock,
                 "diskon" => $req->diskon,
                 "isdiskon" => $req->isdiskon,
                 "description" => $req->description,
-                "urlsegment" => $urlsegment,
+                "url_segment" => $urlsegment,
                 "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
@@ -159,7 +194,7 @@ class PenjualProdukController extends Controller
               $imgPath = null;
               $tgl = Carbon::now('Asia/Jakarta');
               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-              $dir = 'image/uploads/Product/' . $req->id . '/' . ($key + 1)  ;
+              $dir = 'image/uploads/Product/' . $req->id . '/' . $max;
               $childPath = $dir . '/';
               $path = $childPath;
 
@@ -169,17 +204,14 @@ class PenjualProdukController extends Controller
                   $name = $folder . '.' . $value->getClientOriginalExtension();
                   if (!File::exists($path)) {
                       if (File::makeDirectory($path, 0777, true)) {
-                        compressImage($_FILES['file']['type'],$_FILES['file']['tmp_name'],$_FILES['file']['tmp_name'],60);
-                          $value->move($path, $name);
-                          $imgPath = $childPath . $name;
-
-                          DB::table("imageproduk")
-                            ->where("id_produk", $req->id)
-                            ->delete();
+                        $value->move($path, $name);
+                        $imgPath = $childPath . $name;
+                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,60);
 
                           DB::table("imageproduk")
                               ->insert([
                                 'id_produk' => $req->id,
+                                'id_image' => ($key + 1),
                                 'image' => $imgPath,
                           ]);
 
@@ -189,6 +221,7 @@ class PenjualProdukController extends Controller
                       return 'already exist';
                   }
               }
+
             }
           }
 
@@ -239,7 +272,7 @@ class PenjualProdukController extends Controller
 
       $dataproduct = DB::table("produk")->where("id_produk", $id)->first();
 
-      $dataimage = DB::table("imageproduk")->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')->where("id_produk", $id)->get();
+      $dataimage = DB::table("imageproduk")->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')->where("produk.id_produk", $id)->get();
 
       return response()->json([
         'product' => $dataproduct,
@@ -248,17 +281,12 @@ class PenjualProdukController extends Controller
     }
 
     public function removeimage(Request $req) {
-      DB::table("productdetailimage")->where("productimage", $req->id)->delete();
+      DB::table("imageproduk")->where("id_image", $req->id_image)->where('id_produk', $req->id_produk)->delete();
 
-      $cek = DB::table("productimage")->where("id", $req->id)->first();
-
-      DB::table("productimage")->where("id", $req->id)->delete();
-
-      $dir = 'image/uploads/Product/' . $cek->id;
+      $dir = 'image/uploads/Product/' . $req->id_produk . '/' . $req->id_image;
       $childPath = $dir . '/';
 
       $this->deleteDir($dir);
-
     }
 
     public function deleteDir($dirPath)

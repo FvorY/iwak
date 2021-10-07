@@ -61,7 +61,6 @@ class EditinfoController extends Controller
 
             return back()->with('sukses','sukses');
        } catch (\Exception $e) {
-         // DD($e);
             DB::rollback();
             Session::flash('gagal', 'gagal');
 

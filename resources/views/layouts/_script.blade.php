@@ -52,6 +52,7 @@
   <script src="{{asset('assets/js/tabs.js')}}"></script>
   <script src="{{asset('assets/js/select2.js')}}"></script>
   <script src="{{asset('assets/js/file-upload.js')}}"></script>
+  <script src="{{asset('assets/js/dropzone.js')}}"></script>
   <script src="{{asset('assets/js/js.cookie.js')}}"></script>
   <script src="{{asset('assets/js/dropify.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/dropify/dist/js/dropify.min.js"></script>
   <script src="{{asset('assets/js/dropify.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/js/dropify.js"></script>

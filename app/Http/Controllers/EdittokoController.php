@@ -36,8 +36,25 @@ class EdittokoController extends Controller
      }
 
      public function simpan(Request $req) {
+
+         if ($req->namatoko == null) {
+           // dd($req);
+           Session::flash('gagal', 'gagal');
+
+           return back()->with('gagal','gagal');
+         }
+
          DB::beginTransaction();
          try {
+
+           if ($req->namatoko == "") {
+             // dd($req);
+             Session::flash('gagal', 'gagal');
+
+             return back()->with('gagal','gagal');
+           }
+
+           // dd($req);
            $imgPath = null;
            $tgl = Carbon::now('Asia/Jakarta');
            $folder = $tgl->year . $tgl->month . $tgl->timestamp;
@@ -87,7 +104,6 @@ class EdittokoController extends Controller
 
            return back()->with('sukses','sukses');
          } catch (\Exception $e) {
-           dd($e);
            DB::rollback();
            Session::flash('gagal', 'gagal');
 

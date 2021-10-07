@@ -42,10 +42,7 @@ class PenjualHomeController extends Controller
        $omset = DB::table("transaction")
                 ->where("id_penjual", Auth::user()->id_account)
                 ->where("pay", "Y")
-                ->join("payment", "payment.id_transaction", '=', 'transaction.id_transaction')
-                ->join("transaction_detail", "transaction_detail.id_transaction", '=', 'transaction.id_transaction')
-                ->join("produk", "produk.id_produk", '=', 'transaction_detail.id_produk')
-                ->sum("produk.price");
+                ->sum("transaction.subtotal");
 
        $pesananbelomterbayar = DB::table("transaction")
                             ->where("id_penjual", Auth::user()->id_account)

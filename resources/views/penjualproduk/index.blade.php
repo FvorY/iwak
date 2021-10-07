@@ -11,7 +11,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/penjual/home')}}">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
+          <li class="breadcrumb-item">Penjual</li>
           <li class="breadcrumb-item active" aria-current="page">Product</li>
         </ol>
       </nav>
@@ -30,7 +30,13 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
+                                <th>Image</th>
                                 <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Sold</th>
+                                <th>Rating / Star</th>
+                                <th>Category</th>
                                 <th>Description</th>
                                 <th>Action</th>
                               </tr>
@@ -90,7 +96,13 @@ var table = $('#table-data').DataTable({
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+          {data: 'image', name: 'image'},
           {data: 'name', name: 'name'},
+          {data: 'price', name: 'price'},
+          {data: 'stock', name: 'stock'},
+          {data: 'sold', name: 'sold'},
+          {data: 'star', name: 'star'},
+          {data: 'category_name', name: 'category_name'},
           {data: 'description', name: 'description'},
           {data: 'aksi', name: 'aksi'},
 
@@ -103,6 +115,48 @@ var table = $('#table-data').DataTable({
     // body...
     window.location.href = baseUrlChange + '/editproductcontent/' + id
 
+  }
+
+  function reloadall() {
+    $('.table_modal :input').val("");
+    $('.image-holder').empty();
+    $('#tambah').modal('hide');
+    // // $('#table_modal :input').val('');
+    // $(".inputtext").val("");
+    // var table1 = $('#table_modal').DataTable();
+    // table1.ajax.reload();
+    table.ajax.reload();
+  }
+
+  function hapus(id) {
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Hapus data',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url: baseUrlChange + '/hapusproductcontent',
+            data:{id},
+            dataType:'json',
+            success:function(data){
+              iziToast.success({
+                  icon: 'fa fa-trash',
+                  message: 'Data Berhasil Dihapus!',
+              });
+
+              reloadall();
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
   }
 
 </script>
