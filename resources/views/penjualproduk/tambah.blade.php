@@ -168,6 +168,7 @@ Dropzone.autoDiscover = false;
 var myDropzone = new Dropzone(".dropzone", {
    autoProcessQueue: false,
    uploadMultiple: true,
+   timeout: 180000,
    url: baseUrlChange + "/simpanproductcontent",
    acceptedFiles:'image/*',
    params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : $('.isdiskon').val() }; },
