@@ -129,7 +129,7 @@ class PenjualProdukController extends Controller
                     if (File::makeDirectory($path, 0777, true)) {
                         $value->move($path, $name);
                         $imgPath = $childPath . $name;
-                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,90);
+                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
 
                         DB::table("imageproduk")
                             ->insert([
@@ -206,7 +206,7 @@ class PenjualProdukController extends Controller
                       if (File::makeDirectory($path, 0777, true)) {
                         $value->move($path, $name);
                         $imgPath = $childPath . $name;
-                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,60);
+                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
 
                           DB::table("imageproduk")
                               ->insert([
