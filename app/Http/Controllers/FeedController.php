@@ -42,7 +42,7 @@ class FeedController extends Controller
         // return $xyzab->i_price;
         return Datatables::of($data)
           ->addColumn("star", function($data) {
-              $html = ""
+              $html = "";
               for ($i=0; $i < (Int)$data->star; $i++) {
                 $html += '<span class="fa fa-star checked"></span>';
               }
@@ -88,7 +88,7 @@ class FeedController extends Controller
         // return $xyzab->i_price;
         return Datatables::of($data)
           ->addColumn("star", function($data) {
-              $html = ""
+              $html = "";
               for ($i=0; $i < (Int)$data->star; $i++) {
                 $html += '<span class="fa fa-star checked"></span>';
               }
