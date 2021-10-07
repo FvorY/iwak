@@ -79,23 +79,31 @@ class MemberController extends Controller
 
     public function register(Request $req){
         $this->validate($req, [
-            'fullname' => 'required|string|min:4',
+            // 'fullname' => 'required|string|min:4',
             'email' => 'required|min:4|email',
-            'password' => 'required|min:4',
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password'
+            // 'password_confirm' => 'required_with:password|same:password|min:4',
         ]);
 
 
           $max = DB::table("account")->max('id_account') + 1;
-          $email = $req['email'];
           // $user = Account::where("email", $email)->where("role", "member")->first();
 
        
+          // Define Email Address
+          $email = $req['email'];
+
+
+          // Get the username by slicing string
+          $fullname = strstr($email, '@', true);
+
          $regis = Account::create([
             'id_account' => $max,
-            'fullname' => $req['fullname'],
+            'fullname' => $fullname,
             'email' => $req['email'],
             'password' => $req['password'],
-            'confirm_password' => $req['password'],
+            'confirm_password' => $req['password_confirmation'],
             'role' => 'member',
             'islogin' => 'Y',
             'last_online'=>Carbon::now(),

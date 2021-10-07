@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
 </head>
-@if (session('password'))
+@if (session('password') | $errors->any())
 <body class="side-col-active">
 @else
 <body>
@@ -161,7 +161,7 @@
 									</li>
 									@if(Auth::check() == NULL)
 									<li>
-										 @if (session('password'))
+										 @if (session('password') | $errors->any())
 										<a href="#" class=" side-opener active">
 											@else
 										<a href="#" class=" side-opener">
@@ -198,7 +198,7 @@
 					</div>
 				</div>
 				<!-- mt bottom bar end here -->
-				@if (session('password'))
+				@if (session('password') | $errors->any())
 				<span class="mt-side-over active"></span>
 				@else
 				<span class="mt-side-over"></span>
@@ -243,13 +243,24 @@
 							<span class="mt-side-subtitle">CREATE NEW ACCOUNT</span>
 							<p>Create your very own account</p>
 						</header>
+						@if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 						<form autocomplete="off" method="post" action="{{ url('registermember') }}">
           {{ csrf_field() }}
 
 							<fieldset>
-								<input type="text" placeholder="Fullname" class="input" name="fullname">
-								<input type="email" placeholder="Email address" class="input" name="email">
-								<input type="password" placeholder="Password" class="input" name="password">
+								<!-- <input type="text" placeholder="Fullname" class="input" name="fullname"> -->
+								<input type="email" placeholder="Email address" class="input" name="email" required>
+								<input type="password" placeholder="Password" class="input" name="password" id="password" required>
+
+								<input id="password" class="input" type="password" placeholder="Re Type Password" id="password_confirmation" name="password_confirmation" required>
 								<button type="submit" class="btn-type1">Register</button>
 							</fieldset>
 						</form>
