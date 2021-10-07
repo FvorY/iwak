@@ -227,10 +227,10 @@
 								 @if (session('password'))
               	<div class="red"  style="color: red"><b>Passsword Tidak Ada</b></div>
             		@endif
-								<div class="box">
+								{{-- <div class="box">
 									<span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span>
 									<a href="#" class="help">Help?</a>
-								</div>
+								</div> --}}
 								<button type="submit" class="btn-type1">Login</button>
 							</fieldset>
 						</form>

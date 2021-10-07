@@ -152,7 +152,6 @@ class PenjualProdukController extends Controller
           DB::commit();
           return response()->json(["status" => 1]);
         } catch (\Exception $e) {
-          dd($e);
           DB::rollback();
           return response()->json(["status" => 2]);
         }
