@@ -50,7 +50,7 @@ class FeedController extends Controller
                 $html += '<span class="fa fa-star"></span>';
               }
 
-              return $html
+              return $html;
           })
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
@@ -96,7 +96,7 @@ class FeedController extends Controller
                 $html += '<span class="fa fa-star"></span>';
               }
 
-              return $html
+              return $html;
           })
           ->addColumn("username", function($data) {
             if ($data->fullname == null) {
