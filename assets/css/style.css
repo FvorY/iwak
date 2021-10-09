@@ -19729,7 +19729,8 @@ body.avgrund-active {
 /* Dropzone */
 .dropzone {
   border: 1px solid #e6ecf5;
-  height: 200px; }
+  /* height: 200px;  */
+}
   .dropzone .dz-message {
     text-align: center;
     width: 100%; }

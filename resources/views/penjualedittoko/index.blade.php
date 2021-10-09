@@ -93,6 +93,21 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                  <label>Aktifkan Toko ? </label>
+                                </div>
+
+                                <div class="col-md-2 col-sm-6 col-xs-12" style="padding-left: 40px">
+                                  <div class="form-group">
+                                    <input class="form-check-input isdiskon" type="radio" name="istoko" value="Y" @isset($data) @if($data->istoko == "Y") ? checked :  @endif @endisset >Ya
+                                  </div>
+                                </div>
+                                <div class="col-md-7 col-sm-6 col-xs-12" style="padding-left: 40px">
+                                  <div class="form-group">
+                                    <input class="form-check-input isdiskon" type="radio" name="istoko" value="N" @isset($data) @if($data->istoko == "N") ? checked :  @endif @endisset >Tidak
+                                  </div>
+                                </div>
+
                                 <div class="col-md-2 col-sm-6 col-xs-12">
                                   <label>Image</label>
                                 </div>

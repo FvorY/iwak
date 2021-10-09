@@ -85,6 +85,7 @@ class EdittokoController extends Controller
                  ->update([
                  "namatoko" => $req->namatoko,
                  "bank" => $req->bank,
+                 "istoko" => $req->istoko,
                  "updated_at" => Carbon::now('Asia/Jakarta'),
                ]);
            } else {
@@ -95,6 +96,7 @@ class EdittokoController extends Controller
                  "nomor_rekening" => $req->nomor_rekening,
                  "bank" => $req->bank,
                  "profile_toko" => $imgPath,
+                 "istoko" => $req->istoko,
                  "updated_at" => Carbon::now('Asia/Jakarta'),
                ]);
            }

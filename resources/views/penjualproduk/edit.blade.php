@@ -24,6 +24,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Form Product</h4>
+                    <div class="alert alert-warning" role="alert">
+                      Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+                    </div>
 
                     @if (session('sukses'))
                     <div class="alert alert-success" role="alert">
@@ -143,6 +146,9 @@
 
                     <div id="formuploadimage">
                       <h4 class="card-title">Upload Image</h4>
+                      <div class="alert alert-warning" role="alert">
+                        Jika Remove File Diklik Maka Foto / Image Akan Otomatis Hilang
+                      </div>
                       <form action="{{url('/penjual/produk/simpanproductcontent')}}" class="dropzone">
 
                       </form>
