@@ -13,7 +13,7 @@
           Mohon isi semua data yang bertanda <span style="color:red;">*</span>
         </div>
         <div class="row">
-          <table class="table table_modal">
+          <table class="table table_modalupdate">
 
           {{-- <tr>
             <td>Pilih User</td>

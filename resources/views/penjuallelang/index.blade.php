@@ -204,7 +204,7 @@ var table = $('#table-data').DataTable({
 
   $.ajax({
     type: "post",
-    url: baseUrlChange + '/update?_token='+"{{csrf_token()}}&"+$('.table_modal :input').serialize(),
+    url: baseUrlChange + '/update?_token='+"{{csrf_token()}}&"+$('.table_modalupdate :input').serialize(),
     processData: false, //important
     contentType: false,
     cache: false,
