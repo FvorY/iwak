@@ -115,6 +115,19 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::get('/produk/removeimageproductcontent', 'PenjualProdukController@removeimage');
      Route::get('/produk/hapusproductcontent', 'PenjualProdukController@hapus');
 
+     //Manage Lelang
+     Route::get('/lelang', 'PenjualLelangController@index');
+     Route::get('/lelang/table', 'PenjualLelangController@datatable');
+     Route::get('/lelang/listbid/{id}', 'PenjualLelangController@listbid');
+     Route::get('/lelang/hapus', 'PenjualLelangController@hapus');
+     Route::get('/lelang/aktif', 'PenjualLelangController@aktif');
+     Route::get('/lelang/nonaktif', 'PenjualLelangController@nonaktif');
+     Route::get('/lelang/edit', 'PenjualLelangController@edit');
+     Route::post('/lelang/simpan', 'PenjualLelangController@simpan');
+     Route::post('/lelang/update', 'PenjualLelangController@update');
+     Route::get('/lelang/pemenang', 'PenjualLelangController@pemenang');
+     Route::get('/lelang/won', 'PenjualLelangController@won');
+
   });
 
 });

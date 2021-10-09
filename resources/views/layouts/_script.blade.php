@@ -516,17 +516,17 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 
 <script type="text/javascript">
 
-  $(document).ajaxStart(function(){
-    if (allowloading == true) {
-      waitingDialog.show();
-    }
-  })
-
-  $(document).ajaxComplete(function(){
-    if (allowloading == true) {
-      setTimeout(function () {
-          waitingDialog.hide();
-      }, 500);
-    }
-  })
+  // $(document).ajaxStart(function(){
+  //   if (allowloading == true) {
+  //     waitingDialog.show();
+  //   }
+  // })
+  //
+  // $(document).ajaxComplete(function(){
+  //   if (allowloading == true) {
+  //     setTimeout(function () {
+  //         waitingDialog.hide();
+  //     }, 500);
+  //   }
+  // })
 </script>

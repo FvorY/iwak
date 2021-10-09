@@ -30,7 +30,7 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>Image</th>
+                                <th>Image Utama</th>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Stock</th>

@@ -140,6 +140,8 @@ var table = $('#table-data').DataTable({
         data:{id},
         dataType:'json',
         success:function(data){
+          reloadall()
+
           $('.id').val(data.id_account);
           $('.namatoko').val(data.namatoko);
           $('.star').val(data.star);
@@ -234,7 +236,7 @@ var table = $('#table-data').DataTable({
                 }else if(data.status == 4){
                   iziToast.warning({
                       icon: 'fa fa-info',
-                      message: 'Toko Berhasil Diaktifkan!',
+                      message: 'Toko Gagal Diaktifkan!',
                   });
                 }else if (data.status == 7) {
                   iziToast.warning({
@@ -280,7 +282,7 @@ var table = $('#table-data').DataTable({
                 }else if(data.status == 4){
                   iziToast.warning({
                       icon: 'fa fa-info',
-                      message: 'Toko Berhasil Dinonaktifkan!',
+                      message: 'Toko Gagal Dinonaktifkan!',
                   });
                 }
 

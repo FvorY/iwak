@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
 </head>
-@if (session('password') | $errors->any())
+@if (session('password') || $errors->any())
 <body class="side-col-active">
 @else
 <body>
@@ -161,7 +161,7 @@
 									</li>
 									@if(Auth::check() == NULL)
 									<li>
-										 @if (session('password') | $errors->any())
+										 @if (session('password') || $errors->any())
 										<a href="#" class=" side-opener active">
 											@else
 										<a href="#" class=" side-opener">
@@ -198,7 +198,7 @@
 					</div>
 				</div>
 				<!-- mt bottom bar end here -->
-				@if (session('password') | $errors->any())
+				@if (session('password') || $errors->any())
 				<span class="mt-side-over active"></span>
 				@else
 				<span class="mt-side-over"></span>
@@ -540,11 +540,18 @@
 				console.log(result);
 			  /* Read more about isConfirmed, isDenied below */
 			  if (result.value) {
+					reloadall()
 			    $('#modal_toko').modal('show');
 			  } else {
 			  }
 			})
 		}
+
+		function reloadall() {
+      $('.table_modal :input').val("");
+      $('.image-holder').empty();
+      $('#tambah').modal('hide');
+    }
 
 		$(".uploadGambartoko").on('change', function () {
             $('.save').attr('disabled', false);
