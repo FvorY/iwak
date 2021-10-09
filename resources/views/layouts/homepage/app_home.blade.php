@@ -510,14 +510,30 @@
 				success:function(data){
 					console.log(data);
 
-					$('.mailto').attr("href", "mailto:"+data.info[0].email+"");
-					$('.mailtotext').text(data.info[0].email);
-					$('.desctext').text(data.info[0].description);
-					$('.addresstext').text(data.info[0].address);
+					if (data.info[0].email == null) {
+						email = ""
+					} else {
+						email = data.info[0].email ? "" : data.info[0].email
+					}
 
-					email = data.info[0].email
-					address = data.info[0].address
-					description = data.info[0].description
+					if (data.info[0].address == null) {
+						address = ""
+					} else {
+						address = data.info[0].address ? "" : data.info[0].address
+					}
+
+					if (data.info[0].description == null) {
+						description = ""
+					} else {
+						description = data.info[0].description ? "" : data.info[0].description
+					}
+
+					$('.mailto').attr("href", "mailto:"+email+"");
+					$('.mailtotext').text(email);
+					$('.desctext').text(description);
+					$('.addresstext').text(address);
+
+
 
 					var htmlcat = ""
 					for (var i = 0; i < data.category.length; i++) {
