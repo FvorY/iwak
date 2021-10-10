@@ -227,12 +227,12 @@ $('#btnsubmit').click(function(){
           }else if(response.status == 2){
             iziToast.warning({
                 icon: 'fa fa-info',
-                message: 'Data Gagal disimpan!',
+                message: 'Data Gagal Disimpan!',
             });
           }else if (response.status == 3){
             iziToast.success({
                 icon: 'fa fa-save',
-                message: 'Data Berhasil Diubah!',
+                message: 'Data Berhasil Disimpan!',
             });
             setTimeout(function () {
               window.location.href = baseUrlChange;

@@ -128,6 +128,12 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::get('/lelang/pemenang', 'PenjualLelangController@pemenang');
      Route::get('/lelang/won', 'PenjualLelangController@won');
 
+     //List Pesanan
+     Route::get('/listorder', 'PenjualListpesananController@index');
+     Route::get('/listorder/table', 'PenjualListpesananController@dataTable');
+     Route::get('/listorder/cancel', 'PenjualListpesananController@cancel');
+     Route::get('/listorder/hapus', 'PenjualListpesananController@hapus');
+
   });
 
 });
