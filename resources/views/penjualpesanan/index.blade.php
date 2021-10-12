@@ -1,5 +1,7 @@
 @extends('main')
 @section('content')
+@include('penjualpesanan.listpayment')
+@include('penjualpesanan.detailpesanan')
 
 <style type="text/css">
 
@@ -214,15 +216,241 @@ var table = $('#table-data').DataTable({
   	});
   }
 
+  function deliverdone(id) {
+    iziToast.question({
+      close: false,
+      overlay: true,
+      displayMode: 'once',
+      title: 'Pesanan selesai dikirim',
+      message: 'Apakah anda yakin ?',
+      position: 'center',
+      buttons: [
+        ['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url: baseUrlChange + '/deliverdone',
+            data:{id},
+            dataType:'json',
+            success:function(response){
+              if (response.status == 1) {
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Sudah Dikirim!',
+                });
+                reloadall();
+              }else if(response.status == 2){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+              }else if (response.status == 3){
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Sudah Dikirim!',
+                });
+                reloadall();
+              }else if (response.status == 4){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+            }
+
+
+            }
+          });
+        }, true],
+        ['<button>Tidak</button>', function (instance, toast) {
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+        }],
+      ]
+    });
+  }
+
+  function deliver(id) {
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Pesanan dikirim',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url: baseUrlChange + '/deliver',
+            data:{id},
+            dataType:'json',
+            success:function(response){
+              if (response.status == 1) {
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Berhasil Dikirim!',
+                });
+                reloadall();
+              }else if(response.status == 2){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+              }else if (response.status == 3){
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Berhasil Dikirim!',
+                });
+                reloadall();
+              }else if (response.status == 4){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+            }
+
+
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
+  }
+
+  function approve(id) {
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Konfirmasi pembayaran',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url: baseUrlChange + '/approve',
+            data:{id},
+            dataType:'json',
+            success:function(response){
+              if (response.status == 1) {
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pembayaran Berhasil Dikonfirmasi!',
+                });
+                reloadall();
+              }else if(response.status == 2){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pembayaran Gagal Dikonfirmasi!',
+                });
+              }else if (response.status == 3){
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pembayaran Berhasil Dikonfirmasi!',
+                });
+                reloadall();
+              }else if (response.status == 4){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pembayaran Gagal Dikonfirmasi!',
+                });
+            }
+
+
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
+  }
+
   function reloadall() {
     $('.table_modal :input').val("");
     $('.image-holder').empty();
     $('#tambah').modal('hide');
+    $('#listpay').modal('hide');
+    $('#detailpesanan').modal('hide');
     // // $('#table_modal :input').val('');
     // $(".inputtext").val("");
     // var table1 = $('#table_modal').DataTable();
     // table1.ajax.reload();
     table.ajax.reload();
+  }
+
+  function showpayment(id) {
+      $('#table-datapay').DataTable().clear().destroy();
+
+      $('#table-datapay').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            searching: true,
+            paging: true,
+            ajax: {
+                url: baseUrlChange + "/showpayment/" + id,
+            },
+            columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'center id'
+                  },
+                  {
+                     targets: 1,
+                     className: 'center'
+                  },
+                  {
+                     targets: 2,
+                     className: 'center'
+                  },
+                  {
+                     targets: 3,
+                     className: 'center'
+                  },
+                ],
+            "columns": [
+              {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+              {data: 'image', name: 'image'},
+              {data: 'aksi', name: 'aksi'},
+              {data: 'approve', name: 'approve'},
+            ]
+      });
+
+      $('#listpay').modal('show');
+  }
+
+  function detail(id) {
+    var html = "";
+    $.ajax({
+      url: baseUrlChange + '/detail',
+      data:{id},
+      dataType:'json',
+      success:function(response){
+
+        var subtotal = 0
+        for (var i = 0; i < response.length; i++) {
+
+          let detail = response[i];
+          
+          subtotal += detail.qty * detail.price;
+
+          html += "<tr>"+
+                  "<td> "+(i+1)+" </td>"+
+                  "<td> "+detail.name+" </td>"+
+                  "<td> "+detail.qty+" </td>"+
+                  "<td> "+"Rp. " + accounting.formatMoney(detail.price,"",0,'.',',')+" </td>"+
+                  "<td> "+"Rp. " + accounting.formatMoney((detail.qty * detail.price),"",0,'.',',')+" </td>"+
+                  "<tr>";
+        }
+
+        $('#subtotal').text(accounting.formatMoney(subtotal,"",0,'.',','));
+        $('#bodydetail').html(html);
+        $('#detailpesanan').modal('show');
+
+      }
+    })
   }
 </script>
 @endsection

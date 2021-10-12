@@ -68,6 +68,9 @@ class PenjualListpesananController extends Controller
             $aksi = $aksi . '<button type="button" onclick="detail('.$data->id_transaction.')" class="btn btn-info btn-lg" title="Detail">'.
             '<label class="fa fa-folder"></label></button>';
 
+            $aksi = $aksi . '<button type="button" onclick="showpayment('.$data->id_transaction.')" class="btn btn-success btn-lg" title="Show Payment">'.
+            '<label class="fa fa-dollar"></label></button>';
+
             if ($data->cancelled == "N") {
               if ($data->pay == "Y") {
                 if ($data->deliver == "N") {
@@ -77,9 +80,6 @@ class PenjualListpesananController extends Controller
                   $aksi = $aksi . '<button type="button" onclick="deliverdone('.$data->id_transaction.')" class="btn btn-primary btn-lg" title="Deliver Done">'.
                   '<label class="fa fa-truck-loading"></label></button>';
                 }
-
-                $aksi = $aksi . '<button type="button" onclick="showpayment('.$data->id_transaction.')" class="btn btn-success btn-lg" title="Show Payment">'.
-                '<label class="fa fa-dollar"></label></button>';
               } else {
                 $aksi = $aksi . '<button type="button" onclick="cancel('.$data->id_transaction.')" class="btn btn-warning btn-lg" title="Cancel">'.
                 '<label class="fa fa-close"></label></button>';
@@ -94,6 +94,31 @@ class PenjualListpesananController extends Controller
           ->rawColumns(['aksi', 'status'])
           ->addIndexColumn()
           ->make(true);
+    }
+
+    public function showpayment($id) {
+      $data = DB::table("payment")
+              ->join('transaction', 'transaction.id_transaction', '=', 'payment.id_transaction')
+              ->orderby('payment.created_at', "DESC")
+              ->where("payment.id_transaction", $id)
+              ->get();
+
+      return Datatables::of($data)
+        ->addColumn("image", function($data) {
+          return '<div> <img src="'.url('/').'/'.$data->image.'" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+        })
+        ->addColumn('aksi', function ($data) {
+          return '<a class="btn btn-primary" href="'.url('/').'/'.$data->image.'" target="_blank"> Preview </a>';
+        })
+        ->addColumn('approve', function ($data) {
+          if ($data->pay == "N") {
+            return '<button type="button" onclick="approve('.$data->id_payment.')" class="btn btn-success btn-lg" title="Approve">'.
+            '<label class="fa fa-check"></label></button>';
+          }
+        })
+        ->rawColumns(['aksi', 'image', 'approve'])
+        ->addIndexColumn()
+        ->make(true);
     }
 
     public function hapus(Request $req) {
@@ -137,6 +162,85 @@ class PenjualListpesananController extends Controller
         DB::rollback();
         return response()->json(["status" => 4]);
       }
+
+    }
+
+    public function approve(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $payment = DB::table("payment")
+                      ->where("id_payment", $req->id)
+                      ->first();
+
+        DB::table("payment")
+            ->where("id_payment", $req->id)
+            ->update([
+              "confirm" => "Y"
+            ]);
+
+        DB::table("transaction")
+            ->where("id_transaction", $payment->id_transaction)
+            ->update([
+              "pay" => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function deliver(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->update([
+              "deliver" => "P"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function deliverdone(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->update([
+              "deliver" => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function detail(Request $req) {
+
+        $data = DB::table("transaction_detail")
+            ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_transaction')
+            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price')
+            ->where("id_transaction", $req->id)
+            ->get();
+
+        return response()->json($data);
 
     }
 
