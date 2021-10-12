@@ -58,7 +58,7 @@
 									<a href="#" class="lang-opener text-capitalize" style="color:#A1A1A1; font-weight: bold;"> {{Auth::user()->fullname}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
-											<li style="padding-top: 5px; padding-bottom: 5px"><a href="#">My Account</a></li>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{url('/pembeli/profile')}}">My Account</a></li>
 											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Log Out</a></li>
 										</ul>
 									</div>

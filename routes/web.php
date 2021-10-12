@@ -21,6 +21,7 @@ Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
+Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
