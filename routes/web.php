@@ -134,6 +134,12 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::get('/listorder/table', 'PenjualListpesananController@dataTable');
      Route::get('/listorder/cancel', 'PenjualListpesananController@cancel');
      Route::get('/listorder/hapus', 'PenjualListpesananController@hapus');
+     Route::get('/listorder/detail', 'PenjualListpesananController@detail');
+     Route::get('/listorder/deliver', 'PenjualListpesananController@deliver');
+     Route::get('/listorder/deliverdone', 'PenjualListpesananController@deliverdone');
+     Route::get('/listorder/showpayment/{id}', 'PenjualListpesananController@showpayment');
+     Route::get('/listorder/approve', 'PenjualListpesananController@approve');
+     Route::get('/listorder/detail', 'PenjualListpesananController@detail');
 
   });
 

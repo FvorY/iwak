@@ -287,7 +287,7 @@ class PenjualLelangController extends Controller
               ->leftjoin('account', 'account.id_account', '=', 'lelangbid.id_account')
               ->select('lelangbid.price', 'account.fullname', 'lelang.iswon', 'lelangbid.id_lelangbid')
               ->groupby('lelangbid.id_lelangbid')
-              ->orderby('lelangbid.id_lelangbid', "ASC")
+              ->orderby('lelangbid.id_lelangbid', "DESC")
               ->where("lelang.id_lelang", $id)
               ->get();
 
