@@ -99,7 +99,7 @@
                           </div>
                           <div class="col-md-7 col-sm-6 col-xs-12" style="padding-left: 40px">
                             <div class="form-group">
-                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="N" checked>Tidak
+                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="N">Tidak
                             </div>
                           </div>
 
