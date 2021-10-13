@@ -185,7 +185,7 @@ var myDropzone = new Dropzone(".dropzone", {
    timeout: 180000,
    url: baseUrlChange + "/simpanproductcontent",
    acceptedFiles:'image/*',
-   params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : $('.isdiskon').val(), 'id' : $('#id').val(), }; },
+   params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : document.querySelector('input[name="isdiskon"]:checked').value, 'id' : $('#id').val(), }; },
    init: function() {
 
             this.on("removedfile", function(file, response) {
@@ -283,7 +283,7 @@ $('#btnsubmit').click(function(){
     } else {
         $.ajax({
           type: 'post',
-          data: {'_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'id' : $('#id').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : $('.isdiskon').val()},
+          data: {'_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'id' : $('#id').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : document.querySelector('input[name="isdiskon"]:checked').value},
           dataType : 'json',
           url: baseUrlChange + '/simpanproductcontent',
           success: function(response) {

@@ -61,7 +61,7 @@
                           <div class="form-group">
                               <input type="text" class="form-control form-control-sm rp" placeholder="Price" name="price" id="price">
                               <div class="alert alert-warning" role="alert">
-                                Mohon isi dengan harga yang sebenarnya sebelum dikurang diskon 
+                                Mohon isi dengan harga yang sebenarnya sebelum dikurang diskon
                               </div>
                           </div>
                         </div>
@@ -174,7 +174,7 @@ var myDropzone = new Dropzone(".dropzone", {
    timeout: 180000,
    url: baseUrlChange + "/simpanproductcontent",
    acceptedFiles:'image/*',
-   params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : $('.isdiskon').val() }; },
+   params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : document.querySelector('input[name="isdiskon"]:checked').value }; },
    init: function() {
             this.on("success", function(file, response) {
               if (response.status == 1) {
@@ -215,7 +215,7 @@ $('#btnsubmit').click(function(){
     } else {
       $.ajax({
         type: 'post',
-        data: {'_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : $('.isdiskon').val()},
+        data: {'_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : document.querySelector('input[name="isdiskon"]:checked').value},
         dataType : 'json',
         url: baseUrlChange + '/simpanproductcontent',
         success: function(response) {
