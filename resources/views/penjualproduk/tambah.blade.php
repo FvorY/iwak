@@ -60,6 +60,9 @@
                         <div class="col-md-10 col-sm-6 col-xs-12">
                           <div class="form-group">
                               <input type="text" class="form-control form-control-sm rp" placeholder="Price" name="price" id="price">
+                              <div class="alert alert-warning" role="alert">
+                                Mohon isi dengan harga yang sebenarnya sebelum dikurang diskon <span style="color:red;">*</span>
+                              </div>
                           </div>
                         </div>
 
