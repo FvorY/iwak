@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Response;
+
+use DB;
+
 class LelangController extends Controller
 {
     /**
@@ -15,6 +19,14 @@ class LelangController extends Controller
     {
         //
         return view('lelang');
+    }
+
+    public function lelangupdate(Request $req) {
+      $res = DB::table("lelangbid")
+              ->whereIn("id_lelang", $req->arrid)
+              ->get();
+
+      return response()->json($res);
     }
 
     /**
