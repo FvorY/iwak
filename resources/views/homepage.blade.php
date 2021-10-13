@@ -129,6 +129,8 @@
 																$res = $value->price - $diskonval;
 																?>
 																<span class="price">{{FormatRupiahFront($res)}}</span>
+															@else
+																<span class="price">{{FormatRupiahFront($value->price)}}</span>
 														  @endif
 														</div>
 													</div>
@@ -235,7 +237,7 @@
 										</div>
 									@endforeach
 
-									
+
 
 							</div>
 						</div>
