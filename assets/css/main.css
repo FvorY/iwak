@@ -5809,7 +5809,7 @@ a:hover {
 	margin: 0 0 5px;
 	color: #757575;
 	text-transform: capitalize;
-	font: 600 14px/20px "Source Sans Pro", sans-serif;
+	font: 600 15px/23px "Source Sans Pro", sans-serif;
 }
 
 .mt-product1 .title a {
@@ -5825,7 +5825,7 @@ a:hover {
 .mt-product1 .price {
 	display: block;
 	color: #010101;
-	font: 600 17px/20px "Source Sans Pro", sans-serif;
+	font: 600 20px/23px "Source Sans Pro", sans-serif;
 }
 
 .mt-product1 .price .fa {
@@ -5940,7 +5940,7 @@ a:hover {
 	right: 8px;
 	bottom: -1px;
 	line-height: 1;
-	font-size: 12px;
+	font-size: 20px;
 	list-style: none;
 	position: absolute;
 }

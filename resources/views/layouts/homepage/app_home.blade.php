@@ -24,6 +24,12 @@
 	<!-- include the site stylesheet -->
 	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
+	<style media="screen">
+		.imageproduk {
+			border-radius: 20px;
+		}
+	</style>
+
 </head>
 @if (session('password') || $errors->any())
 <body class="side-col-active">
@@ -481,6 +487,8 @@
 
 	<script src="{{asset('assets/js/sweetalert.js')}}"></script>
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js')}}"></script> --}}
+
+@yield('extra_script')
 
 	<script type="text/javascript">
 	@if(Auth::check())

@@ -78,7 +78,6 @@ class PenjualProdukController extends Controller
     }
 
     public function simpan(Request $req) {
-      // dd($req);
       if ($req->id == null) {
         DB::beginTransaction();
         try {

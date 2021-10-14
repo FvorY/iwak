@@ -66,7 +66,7 @@
             <td>
               <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
               <div class="alert alert-warning" role="alert">
-                Alamat ini juga akan digunakan untuk alamat toko
+                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) provinsi)
               </div>
             </td>
           </tr>
