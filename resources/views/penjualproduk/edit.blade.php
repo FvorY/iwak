@@ -183,6 +183,7 @@ var myDropzone = new Dropzone(".dropzone", {
    thumbnailWidth: 1140,//the "size of image" width at px
    thumbnailHeight: 380,
    timeout: 180000,
+   parallelUploads: 20,
    url: baseUrlChange + "/simpanproductcontent",
    acceptedFiles:'image/*',
    params: function params(files, xhr, chunk) { return { '_token' : "{{csrf_token()}}", 'name' : $('#name').val(), 'description' : $('#description').val(), 'category' : $('#category').val(), 'price' : $('#price').val(), 'stock' : $('#stock').val(), 'diskon' : $('#diskon').val(), 'isdiskon' : document.querySelector('input[name="isdiskon"]:checked').value, 'id' : $('#id').val(), }; },

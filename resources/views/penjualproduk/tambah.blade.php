@@ -171,6 +171,7 @@ Dropzone.autoDiscover = false;
 var myDropzone = new Dropzone(".dropzone", {
    autoProcessQueue: false,
    uploadMultiple: true,
+   parallelUploads: 20,
    timeout: 180000,
    url: baseUrlChange + "/simpanproductcontent",
    acceptedFiles:'image/*',
