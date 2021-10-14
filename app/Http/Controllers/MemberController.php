@@ -146,4 +146,17 @@ class MemberController extends Controller
       return response()->json(200);
     }
 
+    public function profile(){
+
+        $data = DB::table("account")->where("id_account", Auth::user()->id_account)->first();
+
+        if ($data == null) {
+         return view("/");
+       } else {
+         return view("/pembeli/profil", compact("data"));
+       }
+
+
+    }
+
 }
