@@ -231,7 +231,7 @@
 													$output = explode(" ",$string);
 													?>
 													<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-													<span class="price">{{FormatRupiahFront($res)}}</span>
+													<span class="price">{{FormatRupiahFront($value->price)}}</span>
 											</div><!-- mt product1 center end here -->
 										</div>
 										</div>
