@@ -24,6 +24,8 @@
 	<!-- include the site stylesheet -->
 	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
+	<link rel="stylesheet" href="{{asset('assets/node_modules/izitoast/dist/css/iziToast.min.css')}}">
+
 	<style media="screen">
 		.imageproduk {
 			border-radius: 20px;
@@ -108,19 +110,27 @@
 											</li>
 										@endif
 									@endif
+
+									@if (Auth::check())
 									<li class="drop">
-										<a href="#" class="cart-opener">
+										<a class="cart-opener" onclick="opencart()">
 											<span class="icon-handbag"></span>
-											<span class="num">3</span>
+											<span class="num numcart">0</span>
 										</a>
+
 										<!-- mt drop start here -->
 										<div class="mt-drop">
 											<!-- mt drop sub start here -->
 											<div class="mt-drop-sub">
 												<!-- mt side widget start here -->
-												<div class="mt-side-widget">
+												<div class="mt-side-widget carditem">
 													<!-- cart row start here -->
-													<div class="cart-row">
+
+													{{-- <center> <img src="{{ asset('assets/demo/images/loading.gif') }}" style="height: 50px; width: 50px;" class="img-responsive"> </center> --}}
+
+													<!-- cart row end here -->
+													<!-- cart row start here -->
+													{{-- <div class="cart-row">
 														<a href="#" class="img"><img src="http://placehold.it/75x75" alt="image" class="img-responsive"></a>
 														<div class="mt-h">
 															<span class="mt-h-title"><a href="#">Marvelous Modern 3 Seater</a></span>
@@ -138,33 +148,24 @@
 															<span class="mt-h-title">Qty: 1</span>
 														</div>
 														<a href="#" class="close fa fa-times"></a>
-													</div><!-- cart row end here -->
-													<!-- cart row start here -->
-													<div class="cart-row">
-														<a href="#" class="img"><img src="http://placehold.it/75x75" alt="image" class="img-responsive"></a>
-														<div class="mt-h">
-															<span class="mt-h-title"><a href="#">Marvelous Modern 3 Seater</a></span>
-															<span class="price"><i class="fa fa-eur" aria-hidden="true"></i> 599,00</span>
-															<span class="mt-h-title">Qty: 1</span>
-														</div>
-														<a href="#" class="close fa fa-times"></a>
-													</div><!-- cart row end here -->
+													</div><!-- cart row end here --> --}}
 													<!-- cart row total start here -->
-													<div class="cart-row-total">
+													{{-- <div class="cart-row-total">
 														<span class="mt-total">Sub Total</span>
 														<span class="mt-total-txt"><i class="fa fa-eur" aria-hidden="true"></i> 799,00</span>
-													</div>
+													</div> --}}
 													<!-- cart row total end here -->
-													<div class="cart-btn-row">
+													{{-- <div class="cart-btn-row">
 														<a href="#" class="btn-type2">VIEW CART</a>
 														<a href="#" class="btn-type3">CHECKOUT</a>
-													</div>
+													</div> --}}
 												</div><!-- mt side widget end here -->
 											</div>
 											<!-- mt drop sub end here -->
 										</div><!-- mt drop end here -->
 										<span class="mt-mdropover"></span>
 									</li>
+									@endif
 									@if(Auth::check() == NULL)
 									<li>
 										 @if (session('password') || $errors->any())
@@ -486,6 +487,10 @@
 	<script src="{{asset('assets/js/jquery.main.js')}}"></script>
 
 	<script src="{{asset('assets/js/sweetalert.js')}}"></script>
+
+	<script rel="stylesheet" src="{{asset('assets/node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
+
+	<script src="{{asset('assets/js/accounting.min.js')}}"></script>
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js')}}"></script> --}}
 
 @yield('extra_script')
@@ -501,6 +506,95 @@
 			async:false
 		});
 		@endif
+
+		$.ajax({
+			url: "{{url('/')}}" + "/countcart",
+			success: function(data) {
+					$('.numcart').text(data);
+			},
+			async:false
+		});
+
+		function addtocard(id) {
+			$.ajax({
+				url: "{{url('/')}}" + "/addcart",
+				data: {id},
+				success: function(data) {
+						if (data.status == 1) {
+		          iziToast.success({
+		              icon: 'fa fa-save',
+		              message: 'Produk Berhasil Ditambah Ke Cart!',
+		          });
+							let count = $('.numcart').text();
+
+							$('.numcart').text(parseInt(count) + 1);
+		        }else if(data.status == 2){
+		          iziToast.warning({
+		              icon: 'fa fa-info',
+		              message: 'Produk Gagal Ditambah Ke Cart!, Periksa data dan koneksi anda!',
+		          });
+		        }else if (data.status == 3){
+		          iziToast.success({
+		              icon: 'fa fa-save',
+		              message: 'Produk Berhasil Ditambah Ke Cart!',
+		          });
+		        }else if (data.status == 4){
+		          iziToast.warning({
+		              icon: 'fa fa-info',
+		              message: 'Produk Gagal Ditambah Ke Cart!',
+		          });
+		        } else if (data.status == 7) {
+		          iziToast.warning({
+		              icon: 'fa fa-info',
+		              message: data.message,
+		          });
+		        }
+				},
+				async:false
+			});
+		}
+
+		function opencart() {
+			var html = '<center> <img src="{{ asset('assets/demo/images/loading.gif') }}" style="height: 50px; width: 50px;" class="img-responsive"> </center>';
+
+			$('.carditem').html(html);
+
+			var html = "";
+
+			$.ajax({
+				url: "{{url('/')}}" + "/opencart",
+				success: function(data) {
+					var subtotal = 0;
+
+					for (var i = 0; i < data.length; i++) {
+						let cart = data[i];
+						subtotal += cart.qty * cart.price;
+
+						html += '<div class="cart-row">'+
+											'<a href="#" class="img"><img src="'+"{{url('/')}}"+'/'+cart.image+'" alt="image" style="width:100%; height:66px" class="img-responsive"></a>'+
+											'<div class="mt-h">'+
+												'<span class="mt-h-title"><a href="#">'+cart.name+'</a></span>'+
+												'<span class="price">'+"Rp. " + accounting.formatMoney(cart.price,"",0,'.',',')+'</span>'+
+												'<span class="mt-h-title">Qty: '+cart.qty+'</span>'+
+											'</div>'+
+											'<a href="#" class="close fa fa-times"></a>'+
+										'</div>';
+					}
+
+					html += '<div class="cart-row-total">'+
+										'<span class="mt-total">Sub Total</span>'+
+										'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
+									'</div>'+
+									'<div class="cart-btn-row">'+
+										'<a href="#" class="btn-type2">VIEW CART</a>'+
+										'<a href="#" class="btn-type3">CHECKOUT</a>'+
+									'</div>';
+
+					$('.carditem').html(html);
+
+				}
+			});
+		}
  @endif
 
 	$(document).ready(function(){
@@ -516,8 +610,6 @@
 				url: "{{url('/')}}" + '/getinfo',
 				dataType:'json',
 				success:function(data){
-					console.log(data);
-
 					if (data.info[0].email == null) {
 						email = ""
 					} else {

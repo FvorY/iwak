@@ -23,6 +23,9 @@ Route::post('/registermember', 'MemberController@register')->name('registermembe
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
+Route::get('/countcart', 'CartController@countcart');
+Route::get('/addcart', 'CartController@addcart');
+Route::get('/opencart', 'CartController@opencart');
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
