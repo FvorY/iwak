@@ -22,20 +22,18 @@ Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
 Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
-<<<<<<< HEAD
-// <<<<<<< HEAD
+
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
-// =======
+
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
-// >>>>>>> 2416c25ee5066701a7bbf5687d80660574d663ce
-=======
+
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 Route::get('/countcart', 'CartController@countcart');
 Route::get('/addcart', 'CartController@addcart');
 Route::get('/opencart', 'CartController@opencart');
 Route::get('/deletecart', 'CartController@deletecart');
->>>>>>> fb02751de61efde04882cd1462591052029e764e
+
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 

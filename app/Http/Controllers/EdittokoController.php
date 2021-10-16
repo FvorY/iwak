@@ -54,7 +54,7 @@ class EdittokoController extends Controller
                  return back()->with('gagal','gagal');
                }
 
-<<<<<<< HEAD
+
                // dd($req);
                $imgPath = null;
                $tgl = Carbon::now('Asia/Jakarta');
@@ -78,7 +78,7 @@ class EdittokoController extends Controller
                    } else {
                        return 'already exist';
                    }
-=======
+
            // dd($req);
            $imgPath = null;
            $tgl = Carbon::now('Asia/Jakarta');
@@ -108,7 +108,7 @@ class EdittokoController extends Controller
                        $imgPath = null;
                } else {
                    return 'already exist';
->>>>>>> fb02751de61efde04882cd1462591052029e764e
+
                }
 
                    if ($imgPath == null) {
