@@ -43,6 +43,14 @@ class CartController extends Controller
         return Response()->json($cart);
     }
 
+    public function deletecart(Request $req) {
+        DB::table('cart')
+                ->where('id_cart', $req->id)
+                ->delete();
+
+        return Response()->json('sukses');
+    }
+
     public function addcart(Request $req) {
       DB::beginTransaction();
       try {

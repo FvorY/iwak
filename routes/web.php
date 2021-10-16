@@ -26,6 +26,7 @@ Route::get('/lelangupdate', 'LelangController@lelangupdate');
 Route::get('/countcart', 'CartController@countcart');
 Route::get('/addcart', 'CartController@addcart');
 Route::get('/opencart', 'CartController@opencart');
+Route::get('/deletecart', 'CartController@deletecart');
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
