@@ -20,12 +20,13 @@ Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
+Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
-<<<<<<< HEAD
+// <<<<<<< HEAD
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
-=======
+// =======
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
->>>>>>> 2416c25ee5066701a7bbf5687d80660574d663ce
+// >>>>>>> 2416c25ee5066701a7bbf5687d80660574d663ce
 
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 

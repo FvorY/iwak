@@ -47,70 +47,70 @@ class EdittokoController extends Controller
          DB::beginTransaction();
          try {
 
-           if ($req->namatoko == "") {
-             // dd($req);
-             Session::flash('gagal', 'gagal');
+               if ($req->namatoko == "") {
+                 // dd($req);
+                 Session::flash('gagal', 'gagal');
 
-             return back()->with('gagal','gagal');
-           }
-
-           // dd($req);
-           $imgPath = null;
-           $tgl = Carbon::now('Asia/Jakarta');
-           $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-           $dir = 'image/uploads/Toko/' . $req->id;
-           $childPath = $dir . '/';
-           $path = $childPath;
-
-           $file = $req->file('image');
-           $name = null;
-           if ($file != null) {
-               $this->deleteDir($dir);
-               $name = $folder . '.' . $file->getClientOriginalExtension();
-               if (!File::exists($path)) {
-                   if (File::makeDirectory($path, 0777, true)) {
-                       compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
-                       $file->move($path, $name);
-                       $imgPath = $childPath . $name;
-                   } else
-                       $imgPath = null;
-               } else {
-                   return 'already exist';
+                 return back()->with('gagal','gagal');
                }
-           }
 
-           if ($imgPath == null) {
-             DB::table("account")
-                 ->where('id_account', Auth::user()->id_account)
-                 ->update([
-                 "namatoko" => $req->namatoko,
-                 "bank" => $req->bank,
-                 "istoko" => $req->istoko,
-                 "updated_at" => Carbon::now('Asia/Jakarta'),
-               ]);
-           } else {
-             DB::table("account")
-                 ->where('id_account', Auth::user()->id_account)
-                 ->update([
-                 "namatoko" => $req->namatoko,
-                 "nomor_rekening" => $req->nomor_rekening,
-                 "bank" => $req->bank,
-                 "profile_toko" => $imgPath,
-                 "istoko" => $req->istoko,
-                 "updated_at" => Carbon::now('Asia/Jakarta'),
-               ]);
-           }
+               // dd($req);
+               $imgPath = null;
+               $tgl = Carbon::now('Asia/Jakarta');
+               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+               $dir = 'image/uploads/Toko/' . $req->id;
+               $childPath = $dir . '/';
+               $path = $childPath;
 
-           DB::commit();
-           Session::flash('sukses', 'sukses');
+               $file = $req->file('image');
+               $name = null;
+               if ($file != null) {
+                   $this->deleteDir($dir);
+                   $name = $folder . '.' . $file->getClientOriginalExtension();
+                   if (!File::exists($path)) {
+                       if (File::makeDirectory($path, 0777, true)) {
+                           compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                           $file->move($path, $name);
+                           $imgPath = $childPath . $name;
+                       } else
+                           $imgPath = null;
+                   } else {
+                       return 'already exist';
+                   }
+               }
 
-           return back()->with('sukses','sukses');
-         } catch (\Exception $e) {
-           DB::rollback();
-           Session::flash('gagal', 'gagal');
+                   if ($imgPath == null) {
+                     DB::table("account")
+                         ->where('id_account', Auth::user()->id_account)
+                         ->update([
+                         "namatoko" => $req->namatoko,
+                         "bank" => $req->bank,
+                         "istoko" => $req->istoko,
+                         "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   } else {
+                     DB::table("account")
+                         ->where('id_account', Auth::user()->id_account)
+                         ->update([
+                         "namatoko" => $req->namatoko,
+                         "nomor_rekening" => $req->nomor_rekening,
+                         "bank" => $req->bank,
+                         "profile_toko" => $imgPath,
+                         "istoko" => $req->istoko,
+                         "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   }
 
-           return back()->with('gagal','gagal');
-         }
+               DB::commit();
+               Session::flash('sukses', 'sukses');
+
+               return back()->with('sukses','sukses');
+             } catch (\Exception $e) {
+               DB::rollback();
+               Session::flash('gagal', 'gagal');
+
+               return back()->with('gagal','gagal');
+             }
 
      }
 
