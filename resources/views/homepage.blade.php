@@ -111,7 +111,7 @@
 																		@endfor
 																	</ul>
 																	<ul class="links">
-																		<li><a><i class="icon-handbag"></i><span>Add to Cart</span></a></li>
+																		<li><a onclick="addtocard({{$value->id_produk}})"><i class="icon-handbag"></i><span>Add to Cart</span></a></li>
 																	</ul>
 																</div>
 															</div>
@@ -219,7 +219,7 @@
 																@endif
 															</span>
 															<ul class="links">
-																<li><a><i class="icon-handbag"></i><span>Add to Cart</span></a></li>
+																<li><a onclick="addtocard({{$value->id_produk}})"><i class="icon-handbag"></i><span>Add to Cart</span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -231,7 +231,7 @@
 													$output = explode(" ",$string);
 													?>
 													<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-													<span class="price">{{FormatRupiahFront($res)}}</span>
+													<span class="price">{{FormatRupiahFront($value->price)}}</span>
 											</div><!-- mt product1 center end here -->
 										</div>
 										</div>
@@ -251,7 +251,6 @@
 @endsection
 
 @section('extra_script')
-<script src="{{asset('assets/js/accounting.min.js')}}"></script>
 <script type="text/javascript">
 
 		let datalelang = {!! json_encode($forauction) !!};

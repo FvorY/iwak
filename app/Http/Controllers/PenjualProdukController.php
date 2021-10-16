@@ -128,7 +128,13 @@ class PenjualProdukController extends Controller
                     if (File::makeDirectory($path, 0777, true)) {
                         $value->move($path, $name);
                         $imgPath = $childPath . $name;
-                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
+                        if ($value->getClientOriginalExtension() == 'image/webp') {
+
+                        } else if ($value->getClientOriginalExtension() == 'webp') {
+
+                        } else {
+                          compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
+                        }
 
                         DB::table("imageproduk")
                             ->insert([
@@ -158,7 +164,7 @@ class PenjualProdukController extends Controller
         DB::beginTransaction();
         try {
 
-          $max = DB::table("imageproduk")->where("id_produk", $req->id)->max('id_image') + 1;
+          $max = DB::table('imageproduk')->where("id_produk", $req->id)->max('id_image');
 
           $cek = DB::table("produk")->where("url_segment", strtolower(str_replace(" ", "-", $req->name)))->first();
 
@@ -186,6 +192,7 @@ class PenjualProdukController extends Controller
             ]);
 
           $file = $req->file('file');
+
           if (isset($file)) {
 
             foreach ($file as $key => $value) {
@@ -193,7 +200,7 @@ class PenjualProdukController extends Controller
               $imgPath = null;
               $tgl = Carbon::now('Asia/Jakarta');
               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-              $dir = 'image/uploads/Product/' . $req->id . '/' . $max;
+              $dir = 'image/uploads/Product/' . $req->id . '/' . ($max + ($key + 1))  ;
               $childPath = $dir . '/';
               $path = $childPath;
 
@@ -205,12 +212,18 @@ class PenjualProdukController extends Controller
                       if (File::makeDirectory($path, 0777, true)) {
                         $value->move($path, $name);
                         $imgPath = $childPath . $name;
-                        compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
+                        if ($value->getClientOriginalExtension() == 'image/webp') {
+
+                        } else if ($value->getClientOriginalExtension() == 'webp') {
+
+                        } else {
+                          compressImage($value->getClientOriginalExtension(),$imgPath,$imgPath,75);
+                        }
 
                           DB::table("imageproduk")
                               ->insert([
                                 'id_produk' => $req->id,
-                                'id_image' => ($key + 1),
+                                'id_image' => ($max + ($key + 1)),
                                 'image' => $imgPath,
                           ]);
 
@@ -227,6 +240,7 @@ class PenjualProdukController extends Controller
           DB::commit();
           return response()->json(["status" => 3]);
         } catch (\Exception $e) {
+          dd($e);
           DB::rollback();
           return response()->json(["status" => 4]);
         }
