@@ -37,6 +37,7 @@ Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
 Route::get('/viewcart', 'CartController@viewcart');
 Route::get('/addcart', 'CartController@addcart');
+Route::get('/changetoko', 'CartController@changetoko');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

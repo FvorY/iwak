@@ -560,7 +560,13 @@
 										url: "{{url('/')}}" + "/changetoko",
 										data: {id},
 										success: function(data) {
-											countcart();
+											iziToast.success({
+						              icon: 'fa fa-save',
+						              message: 'Produk Berhasil Ditambah Ke Cart!',
+						          });
+											let count = $('.numcart').text();
+
+											$('.numcart').text(parseInt(count) + 1);
 										}
 									});
 							  } else {

@@ -57,8 +57,8 @@ class CartController extends Controller
 
     public function changetoko(Request $req) {
         DB::table('cart')
-                ->where('id_account', Auth::user()->id_account)
-                ->delete();
+          ->where('id_account', Auth::user()->id_account)
+          ->delete();
 
         DB::table("cart")
           ->insert([
@@ -75,41 +75,48 @@ class CartController extends Controller
       DB::beginTransaction();
       try {
 
-        $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("id_produk", $req->id)->first();
+        $cekcart = DB::table("cart")
+                    ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
+                    ->where("cart.id_account", Auth::user()->id_account)
+                    ->first();
 
-        $cekexist = DB::table("cart")
-                      ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
-                      ->where("id_account", Auth::user()->id_account)
+        $cekexist = DB::table("produk")
+                      ->where("produk.id_produk", $req->id)
                       ->first();
 
-        if ($cekexist->id_account != $cek->id_account) {
-          return response()->json(["status" => 7]);
-        } else {
-          if ($cek == null) {
-            DB::table("cart")
-              ->insert([
-                "id_produk" => $req->id,
-                "id_account" => Auth::user()->id_account,
-                "qty" => 1,
-                "created_at" => Carbon::now('Asia/Jakarta'),
-              ]);
-
-              DB::commit();
-              return response()->json(["status" => 1]);
-          } else {
-            DB::table("cart")
-              ->where("id_cart", $cek->id_cart)
-              ->update([
-                "qty" => (int)$cek->qty + 1,
-                "created_at" => Carbon::now('Asia/Jakarta'),
-              ]);
-
-              DB::commit();
-              return response()->json(["status" => 3]);
+        if ($cekcart != null && $cekexist != null) {
+          if ($cekexist->id_account != $cekcart->id_account) {
+            return response()->json(["status" => 7]);
           }
         }
 
+        $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("cart.id_account", Auth::user()->id_account)->where("produk.id_produk", $req->id)->first();
+
+        if ($cek == null) {
+          DB::table("cart")
+            ->insert([
+              "id_produk" => $req->id,
+              "id_account" => Auth::user()->id_account,
+              "qty" => 1,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+            DB::commit();
+            return response()->json(["status" => 1]);
+        } else {
+          DB::table("cart")
+            ->where("id_cart", $cek->id_cart)
+            ->update([
+              "qty" => (int)$cek->qty + 1,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+            DB::commit();
+            return response()->json(["status" => 3]);
+        }
+
       } catch (\Exception $e) {
+        dd($e);
         DB::rollback();
         return response()->json(["status" => 4]);
       }
