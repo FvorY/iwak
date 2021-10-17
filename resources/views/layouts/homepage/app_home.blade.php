@@ -548,10 +548,24 @@
 		              message: 'Produk Gagal Ditambah Ke Cart!',
 		          });
 		        } else if (data.status == 7) {
-		          iziToast.warning({
-		              icon: 'fa fa-info',
-		              message: data.message,
-		          });
+							swal({
+								title: 'Mau ganti cart ke toko lain?',
+							  type: 'question',
+							  showCancelButton: true
+							}).then((result) => {
+								console.log(result);
+							  /* Read more about isConfirmed, isDenied below */
+							  if (result.value) {
+									$.ajax({
+										url: "{{url('/')}}" + "/changetoko",
+										data: {id},
+										success: function(data) {
+											countcart();
+										}
+									});
+							  } else {
+							  }
+							})
 		        }
 				},
 				async:false
@@ -590,7 +604,7 @@
 										'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
 									'</div>'+
 									'<div class="cart-btn-row">'+
-										'<a href="#" class="btn-type2">VIEW CART</a>'+
+										'<a href="'+"{{url('/')}}/viewcart"+'" class="btn-type2">VIEW CART</a>'+
 										'<a href="#" class="btn-type3">CHECKOUT</a>'+
 									'</div>';
 

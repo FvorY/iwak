@@ -35,6 +35,9 @@ Route::get('/opencart', 'CartController@opencart');
 Route::get('/deletecart', 'CartController@deletecart');
 Route::post('/admin/toko/simpan', 'TokoController@simpan');
 
+Route::get('/viewcart', 'CartController@viewcart');
+Route::get('/addcart', 'CartController@addcart');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
