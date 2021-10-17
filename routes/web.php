@@ -20,7 +20,13 @@ Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
+Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
+
+Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
+
+Route::get('/lelangupdate', 'LelangController@lelangupdate');
+
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 Route::get('/countcart', 'CartController@countcart');

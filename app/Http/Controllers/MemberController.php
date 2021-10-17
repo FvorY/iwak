@@ -9,6 +9,9 @@ use Validator;
 use Carbon\Carbon;
 use Session;
 use DB;
+use File;
+// use App\Authentication;
+
 
 class MemberController extends Controller
 {
@@ -149,14 +152,97 @@ class MemberController extends Controller
     public function profile(){
 
         $data = DB::table("account")->where("id_account", Auth::user()->id_account)->first();
-
+        // $gender = DB::table("account")->select("gender");
         if ($data == null) {
          return view("/");
        } else {
-         return view("/pembeli/profil", compact("data"));
+         return view("/pembeli/profil", compact('data'));
        }
-
-
     }
+
+    public function edit(Request $req){
+        $this->validate($req, [
+            'fullname' => 'required|string|min:4',
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password'
+            // 'password_confirm' => 'required_with:password|same:password|min:4',
+        ]);
+
+      //   Account::where('id_account', Auth::user()->id_account)->update([
+      //       'fullname' => $req['fullname'],
+      //       'password' => $req['password'],
+      //       'confirm_password' => $req['password_confirmation'],
+      //       'phone' => $req['phone'],
+      //       'address' => $req['address'],
+      //       'nomor_rekening' => $req['norek'],
+      //       'bank' => $req['bank'],
+      //       'last_online' => Carbon::now(),
+           
+      // ]);
+
+            // baru
+
+               $imgPath = null;
+               $tgl = Carbon::now('Asia/Jakarta');
+               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+               $dir = 'image/uploads/User/' . Auth::user()->id_account;
+               $childPath = $dir . '/';
+               $path = $childPath;
+               $file = $req->file('image');
+               $name = null;
+               if ($file != null) {
+                   // $this->deleteDir($dir);
+                File::deleteDirectory($dir);
+                   $name = $folder . '.' . $file->getClientOriginalExtension();
+                   if (!File::exists($path)) {
+                       if (File::makeDirectory($path, 0777, true)) {
+                           compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                           $file->move($path, $name);
+                           $imgPath = $childPath . $name;
+                       } else
+                           $imgPath = null;
+                   } else {
+                       return 'already exist';
+                   }
+               }
+
+                   if ($imgPath == null) {
+                     DB::table("account")
+                         ->where('id_account', Auth::user()->id_account)
+                         ->update([
+                            "fullname" => $req['fullname'],
+                            "password" => $req['password'],
+                            "confirm_password" => $req['password_confirmation'],
+                            "phone" => $req['phone'],
+                            "address" => $req['address'],
+                            "nomor_rekening" => $req['norek'],
+                            "bank" => $req['bank'],
+                            "last_online" => Carbon::now(),
+                            "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   } else {
+                     DB::table("account")
+                         ->where('id_account', Auth::user()->id_account)
+                         ->update([
+                            "fullname" => $req['fullname'],
+                            "password" => $req['password'],
+                            "confirm_password" => $req['password_confirmation'],
+                            "phone" => $req['phone'],
+                            "address" => $req['address'],
+                            "profile_picture" => $imgPath,
+                            "nomor_rekening" => $req['norek'],
+                            "bank" => $req['bank'],
+                            "last_online" => Carbon::now(),
+                            "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   }
+
+               DB::commit();
+               Session::flash('sukses', 'sukses');
+
+               return back()->with('sukses','sukses');
+      // return redirect('/pembeli/profile')->with('alert-success','Edit Profil Berhasil');
+    }
+
 
 }
