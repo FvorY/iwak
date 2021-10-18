@@ -88,16 +88,10 @@
 								<button type="submit" class="btn btn-lg btn-success" style="margin-bottom: 10px;">Edit</button>
 								</div>
 							</form>
-							<br>
-
-							<input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
 						</div>
 						<div class="col-xs-12 col-md-1"></div>
 
-						<div class="col-lg-12 text-center">
-						<button type="submit" class="btn btn-lg btn-success">Submit Edit Profile</button>
-
-						</div>
+						
 					</div>
 					<br>
 				</div>
