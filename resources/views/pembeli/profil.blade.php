@@ -16,15 +16,20 @@
 						</div>
 						<hr class="text-center" style="width:50%;">
 						</center>
-						<div class="col-md-1"></div>
-						<div class="col-xs-12 col-md-6">
-							<!-- <div class="row"> -->
+						<div class="col-md-12 container"> 
+							<center>
+							<div class="col-md-4">
+								<img class='img-circle img-responsive' alt="Responsive image" src="{{url('/')}}/{{$data->profile_picture}}" style="border-radius:100%;width: 200pt;height: 180pt;margin-bottom: 10px;">
+								
+								<input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
+							</div>
+							</center>
+							<div class="col-md-8">
 								<div class="col-md-6">
 								  <label for="email">Fullname :</label>
 								  <input type="text" class="form-control" placeholder="Enter Fullname" id="email" value="@isset($data){{$data->fullname}}@endisset" style="width:100%" name="fullname">
 								</div>
 								<div class="col-md-6">
-								  <label for="email"></label>
 								  <label for="email">Email Address :</label>
 								  <input type="email" class="form-control" placeholder="Enter Email" value="@isset($data){{$data->email}}@endisset" id="email" style="width:100%" disabled name="email">
 								</div>
@@ -78,22 +83,13 @@
                                       Mohon isi Nama Bank anda untuk kelancaran pembayaran
                                     </div>
 								</div>
-							  <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+								</div>
+								<div class="col-lg-12 text-center">
+								<button type="submit" class="btn btn-lg btn-success" style="margin-bottom: 10px;">Edit</button>
+								</div>
+							</form>
 							<br>
-						<!-- </div> -->
 						</div>
-						<div class="col-xs-12 col-md-1"></div>
-						<div class="col-xs-12 col-md-3">
-							<img class='img-circle img-responsive' src="{{url('/')}}/{{$data->profile_picture}}" style="width:100%; height: 200pt; border-radius:100%;">
-							<br>
-							<input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
-						</div>
-						<div class="col-xs-12 col-md-1"></div>
-
-						<div class="col-lg-12 text-center">
-						<button type="submit" class="btn btn-lg btn-success">Edit</button>
-						</div>
-						</form>
 					</div>
 					<br>
 				</div>
