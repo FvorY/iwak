@@ -4,7 +4,7 @@
 	<!-- mt main start here -->
 			<main id="mt-main">
 				<!-- Mt Contact Banner of the Page -->
-				
+
 				<br>
 				<div class="container" style="border:2px solid #cccccc; border-radius:5px">
 					<div class="row">
@@ -41,7 +41,7 @@
 								<div class="col-md-6">
 								  <label for="pwd">Confirmation Password :</label>
 								  <input id="password" type="password" class="form-control" placeholder="Re Type Password" id="password_confirmation" name="password_confirmation" value="@isset($data){{$data->password}}@endisset" style="width:100%">
-								 
+
 								</div>
 								<br>
 								<div class="col-md-12"><br></div>
@@ -89,6 +89,14 @@
 								</div>
 							</form>
 							<br>
+
+							<input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
+						</div>
+						<div class="col-xs-12 col-md-1"></div>
+
+						<div class="col-lg-12 text-center">
+						<button type="submit" class="btn btn-lg btn-success">Submit Edit Profile</button>
+
 						</div>
 					</div>
 					<br>
