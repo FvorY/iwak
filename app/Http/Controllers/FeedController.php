@@ -34,12 +34,14 @@ class FeedController extends Controller
 
     public function datatable() {
       $data = DB::table('feedback')
-        ->leftjoin("account", "id_account", '=', 'id_user')
-        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "account.fullname", "feedback.feedback")
+        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
         ->orderBy("feedback.created_at", "desc")
         ->get();
 
-
+        foreach ($data as $key => $value) {
+          $data[$key]->akun = DB::table("account")->where("id_account", $data[$key]->akun)->first();
+          $data[$key]->toko = DB::table("account")->where("id_account", $data[$key]->toko)->first();
+        }
         // return $data;
         // $xyzab = collect($data);
         // return $xyzab;
@@ -61,10 +63,17 @@ class FeedController extends Controller
               }
           })
           ->addColumn("username", function($data) {
-            if ($data->fullname == null) {
+            if ($data->akun == null) {
               return "<span style='color: red;'> User tidak ditemukan (Dihapus dari sistem) <span>";
             } else {
-              return $data->fullname;
+              return $data->akun->fullname;
+            }
+          })
+          ->addColumn("namatoko", function($data) {
+            if ($data->toko == null) {
+              return "<span style='color: red;'> Toko tidak ditemukan (Dihapus dari sistem) <span>";
+            } else {
+              return $data->toko->namatoko;
             }
           })
           ->addColumn("image", function($data) {
@@ -76,19 +85,22 @@ class FeedController extends Controller
                      '<label class="fa fa-trash"></label></button>'.
                   '</div>';
           })
-          ->rawColumns(['aksi', 'image', 'username', 'star'])
+          ->rawColumns(['aksi', 'image', 'username', 'star', 'namatoko'])
           ->addIndexColumn()
           ->make(true);
     }
 
     public function datatablewtoko() {
       $data = DB::table('feedback')
-        ->leftjoin("account", "id_account", '=', 'id_user')
-        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "account.fullname", "feedback.feedback")
+        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
         ->orderBy("feedback.created_at", "desc")
-        ->where("id_account", Auth::user()->id_account)
+        ->where("id_toko", Auth::user()->id_account)
         ->get();
 
+        foreach ($data as $key => $value) {
+          $data[$key]->akun = DB::table("account")->where("id_account", $data[$key]->akun)->first();
+          $data[$key]->toko = DB::table("account")->where("id_account", $data[$key]->toko)->first();
+        }
 
         // return $data;
         // $xyzab = collect($data);
@@ -111,10 +123,10 @@ class FeedController extends Controller
               }
           })
           ->addColumn("username", function($data) {
-            if ($data->fullname == null) {
+            if ($data->akun == null) {
               return "<span style='color: red;'> User tidak ditemukan (Dihapus dari sistem) <span>";
             } else {
-              return $data->fullname;
+              return $data->akun->fullname;
             }
           })
           ->addColumn("image", function($data) {

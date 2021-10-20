@@ -80,7 +80,13 @@ class UserController extends Controller
               $name = $folder . '.' . $file->getClientOriginalExtension();
               if (!File::exists($path)) {
                   if (File::makeDirectory($path, 0777, true)) {
-                    compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],60);
+                      if ($_FILES['image']['type'] == 'image/webp') {
+
+                      } else if ($_FILES['image']['type'] == 'webp') {
+
+                      } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      }
                       $file->move($path, $name);
                       $imgPath = $childPath . $name;
                   } else
@@ -134,7 +140,13 @@ class UserController extends Controller
               $name = $folder . '.' . $file->getClientOriginalExtension();
               if (!File::exists($path)) {
                   if (File::makeDirectory($path, 0777, true)) {
-                    compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      if ($_FILES['image']['type'] == 'image/webp') {
+
+                      } else if ($_FILES['image']['type'] == 'webp') {
+
+                      } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      }
                       $file->move($path, $name);
                       $imgPath = $childPath . $name;
                   } else
