@@ -111,9 +111,11 @@ class PenjualListpesananController extends Controller
           return '<a class="btn btn-primary" href="'.url('/').'/'.$data->image.'" target="_blank"> Preview </a>';
         })
         ->addColumn('approve', function ($data) {
-          if ($data->pay == "N") {
-            return '<button type="button" onclick="approve('.$data->id_payment.')" class="btn btn-success btn-lg" title="Approve">'.
-            '<label class="fa fa-check"></label></button>';
+          if ($data->cancelled == "N") {
+            if ($data->pay == "N") {
+              return '<button type="button" onclick="approve('.$data->id_payment.')" class="btn btn-success btn-lg" title="Approve">'.
+              '<label class="fa fa-check"></label></button>';
+            }
           }
         })
         ->rawColumns(['aksi', 'image', 'approve'])

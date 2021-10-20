@@ -46,16 +46,19 @@ class PenjualHomeController extends Controller
 
        $pesananbelomterbayar = DB::table("transaction")
                             ->where("id_penjual", Auth::user()->id_account)
+                            ->where("cancelled", 'N')
                             ->where("pay", 'N')
                             ->count();
 
        $pesanansudahterbayar = DB::table("transaction")
                              ->where("id_penjual", Auth::user()->id_account)
+                             ->where("cancelled", 'N')
                              ->where("pay", 'Y')
                              ->count();
 
        $pesananbelomterkirim = DB::table("transaction")
                             ->where("id_penjual", Auth::user()->id_account)
+                            ->where("cancelled", 'N')
                             ->where("deliver", 'N')
                             ->count();
 

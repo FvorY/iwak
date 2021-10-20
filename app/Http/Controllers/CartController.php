@@ -179,6 +179,9 @@ class CartController extends Controller
           $price = str_replace('.','',$req->price);
           $price = str_replace('Rp ','',$price);
 
+          $subtotal = str_replace('.','',$req->subtotal);
+          $subtotal = str_replace('Rp ','',$subtotal);
+
           DB::table("transaction")
               ->insert([
               "id_transaction" => $max,
@@ -186,7 +189,7 @@ class CartController extends Controller
               "id_pembeli" => Auth::user()->id_account,
               "id_penjual" => $req->id_penjual,
               "date" => Carbon::now('Asia/Jakarta'),
-              "subtotal" => $req->subtotal,
+              "subtotal" => $subtotal,
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
