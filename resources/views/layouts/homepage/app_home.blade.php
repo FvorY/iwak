@@ -169,9 +169,9 @@
 									@if(Auth::check() == NULL)
 									<li>
 										 @if (session('password') || $errors->any())
-										<a href="#" class=" side-opener active">
+										<a href="#" class="side-opener active">
 											@else
-										<a href="#" class=" side-opener">
+										<a href="#" class="side-opener">
             				@endif
             				<i class="icon-user"></i>
 											<!-- <span class="bar"></span>
@@ -631,6 +631,15 @@
 					countcart();
 				}
 			});
+		}
+
+		@else
+		function addtocard(id) {
+			swal(
+				'Silahkan login terlebih dahulu untuk menambah cart',
+				'Jika belum mempunyai akun silahkan daftar terlebih dahulu',
+				'info'
+			)
 		}
  @endif
 
