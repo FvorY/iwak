@@ -566,7 +566,7 @@
 						          });
 											let count = $('.numcart').text();
 
-											$('.numcart').text(parseInt(count) + 1);
+											$('.numcart').text(1);
 										}
 									});
 							  } else {
@@ -601,7 +601,7 @@
 												'<span class="price">'+"Rp. " + accounting.formatMoney(cart.price,"",0,'.',',')+'</span>'+
 												'<span class="mt-h-title">Qty: '+cart.qty+'</span>'+
 											'</div>'+
-											'<a style="color:black;" onclick="deletecart('+cart.id_cart+')" class="close fa fa-times"></a>'+
+											'<a style="color:red;" onclick="deletecart('+cart.id_cart+')" class="close fa fa-times"></a>'+
 										'</div>';
 					}
 
@@ -609,9 +609,8 @@
 										'<span class="mt-total">Sub Total</span>'+
 										'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
 									'</div>'+
-									'<div class="cart-btn-row">'+
-										'<a href="'+"{{url('/')}}/viewcart"+'" class="btn-type2">VIEW CART</a>'+
-										'<a href="#" class="btn-type3">CHECKOUT</a>'+
+									'<div class="col-xs-12 col-sm-12">'+
+										'<a href="'+"{{url('/')}}/viewcart"+'" style="width:100%; text-align:center;" class="btn-type3">VIEW CART</a>'+
 									'</div>';
 
 					$('.carditem').html(html);

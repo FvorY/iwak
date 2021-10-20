@@ -32,6 +32,7 @@
                                 <th>No</th>
                                 <th>Image Feedback / Review</th>
                                 <th>User Name</th>
+                                <th>Store Name</th>
                                 <th>Star / Rating</th>
                                 <th>Comment</th>
                                 <th>Action</th>
@@ -96,12 +97,17 @@ var table = $('#table-data').DataTable({
               {
                  targets: 5,
                  className: 'center'
+              },
+              {
+                 targets: 6,
+                 className: 'center'
               }
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'image', name: 'image'},
           {data: 'username', name: 'username'},
+          {data: 'namatoko', name: 'namatoko'},
           {data: 'star', name: 'star'},
           {data: 'feedback', name: 'feedback'},
           {data: 'aksi', name: 'aksi'},

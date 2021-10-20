@@ -125,6 +125,30 @@ class PenjualListpesananController extends Controller
       DB::beginTransaction();
       try {
 
+        $transaction = DB::table("transaction")
+                      ->where("id_transaction", $req->id)
+                      ->first();
+
+        if ($transaction->cancelled == "N") {
+          $cekdetail = DB::table('transaction_detail')
+                        ->where('id_transaction', $req->id)
+                        ->get();
+
+          for ($i=0; $i < count($cekdetail); $i++) {
+
+            $cekproduk = DB::table('produk')
+                        ->where("id_produk", $cekdetail[$i]->id_produk)
+                        ->first();
+
+            DB::table('produk')
+              ->where("id_produk", $cekdetail[$i]->id_produk)
+              ->update([
+                'stock' => $cekproduk->stock + $cekdetail[$i]->qty,
+                'sold' => $cekproduk->sold - $cekdetail[$i]->qty,
+              ]);
+          }
+        }
+
         DB::table("transaction")
             ->where("id_transaction", $req->id)
             ->delete();
@@ -156,9 +180,28 @@ class PenjualListpesananController extends Controller
               "cancelled" => "Y"
             ]);
 
+        $cekdetail = DB::table('transaction_detail')
+                      ->where('id_transaction', $req->id)
+                      ->get();
+
+        for ($i=0; $i < count($cekdetail); $i++) {
+
+          $cekproduk = DB::table('produk')
+                      ->where("id_produk", $cekdetail[$i]->id_produk)
+                      ->first();
+
+          DB::table('produk')
+            ->where("id_produk", $cekdetail[$i]->id_produk)
+            ->update([
+              'stock' => $cekproduk->stock + $cekdetail[$i]->qty,
+              'sold' => $cekproduk->sold - $cekdetail[$i]->qty,
+            ]);
+        }
+
         DB::commit();
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
+        dd($e);
         DB::rollback();
         return response()->json(["status" => 4]);
       }
@@ -235,7 +278,7 @@ class PenjualListpesananController extends Controller
     public function detail(Request $req) {
 
         $data = DB::table("transaction_detail")
-            ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_transaction')
+            ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_produk')
             ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price')
             ->where("id_transaction", $req->id)
             ->get();

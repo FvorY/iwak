@@ -59,6 +59,8 @@ class PenjualHomeController extends Controller
                             ->where("deliver", 'N')
                             ->count();
 
-       return view("homepenjual", compact('omset', 'pesananbelomterbayar', 'pesanansudahterbayar', 'pesananbelomterkirim'));
+      $feedback = DB::table("feedback")->where("id_toko", Auth::user()->id_account)->count();
+
+       return view("homepenjual", compact('omset', 'pesananbelomterbayar', 'pesanansudahterbayar', 'pesananbelomterkirim', 'feedback'));
      }
 }

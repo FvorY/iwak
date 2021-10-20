@@ -123,6 +123,7 @@
 															$output = explode(" ",$string);
 															?>
 															<strong class="title"><a href="product-detail.html"><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+															<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 															@if ($value->isdiskon == "Y")
 																<?php
 																$diskonval = $value->diskon * $value->price;
@@ -176,6 +177,7 @@
 															$output = explode(" ",$string);
 															?>
 															<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+															<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 															<span class="price" id="lelang{{$value->id_lelang}}">{{FormatRupiahFront($value->price)}}</span>
 														</div>
 													</div>
@@ -205,7 +207,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="bestseller-slider">
-									@foreach ($latest as $key => $value)
+									@foreach ($bestseller as $key => $value)
 										<div class="slide">
 											<!-- mt product1 center start here -->
 											<div class="mt-product1 large">
@@ -231,6 +233,7 @@
 													$output = explode(" ",$string);
 													?>
 													<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+													<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 													<span class="price">{{FormatRupiahFront($value->price)}}</span>
 											</div><!-- mt product1 center end here -->
 										</div>
