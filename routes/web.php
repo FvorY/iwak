@@ -24,10 +24,12 @@ Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
 
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
+Route::get('/pembeli/history', 'HistoryController@index')->name('historymember');
+
 
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 
-Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
+// Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 Route::get('/countcart', 'CartController@countcart');
 Route::get('/addcart', 'CartController@addcart');

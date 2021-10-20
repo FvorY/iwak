@@ -72,7 +72,7 @@
 									</div>
 								</div><!-- mt top lang end here -->
 								<span class="account">
-									<a href="#" style="color:#A1A1A1">History</a>
+									<a href="{{url('/pembeli/history')}}" style="color:#A1A1A1">History</a>
 								</span>
 							</div>
 						</div>
