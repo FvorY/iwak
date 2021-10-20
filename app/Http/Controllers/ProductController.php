@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class ProductController extends Controller
 {
     /**
@@ -11,10 +13,70 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        //
-        return view('product');
+      $sort = "DESC";
+      $sortfield = "name";
+      $category = "all";
+      $keyword = "";
+
+      if ($req->sortfield != null) {
+        $sortfield = $req->sortfield;
+      }
+
+      if ($req->sort != null) {
+        $sort = $req->sort;
+      }
+
+      if ($req->category != null) {
+        $category = $req->category;
+      }
+
+      if ($req->keyword != null) {
+        $keyword = $req->keyword;
+      }
+
+        if ($category != "all") {
+          $data = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->where("produk.id_category", $category)
+                      ->where('name', 'like', '%' . $keyword . '%')
+                      ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                      ->orWhere('address', 'like', '%' . $keyword . '%')
+                      ->groupby("imageproduk.id_produk")
+                      ->orderby('produk.'.$sortfield, $sort)
+                      ->paginate(10);
+        } else {
+          $data = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->where('name', 'like', '%' . $keyword . '%')
+                      ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                      ->orWhere('address', 'like', '%' . $keyword . '%')
+                      ->groupby("imageproduk.id_produk")
+                      ->orderby('produk.'.$sortfield, $sort)
+                      ->paginate(10);
+        }
+
+        $categorydata = DB::table('category')
+                    ->select('id_category', 'id_category as total', 'category_name')
+                    ->get();
+
+        foreach ($categorydata as $key => $value) {
+            $value->total = DB::table('produk')
+                              ->join("account", 'produk.id_account', 'account.id_account')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where("id_category", $value->id_category)
+                              ->count();
+        }
+
+        return view('product', compact('data', 'sort', 'sortfield', 'categorydata', 'category', 'keyword'));
     }
 
     /**
