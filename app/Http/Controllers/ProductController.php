@@ -37,30 +37,53 @@ class ProductController extends Controller
       }
 
         if ($category != "all") {
-          $data = DB::table("produk")
-                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                      ->join("account", 'produk.id_account', 'account.id_account')
-                      ->where("account.istoko", 'Y')
-                      ->where("produk.stock", '>' , 0)
-                      ->where("produk.id_category", $category)
-                      ->where('name', 'like', '%' . $keyword . '%')
-                      ->orWhere('namatoko', 'like', '%' . $keyword . '%')
-                      ->orWhere('address', 'like', '%' . $keyword . '%')
-                      ->groupby("imageproduk.id_produk")
-                      ->orderby('produk.'.$sortfield, $sort)
-                      ->paginate(10);
+          if ($keyword != "") {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where("produk.id_category", $category)
+                        ->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                        ->orWhere('address', 'like', '%' . $keyword . '%')
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+          } else {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where("produk.id_category", $category)
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+          }
         } else {
-          $data = DB::table("produk")
-                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                      ->join("account", 'produk.id_account', 'account.id_account')
-                      ->where("account.istoko", 'Y')
-                      ->where("produk.stock", '>' , 0)
-                      ->where('name', 'like', '%' . $keyword . '%')
-                      ->orWhere('namatoko', 'like', '%' . $keyword . '%')
-                      ->orWhere('address', 'like', '%' . $keyword . '%')
-                      ->groupby("imageproduk.id_produk")
-                      ->orderby('produk.'.$sortfield, $sort)
-                      ->paginate(10);
+          if ($keyword != "") {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                        ->orWhere('address', 'like', '%' . $keyword . '%')
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+            } else {
+              $data = DB::table("produk")
+                          ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                          ->join("account", 'produk.id_account', 'account.id_account')
+                          ->where("account.istoko", 'Y')
+                          ->where("produk.stock", '>' , 0)
+                          ->groupby("imageproduk.id_produk")
+                          ->orderby('produk.'.$sortfield, $sort)
+                          ->paginate(10);
+            }
         }
 
         $categorydata = DB::table('category')

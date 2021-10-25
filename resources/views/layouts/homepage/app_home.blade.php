@@ -99,6 +99,16 @@
 											<span class="bar"></span>
 										</a>
 									</li>
+
+									@if (Auth::check())
+										<li class="drop">
+											<a class="cart-opener" onclick="redirectchat()" style="color:black !important">
+												<span class="icon-bubble"></span>
+												<span class="num numchat">0</span>
+											</a>
+										</li>
+									@endif
+
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
@@ -630,6 +640,28 @@
 					countcart();
 				}
 			});
+		}
+
+		$.ajax({
+			url: "{{url('/')}}" + "/countchat",
+			success: function(data) {
+				$('.numchat').text(data);
+			}
+		});
+		
+		setInterval(function(){
+
+			$.ajax({
+				url: "{{url('/')}}" + "/countchat",
+				success: function(data) {
+					$('.numchat').text(data);
+				}
+			});
+
+		}, 3000);
+
+		function redirectchat() {
+				window.open("{{url('/')}}/chat", '_blank');
 		}
 
 		@else
