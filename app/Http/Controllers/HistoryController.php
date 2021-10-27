@@ -36,7 +36,7 @@ class HistoryController extends Controller
         // ->get();
 
         // return view('pembelihistory/detail',compact('data'));
-       
+
         return view('pembelihistory/index', compact('data'));
     }
 
@@ -71,11 +71,11 @@ class HistoryController extends Controller
     {
         //
         $data = DB::table('transaction_detail')
-        ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
-        ->where("id_transaction", $id)
-        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota","transaction.date")
-        ->orderby("date", "DESC")
-        ->get();
+                  ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+                  ->where("id_transaction", $id)
+                  ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota","transaction.date")
+                  ->orderby("date", "DESC")
+                  ->get();
 
         return view('pembelihistory/detail',compact('data'));
 

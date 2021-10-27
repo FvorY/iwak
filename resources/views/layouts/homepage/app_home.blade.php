@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
 
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+	
 
   <!-- include the site stylesheet -->
   <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
@@ -72,7 +73,7 @@
 									</div>
 								</div><!-- mt top lang end here -->
 								<span class="account">
-									<a href="#" style="color:#A1A1A1">History</a>
+									<a href="{{url('/pembeli/history')}}" style="color:#A1A1A1">History</a>
 								</span>
 							</div>
 						</div>
