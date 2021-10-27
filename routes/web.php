@@ -43,6 +43,11 @@ Route::get('/addcart', 'CartController@addcart');
 Route::get('/changetoko', 'CartController@changetoko');
 Route::post('/checkout', 'CartController@checkout');
 
+Route::get('/chat', 'ChatController@index');
+Route::get('/listroom', 'ChatController@listroom');
+Route::get('/countchat', 'ChatController@countchat');
+Route::get('/listchat', 'ChatController@listchat');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
