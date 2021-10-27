@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
 
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+	
 
   <!-- include the site stylesheet -->
   <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">

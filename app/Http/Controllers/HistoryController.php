@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Account;
+use Validator;
+use Carbon\Carbon;
+use Session;
+use DB;
+use File;
 
 class HistoryController extends Controller
 {
@@ -14,7 +21,23 @@ class HistoryController extends Controller
     public function index()
     {
         //
-        return view('pembelihistory/index');
+        $data = DB::table('transaction')
+        ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+        ->where("id_pembeli", Auth::user()->id_account)
+        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota","transaction.date")
+        ->orderby("date", "DESC")
+        ->get();
+
+        // $detail = DB::table('transaction_detail')
+        // ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+        // ->where("id_transaction", $id)
+        // ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota","transaction.date")
+        // ->orderby("date", "DESC")
+        // ->get();
+
+        // return view('pembelihistory/detail',compact('data'));
+       
+        return view('pembelihistory/index', compact('data'));
     }
 
     /**
@@ -44,9 +67,18 @@ class HistoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function detail($id)
     {
         //
+        $data = DB::table('transaction_detail')
+        ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+        ->where("id_transaction", $id)
+        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota","transaction.date")
+        ->orderby("date", "DESC")
+        ->get();
+
+        return view('pembelihistory/detail',compact('data'));
+
     }
 
     /**

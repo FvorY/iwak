@@ -23,9 +23,10 @@ Route::post('/registermember', 'MemberController@register')->name('registermembe
 Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
 
+
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/pembeli/history', 'HistoryController@index')->name('historymember');
-
+Route::get('/pembeli/history/detail/{id}', 'HistoryController@detail')->name('detailhistory');
 
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 
