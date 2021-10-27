@@ -44,6 +44,8 @@ Route::get('/chat', 'ChatController@index');
 Route::get('/listroom', 'ChatController@listroom');
 Route::get('/countchat', 'ChatController@countchat');
 Route::get('/listchat', 'ChatController@listchat');
+Route::get('/sendchat', 'ChatController@sendchat');
+Route::post('/sendimgchat', 'ChatController@sendimgchat');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

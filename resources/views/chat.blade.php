@@ -164,6 +164,7 @@
       .message-wrap .message-list {
       align-self: flex-start;
       max-width: 70%;
+      margin-bottom: 20px;
       }
       .message-wrap .message-list.me {
       align-self: flex-end;
@@ -252,7 +253,7 @@
           <input type="file" class="form-control form-control-sm uploadGambar" id="fileInput" name="image" accept="image/*" style="display:none;">
           <button type="button" name="button" style="background-color: grey; width:40px; color:white; border-radius: 10px;" onclick="document.getElementById('fileInput').click();"> <span class="fa fa-file"></span> </button>
           <input type="text" data-placeholder="Send a message to {0}" id="placeholder" />
-          <button type="button" name="button" style="background-color: green; width:40px; color:white; border-radius: 10px;"> <span class="fa fa-send"></span> </button>
+          <button type="button" name="button" onclick="sendmessage()" style="background-color: green; width:40px; color:white; border-radius: 10px;"> <span class="fa fa-send"></span> </button>
         </div>
       </div>
     </div>
@@ -261,6 +262,7 @@
     <script type="text/javascript">
 
         var idselect = 0;
+        var penerima = "";
 
         roomchat();
 
@@ -282,17 +284,30 @@
                 for (var i = 0; i < data.length; i++) {
                   let res = data[i]
 
-                  html += '<div class="list">'+
-                    '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
-                    '<div class="info">'+
-                      '<span class="user">'+res.account.fullname+'</span>'+
-                      '<span class="text">'+res.last_message+'</span>'+
-                    '</div>'+
-                    '<span class="count">'+res.counter+'</span>'+
-                    '<span class="time">'+res.created_at+'</span>'+
-                    '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
-                    '</div>';
+                  if (res.counter > 0) {
+                    html += '<div class="list">'+
+                      '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                      '<div class="info">'+
+                        '<span class="user">'+res.account.fullname+'</span>'+
+                        '<span class="text">'+res.last_message+'</span>'+
+                      '</div>'+
+                      '<span class="count">'+res.counter+'</span>'+
+                      '<span class="time">'+res.created_at+'</span>'+
+                      '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                      '</div>';
+                  } else {
+                    html += '<div class="list">'+
+                      '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                      '<div class="info">'+
+                        '<span class="user">'+res.account.fullname+'</span>'+
+                        '<span class="text">'+res.last_message+'</span>'+
+                      '</div>'+
+                      '<span class="time">'+res.created_at+'</span>'+
+                      '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                      '</div>';
+                  }
                 }
+
 
                 idselect = data[0].id_roomchat;
 
@@ -403,6 +418,7 @@
                 let arraccount = res.account.split("-");
 
                 if (arraccount[0] == "{{Auth::user()->id_account}}") {
+                  penerima = arraccount[1];
                   if (res.photourl != null) {
                     html += '<div class="message-list me">'+
                               '<div class="msg">'+
@@ -423,8 +439,9 @@
                             '</div>';
                   }
                 } else {
+                  penerima = arraccount[0];
                   if (res.photourl != null) {
-                    html += '<div class="message-list me">'+
+                    html += '<div class="message-list">'+
                               '<div class="msg">'+
                                   '<p>'+
                                   '<a href="{{url('/')}}/'+res.photourl+'" target="_blank"> <img src="{{url('/')}}/'+res.photourl+'" style="width:150px; height:150px;"> </a>'+
@@ -450,6 +467,42 @@
             }
           });
         }
+
+        function sendmessage() {
+          let message = $('#placeholder').val();
+
+          $.ajax({
+    				url: "{{url('/')}}" + "/sendchat",
+            data: {id: idselect, message: message, penerima: penerima},
+    				success: function(data) {
+              $('#placeholder').val('');
+              listchat();
+            }
+          });
+        }
+
+        $(".uploadGambar").on('change', function () {
+          let message = $('#placeholder').val();
+
+          var formdata = new FormData();
+          formdata.append('image', $('.uploadGambar')[0].files[0]);
+          formdata.append('id', idselect);
+          formdata.append('message', message);
+          formdata.append('penerima', penerima);
+
+          $.ajax({
+            type: "post",
+            url: "{{url('/')}}" + '/sendimgchat?_token='+"{{csrf_token()}}",
+            data: formdata,
+            processData: false, //important
+            contentType: false,
+            cache: false,
+            success:function(data){
+              $('#placeholder').val('');
+              listchat();
+            }
+          });
+        });
 
     </script>
   </body>
