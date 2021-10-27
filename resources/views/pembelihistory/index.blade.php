@@ -61,11 +61,6 @@
                   <strong class="price"><button type="submit" onclick="pay({{$list->id_transaction}})" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Transfer</button></strong>
                 </div>
                 @else
-                  @if ($list->cancelled != "Y" && $list->pay != "Y")
-                    <div class="col-xs-12 col-sm-1">
-                      <strong class="price"><button type="submit" class="btn btn-sm btn-success" disabled=""> <i class="fa fa-money"></i> Upload pembayaran</button></strong>
-                    </div>
-                  @endif
                 @endif
             </div>
             @endforeach
