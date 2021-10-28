@@ -26,6 +26,7 @@ Route::get('/logoutmemberjson', 'MemberController@logoutjson');
 
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/pembeli/history', 'HistoryController@index')->name('historymember');
+Route::post('/pembeli/pay', 'HistoryController@pay');
 
 Route::get('/lelangupdate', 'LelangController@lelangupdate');
 

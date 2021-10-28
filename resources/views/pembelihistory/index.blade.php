@@ -1,6 +1,7 @@
 @extends('layouts.homepage.app_home')
-@include('penjualpesanan.detailpesanan')
 @section('content')
+@include('penjualpesanan.detailpesanan')
+@include('pembelihistory.pay')
 <!-- Main of the Page -->
 <main id="mt-main">
         <!-- Mt Product Table of the Page -->
@@ -40,7 +41,7 @@
                 @elseif($list->deliver == 'P')
                 <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled=""> Proses Pengiriman </button></strong>
                 @elseif($list->deliver == 'Y')
-                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled=""> Sudah Dikirim </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled=""> Sudah Diterima </button></strong>
                 @elseif($list->cancelled == 'Y')
                 <strong class="price"><button class="btn btn-sm btn-danger" style="margin-bottom: 20px;" disabled=""> Pesanan Dibatalkan </button></strong>
                 @elseif($list->pay == 'N' && $list->deliver == 'N' && $list->cancelled == 'N')
@@ -58,9 +59,14 @@
                   <strong class="price"><button type="submit" onclick="cancel({{$list->id_transaction}})" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i> Cancel Order</button></strong>
                 </div>
                 <div class="col-xs-12 col-sm-1">
-                  <strong class="price"><button type="submit" onclick="pay({{$list->id_transaction}})" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Transfer</button></strong>
+                  <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Transfer</button></strong>
                 </div>
                 @else
+                  @if ($list->deliver == "P")
+                    <div class="col-xs-12 col-sm-1">
+                      <strong class="price"><button type="submit" onclick="deliverdone({{$list->id_transaction}})" class="btn btn-sm btn-primary"> <i class="fa fa-check"></i> Pesanan Sudah Diterima?</button></strong>
+                    </div>
+                  @endif
                 @endif
             </div>
             @endforeach
@@ -106,6 +112,60 @@
 
       }
     })
+  }
+
+  function deliverdone(id) {
+    iziToast.question({
+      close: false,
+      overlay: true,
+      displayMode: 'once',
+      title: 'Pesanan selesai dikirim',
+      message: 'Apakah anda yakin ?',
+      position: 'center',
+      buttons: [
+        ['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url: "{{url('/penjual/listorder')}}" + '/deliverdone',
+            data:{id},
+            dataType:'json',
+            success:function(response){
+              if (response.status == 1) {
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Sudah Dikirim!',
+                });
+                setTimeout(function(){
+                      window.location.reload();
+              }, 1000);
+              }else if(response.status == 2){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+              }else if (response.status == 3){
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Pesanan Sudah Dikirim!',
+                });
+                setTimeout(function(){
+                      window.location.reload();
+              }, 1000);
+              }else if (response.status == 4){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Pesanan Gagal Dikirim!',
+                });
+            }
+
+
+            }
+          });
+        }, true],
+        ['<button>Tidak</button>', function (instance, toast) {
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+        }],
+      ]
+    });
   }
 
   function cancel(id) {
@@ -161,5 +221,61 @@
   		]
   	});
   }
+
+  function pay(parm) {
+    $('#namatoko').text($(parm).data("namatoko"));
+    $('#nomor_rekening').text($(parm).data("nomor_rekening"));
+    $('#bank').text($(parm).data("bank"));
+    $('#id_transaction').val($(parm).data("id_transaction"));
+
+    $('#pay').modal('show');
+  }
+
+  $('#simpan').click(function(){
+
+  var formdata = new FormData();
+  formdata.append('image', $('.uploadGambar')[0].files[0]);
+  formdata.append('id', $('#id_transaction').val());
+
+  $.ajax({
+    type: "post",
+    url: "{{url('/pembeli')}}" + '/pay?_token='+"{{csrf_token()}}",
+    data: formdata,
+    processData: false, //important
+    contentType: false,
+    cache: false,
+    success:function(data){
+      if (data.status == 1) {
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Bukti Pembayaran Berhasil Disimpan!',
+        });
+        $('#pay').modal('hide');
+      }else if(data.status == 2){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Bukti Pembayaran Gagal disimpan!, Periksa data dan koneksi anda!',
+        });
+      }else if (data.status == 3){
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Bukti Pembayaran Berhasil Disimpan!',
+        });
+        $('#pay').modal('hide');
+      }else if (data.status == 4){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Bukti Pembayaran Gagal Disimpan!',
+        });
+      } else if (data.status == 7) {
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: data.message,
+        });
+      }
+
+    }
+  });
+})
   </script>
 @endsection
