@@ -48,7 +48,10 @@ Route::get('/listroom', 'ChatController@listroom');
 Route::get('/countchat', 'ChatController@countchat');
 Route::get('/listchat', 'ChatController@listchat');
 Route::get('/sendchat', 'ChatController@sendchat');
+Route::get('/newchat', 'ChatController@newchat');
 Route::post('/sendimgchat', 'ChatController@sendimgchat');
+
+Route::get('/toko/{id}', 'ProfileTokoController@index');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

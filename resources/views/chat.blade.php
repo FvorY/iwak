@@ -387,6 +387,8 @@
 
                   listchat(idselect);
 
+                  $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+
                   localStorage.setItem("selected", index);
                 }
                 }
@@ -462,6 +464,8 @@
                 }
               }
 
+              $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+
               $('#listchat').html(html);
 
             }
@@ -503,7 +507,6 @@
             }
           });
         });
-
     </script>
   </body>
 </html>

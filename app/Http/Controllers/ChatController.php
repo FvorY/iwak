@@ -32,6 +32,46 @@ class ChatController extends Controller
       return view('chat');
     }
 
+    public function newchat(Request $req) {
+      DB::beginTransaction();
+      try {
+
+          $cek = DB::table("roomchat")
+                  ->Orwhere("account", Auth::user()->id_account . "-" . $req->idtoko)
+                  ->Orwhere('account', $req->idtoko . "-" . Auth::user()->id_account)
+                  ->first();
+
+          if ($cek != null) {
+            DB::table("listchat")
+               ->insert([
+                 'id_roomchat' => $cek->id_roomchat,
+                 'account' => Auth::user()->id_account . "-" . $req->idtoko,
+                 'message' => $req->message,
+                 'created_at' => Carbon::now('Asia/Jakarta'),
+               ]);
+          } else {
+              $id = DB::table('roomchat')
+                    ->insertGetId([
+                      'account' => Auth::user()->id_account . "-" . $req->idtoko,
+                      'last_message' => $req->message,
+                      'counter' => 1,
+                      'created_at' => Carbon::now('Asia/Jakarta'),
+                    ]);
+
+              DB::table("listchat")
+                 ->insert([
+                   'id_roomchat' => $id,
+                   'account' => Auth::user()->id_account . "-" . $req->idtoko,
+                   'message' => $req->message,
+                   'created_at' => Carbon::now('Asia/Jakarta'),
+                 ]);
+          }
+           DB::commit();
+      } catch (\Exception $e) {
+           DB::rollback();
+      }
+    }
+
     public function countchat() {
        $chat = DB::table('roomchat')
                 ->where('account', 'like', '%' . Auth::user()->id_account . '%')
