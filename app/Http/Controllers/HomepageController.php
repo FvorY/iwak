@@ -37,6 +37,7 @@ class HomepageController extends Controller
                     ->latest('produk.created_at')
                     ->where("account.istoko", 'Y')
                     ->where("produk.stock", '>' , 0)
+                    ->where("account.id_account", '!=', Auth::user()->id_account)
                     ->groupby("imageproduk.id_produk")
                     ->limit(20)
                     ->get();
@@ -46,6 +47,7 @@ class HomepageController extends Controller
                     ->join("account", 'produk.id_account', 'account.id_account')
                     ->where("account.istoko", 'Y')
                     ->where("produk.stock", '>' , 0)
+                    ->where("account.id_account", '!=', Auth::user()->id_account)
                     ->groupby("imageproduk.id_produk")
                     ->orderby('produk.sold', 'DESC')
                     ->limit(10)
@@ -60,6 +62,7 @@ class HomepageController extends Controller
                     ->where("iswon", 'N')
                     ->where("account.istoko", 'Y')
                     ->where("produk.stock", '>' , 0)
+                    ->where("account.id_account", '!=', Auth::user()->id_account)
                     ->groupby("imageproduk.id_produk")
                     ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
                     ->limit(20)

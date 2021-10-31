@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use DB;
 
+use Auth;
+
 class ProductController extends Controller
 {
     /**
@@ -45,6 +47,7 @@ class ProductController extends Controller
                         ->where("produk.stock", '>' , 0)
                         ->where("produk.id_category", $category)
                         ->where('name', 'like', '%' . $keyword . '%')
+                        ->where("account.id_account", '!=', Auth::user()->id_account)
                         ->orWhere('namatoko', 'like', '%' . $keyword . '%')
                         ->orWhere('address', 'like', '%' . $keyword . '%')
                         ->groupby("imageproduk.id_produk")
@@ -57,6 +60,7 @@ class ProductController extends Controller
                         ->where("account.istoko", 'Y')
                         ->where("produk.stock", '>' , 0)
                         ->where("produk.id_category", $category)
+                        ->where("account.id_account", '!=', Auth::user()->id_account)
                         ->groupby("imageproduk.id_produk")
                         ->orderby('produk.'.$sortfield, $sort)
                         ->paginate(10);
@@ -68,6 +72,7 @@ class ProductController extends Controller
                         ->join("account", 'produk.id_account', 'account.id_account')
                         ->where("account.istoko", 'Y')
                         ->where("produk.stock", '>' , 0)
+                        ->where("account.id_account", '!=', Auth::user()->id_account)
                         ->where('name', 'like', '%' . $keyword . '%')
                         ->orWhere('namatoko', 'like', '%' . $keyword . '%')
                         ->orWhere('address', 'like', '%' . $keyword . '%')
@@ -80,6 +85,7 @@ class ProductController extends Controller
                           ->join("account", 'produk.id_account', 'account.id_account')
                           ->where("account.istoko", 'Y')
                           ->where("produk.stock", '>' , 0)
+                          ->where("account.id_account", '!=', Auth::user()->id_account)
                           ->groupby("imageproduk.id_produk")
                           ->orderby('produk.'.$sortfield, $sort)
                           ->paginate(10);
@@ -95,6 +101,7 @@ class ProductController extends Controller
                               ->join("account", 'produk.id_account', 'account.id_account')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
+                              ->where("account.id_account", '!=', Auth::user()->id_account)
                               ->where("id_category", $value->id_category)
                               ->count();
         }

@@ -92,7 +92,8 @@ class FeedController extends Controller
 
     public function datatablewtoko() {
       $data = DB::table('feedback')
-        ->select("feedback.star", "feedback.image", "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
+        ->join('transaction', 'transaction.id_transaction', '=', 'feedback.id_transaction')
+        ->select("feedback.star", "feedback.image", 'transaction.nota', "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
         ->orderBy("feedback.created_at", "desc")
         ->where("id_toko", Auth::user()->id_account)
         ->get();

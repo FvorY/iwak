@@ -1,7 +1,78 @@
 @extends('layouts.homepage.app_home')
 @section('content')
+
+  <!-- Modal -->
+  <style media="screen">
+  .rating {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  font-size: 30px;
+  }
+
+  .rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+  }
+
+  .rating label:last-child {
+  position: static;
+  }
+
+  .rating label:nth-child(1) {
+  z-index: 5;
+  }
+
+  .rating label:nth-child(2) {
+  z-index: 4;
+  }
+
+  .rating label:nth-child(3) {
+  z-index: 3;
+  }
+
+  .rating label:nth-child(4) {
+  z-index: 2;
+  }
+
+  .rating label:nth-child(5) {
+  z-index: 1;
+  }
+
+  .rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  }
+
+  .rating label .icon {
+  float: left;
+  color: transparent;
+  }
+
+  .rating label:last-child .icon {
+  color: #000;
+  }
+
+  .rating:not(:hover) label input:checked ~ .icon,
+  .rating:hover label:hover input ~ .icon {
+  color: rgb(249, 201, 31);
+  }
+
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px rgb(249, 201, 31);
+  }
+  </style>
+
 @include('penjualpesanan.detailpesanan')
 @include('pembelihistory.pay')
+@include('pembelihistory.ulasan')
 <!-- Main of the Page -->
 <main id="mt-main">
         <!-- Mt Product Table of the Page -->
@@ -36,7 +107,9 @@
                 <strong class="price"> {{date('j F Y', strtotime($list->date))}}</strong>
               </div>
               <div class="col-xs-12 col-sm-2">
-                @if($list->pay == 'Y')
+                @if($list->pay == 'Y' && $list->deliver == "Y")
+                <strong class="price"><button class="btn btn-sm btn-primary" style="margin-bottom: 20px;" disabled> Pesanan Selesai </button></strong>
+                @elseif($list->pay == 'Y')
                 <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled> Sudah Dibayar </button></strong>
                 @elseif($list->deliver == 'P')
                 <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled=""> Proses Pengiriman </button></strong>
@@ -62,7 +135,11 @@
                   <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Transfer</button></strong>
                 </div>
                 @else
-                  @if ($list->deliver == "P")
+                  @if($list->pay == 'Y' && $list->deliver == "Y" && $list->ulasan == null)
+                    <div class="col-xs-12 col-sm-1">
+                      <strong class="price"><button type="submit" onclick="review({{$list->id_transaction}})" class="btn btn-sm btn-warning"> <i class="fa fa-comment"></i> Kirim Ulasan?</button></strong>
+                    </div>
+                  @elseif ($list->deliver == "P")
                     <div class="col-xs-12 col-sm-1">
                       <strong class="price"><button type="submit" onclick="deliverdone({{$list->id_transaction}})" class="btn btn-sm btn-primary"> <i class="fa fa-check"></i> Pesanan Sudah Diterima?</button></strong>
                     </div>
@@ -81,6 +158,8 @@
 
 @section('extra_script')
   <script type="text/javascript">
+
+  var rating = 0;
 
   function detail(id) {
     var html = "";
@@ -277,5 +356,102 @@
     }
   });
 })
+
+function review(id) {
+  rating = 0;
+  $('input:checked').attr("checked", false);
+  $('#txtulasan').val('');
+  $('.image-holder').empty();
+  $('#id_transaction').val(id);
+
+  $('#ulasan').modal('show');
+}
+
+$(':radio').change(function() {
+  rating = this.value;
+});
+
+$(".uploadGambar").on('change', function () {
+        $('.save').attr('disabled', false);
+        // waitingDialog.show();
+      if (typeof (FileReader) != "undefined") {
+          var image_holder = $(".image-holder");
+          image_holder.empty();
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              image_holder.html('<img style="width: 30px; height: 30px;" src="{{ asset('assets/demo/images/loading.gif')}}" class="img-responsive">');
+              $('.save').attr('disabled', true);
+              setTimeout(function(){
+                  image_holder.empty();
+                  $("<img />", {
+                      "src": e.target.result,
+                      "class": "thumb-image img-responsive",
+                      "style": "height: 100px; width:100px; border-radius: 0px;",
+                  }).appendTo(image_holder);
+                  $('.save').attr('disabled', false);
+              }, 2000)
+          }
+          image_holder.show();
+          reader.readAsDataURL($(this)[0].files[0]);
+
+          // waitingDialog.hide();
+      } else {
+          // waitingDialog.hide();
+          alert("This browser does not support FileReader.");
+      }
+  });
+
+  $('#simpanulasan').click(function(){
+
+  var formdata = new FormData();
+  formdata.append('image', $('.uploadGambar')[0].files[0]);
+  formdata.append('rating', rating);
+  formdata.append('id', $('#id_transaction').val());
+
+  $.ajax({
+    type: "post",
+    url: "{{url('/pembeli')}}" + '/inputulasan?_token='+"{{csrf_token()}}&"+$('.table_modalulasan :input').serialize(),
+    data: formdata,
+    processData: false, //important
+    contentType: false,
+    cache: false,
+    success:function(data){
+      if (data.status == 1) {
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Ulasan Berhasil Disimpan!',
+        });
+        setTimeout(function(){
+              window.location.reload();
+      }, 1000);
+      }else if(data.status == 2){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Ulasan Gagal disimpan!, Periksa data dan koneksi anda!',
+        });
+      }else if (data.status == 3){
+        iziToast.success({
+            icon: 'fa fa-save',
+            message: 'Ulasan Berhasil Disimpan!',
+        });
+        setTimeout(function(){
+              window.location.reload();
+      }, 1000);
+      }else if (data.status == 4){
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Ulasan Gagal Disimpan!',
+        });
+      } else if (data.status == 7) {
+        iziToast.warning({
+            icon: 'fa fa-info',
+            message: data.message,
+        });
+      }
+
+    }
+  });
+})
+
   </script>
 @endsection

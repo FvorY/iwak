@@ -30,6 +30,7 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
+                                <th>Nota</th>
                                 <th>Image Feedback / Review</th>
                                 <th>User Name</th>
                                 <th>Star / Rating</th>
@@ -92,9 +93,14 @@ var table = $('#table-data').DataTable({
                  targets: 4,
                  className: 'center'
               },
+              {
+                 targets: 5,
+                 className: 'center'
+              },
             ],
         "columns": [
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+          {data: 'nota', name: 'nota'},
           {data: 'image', name: 'image'},
           {data: 'username', name: 'username'},
           {data: 'star', name: 'star'},

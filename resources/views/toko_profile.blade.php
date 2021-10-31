@@ -192,7 +192,9 @@
               </ul>
               <div class="links">
                 <button class="follow" onclick="showWA({{$cek->phone}})">Whatsapp </button>
-                <button class="view" onclick="showChat({{$cek->id_account}})">Chat Now</button>
+                @if ($cek->id_account != Auth::user()->id_account)
+                  <button class="view" onclick="showChat({{$cek->id_account}})">Chat Now</button>
+                @endif
               </div>
             </div>
           </div>

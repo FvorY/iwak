@@ -51,6 +51,8 @@ Route::get('/sendchat', 'ChatController@sendchat');
 Route::get('/newchat', 'ChatController@newchat');
 Route::post('/sendimgchat', 'ChatController@sendimgchat');
 
+Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
+
 Route::get('/toko/{id}', 'ProfileTokoController@index');
 
 //Route untuk umum

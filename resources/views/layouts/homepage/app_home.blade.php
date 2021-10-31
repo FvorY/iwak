@@ -514,7 +514,6 @@
 			success: function(data) {
 					window.location.reload();
 			},
-			async:false
 		});
 		@endif
 
@@ -524,7 +523,6 @@
 				success: function(data) {
 						$('.numcart').text(data);
 				},
-				async:false
 			});
 		}
 

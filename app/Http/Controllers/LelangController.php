@@ -8,6 +8,8 @@ use Response;
 
 use DB;
 
+use Auth;
+
 class LelangController extends Controller
 {
     /**
@@ -49,6 +51,7 @@ class LelangController extends Controller
                           ->where("account.istoko", 'Y')
                           ->where("produk.stock", '>' , 0)
                           ->where("produk.id_category", $category)
+                          ->where("account.id_account", '!=', Auth::user()->id_account)
                           ->where('name', 'like', '%' . $keyword . '%')
                           ->orWhere('namatoko', 'like', '%' . $keyword . '%')
                           ->orWhere('address', 'like', '%' . $keyword . '%')
@@ -66,6 +69,7 @@ class LelangController extends Controller
                           ->where("account.istoko", 'Y')
                           ->where("produk.stock", '>' , 0)
                           ->where("produk.id_category", $category)
+                          ->where("account.id_account", '!=', Auth::user()->id_account)
                           ->groupby("imageproduk.id_produk")
                           ->orderby('produk.'.$sortfield, $sort)
                           ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
@@ -82,6 +86,7 @@ class LelangController extends Controller
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
                             ->where('name', 'like', '%' . $keyword . '%')
+                            ->where("account.id_account", '!=', Auth::user()->id_account)
                             ->orWhere('namatoko', 'like', '%' . $keyword . '%')
                             ->orWhere('address', 'like', '%' . $keyword . '%')
                             ->groupby("imageproduk.id_produk")
@@ -97,6 +102,7 @@ class LelangController extends Controller
                             ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
+                            ->where("account.id_account", '!=', Auth::user()->id_account)
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
                             ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
@@ -114,6 +120,7 @@ class LelangController extends Controller
                               ->join("account", 'produk.id_account', 'account.id_account')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
+                              ->where("account.id_account", '!=', Auth::user()->id_account)
                               ->where("id_category", $value->id_category)
                               ->count();
         }
