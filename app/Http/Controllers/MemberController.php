@@ -93,7 +93,7 @@ class MemberController extends Controller
           $max = DB::table("account")->max('id_account') + 1;
           // $user = Account::where("email", $email)->where("role", "member")->first();
 
-       
+
           // Define Email Address
           $email = $req['email'];
 
@@ -111,7 +111,7 @@ class MemberController extends Controller
             'islogin' => 'Y',
             'last_online'=>Carbon::now(),
         ]);
-   
+
         //     ]);
          if ($regis != null) {
           $user = Account::where("email", $email)->where("role", "member")->first();
@@ -177,7 +177,7 @@ class MemberController extends Controller
       //       'nomor_rekening' => $req['norek'],
       //       'bank' => $req['bank'],
       //       'last_online' => Carbon::now(),
-           
+
       // ]);
 
             // baru
@@ -250,5 +250,246 @@ class MemberController extends Controller
       // return redirect('/pembeli/profile')->with('alert-success','Edit Profil Berhasil');
     }
 
+    public function apilogin(Request $req) {
+
+        $rules = array(
+            'username' => 'required|min:3', // make sure the email is an actual email
+            'password' => 'required|min:2' // password can only be alphanumeric and has to be greater than 3 characters
+        );
+        // dd($req->all());
+        $validator = Validator::make($req->all(), $rules);
+        if ($validator->fails()) {
+          return response()->json([
+            "code" => 400,
+            "message" => $validator->errors()->first()
+          ]);
+        } else {
+
+          $username  = $req->username;
+          $password  = $req->password;
+          $pass_benar = $password;
+          // $pass_benar=$password;
+          // $username = str_replace('\'', '', $username);
+
+          $user = Account::where("email", $username)->where("role", "member")->first();
+
+          $user_valid = [];
+          // dd($req->all());
+
+          if ($user != null) {
+              $user_pass = Account::where('email',$username)
+                                    ->where('password',$pass_benar)
+                                    ->first();
+
+              if ($user_pass != null) {
+
+                  Account::where('email',$username)->update([
+                       'last_online'=>Carbon::now(),
+                       'islogin'=>'Y',
+                    ]);
+
+                    return response()->json([
+                      "code" => 200,
+                      "message" => "Sukses Login",
+                      "data" => $user_pass
+                    ]);
+                }
+              }else{
+                return response()->json([
+                  "code" => 400,
+                  "message" => "Username Tidak Ada"
+                ]);
+
+              }
+        }
+    }
+
+    public function apiregister(Request $req){
+        // $this->validate($req, [
+        //     // 'fullname' => 'required|string|min:4',
+        //     'email' => 'required|min:4|email',
+        //     'password' => 'required',
+        //     'password_confirmation' => 'required|same:password'
+        //     // 'password_confirm' => 'required_with:password|same:password|min:4',
+        // ]);
+
+        $rules = array(
+          'email' => 'required|min:4|email',
+          'password' => 'required',
+          'password_confirmation' => 'required|same:password'
+        );
+
+        // dd($req->all());
+        $validator = Validator::make($req->all(), $rules);
+        if ($validator->fails()) {
+          return response()->json([
+            "code" => 400,
+            "message" => $validator->errors()->first()
+          ]);
+        } else {
+
+          $max = DB::table("account")->max('id_account') + 1;
+          // $user = Account::where("email", $email)->where("role", "member")->first();
+
+
+          // Define Email Address
+          $email = $req['email'];
+
+
+          // Get the username by slicing string
+          $fullname = strstr($email, '@', true);
+
+         $regis = Account::create([
+            'id_account' => $max,
+            'fullname' => $fullname,
+            'email' => $req['email'],
+            'password' => $req['password'],
+            'confirm_password' => $req['password_confirmation'],
+            'role' => 'member',
+            'islogin' => 'Y',
+            'last_online'=>Carbon::now(),
+        ]);
+
+        //     ]);
+         if ($regis != null) {
+          $user = Account::where("email", $email)->where("role", "member")->first();
+
+             return response()->json([
+               "code" => 200,
+               "message" => "Kamu berhasil Register",
+               "data" => $user
+             ]);
+         } else {
+           return response()->json([
+             "code" => 400,
+             "message" => "Gagal register"
+           ]);
+         }
+
+        }
+
+    }
+
+    public function apilogout(Request $req){
+
+      Account::where('id_account', $req->id_account)->update([
+           'last_online' => Carbon::now(),
+           'islogin' => "N",
+      ]);
+
+      return response()->json([
+        "code" => 200,
+        "message" => "Kamu berhasil logout",
+      ]);
+
+    }
+
+    public function apiprofile(Request $req){
+
+        $data = DB::table("account")->where("id_account", $req->id_account)->first();
+        // $gender = DB::table("account")->select("gender");
+        if ($data == null) {
+          return response()->json([
+            "code" => 400,
+            "message" => "Data tidak ditemukan"
+          ]);
+       } else {
+         return response()->json([
+           "code" => 200,
+           "message" => "Sukses",
+           "data" => $data
+         ]);
+       }
+    }
+
+    public function apiedit(Request $req){
+      $rules = array(
+        'fullname' => 'required|string|min:4',
+        'password' => 'required',
+        'password_confirmation' => 'required|same:password'
+      );
+
+      // dd($req->all());
+      $validator = Validator::make($req->all(), $rules);
+      if ($validator->fails()) {
+        return response()->json([
+          "code" => 400,
+          "message" => $validator->errors()->first()
+        ]);
+      } else {
+        $imgPath = null;
+        $tgl = Carbon::now('Asia/Jakarta');
+        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+        $dir = 'image/uploads/User/' . $req->id_account;
+        $childPath = $dir . '/';
+        $path = $childPath;
+        $file = $req->file('image');
+        $name = null;
+        if ($file != null) {
+            // $this->deleteDir($dir);
+         File::deleteDirectory($dir);
+            $name = $folder . '.' . $file->getClientOriginalExtension();
+            if (!File::exists($path)) {
+                if (File::makeDirectory($path, 0777, true)) {
+                     if ($_FILES['image']['type'] == 'image/webp') {
+
+                    } else if ($_FILES['image']['type'] == 'webp') {
+
+                    } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                    }
+                    $file->move($path, $name);
+                    $imgPath = $childPath . $name;
+                } else
+                    $imgPath = null;
+            } else {
+                return 'already exist';
+            }
+        }
+
+            if ($imgPath == null) {
+              DB::table("account")
+                  ->where('id_account', $req->id_account)
+                  ->update([
+                     "fullname" => $req['fullname'],
+                     "password" => $req['password'],
+                     "confirm_password" => $req['password_confirmation'],
+                     "phone" => $req['phone'],
+                     "address" => $req['address'],
+                     "nomor_rekening" => $req['norek'],
+                     "bank" => $req['bank'],
+                     "last_online" => Carbon::now(),
+                     "updated_at" => Carbon::now('Asia/Jakarta'),
+                ]);
+            } else {
+              DB::table("account")
+                  ->where('id_account', $req->id_account)
+                  ->update([
+                     "fullname" => $req['fullname'],
+                     "password" => $req['password'],
+                     "confirm_password" => $req['password_confirmation'],
+                     "phone" => $req['phone'],
+                     "address" => $req['address'],
+                     "profile_picture" => $imgPath,
+                     "nomor_rekening" => $req['norek'],
+                     "bank" => $req['bank'],
+                     "last_online" => Carbon::now(),
+                     "updated_at" => Carbon::now('Asia/Jakarta'),
+                ]);
+            }
+
+        $data = DB::table("account")
+                    ->where('id_account', $req->id_account)
+                    ->first();
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data
+        ]);
+      }
+
+    }
 
 }
