@@ -31,43 +31,78 @@ class HomepageController extends Controller
     {
         $backgroundheader = DB::table("backgroundheader")->where("id", 1)->first();
 
-        $latest = DB::table("produk")
-                    ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                    ->join("account", 'produk.id_account', 'account.id_account')
-                    ->latest('produk.created_at')
-                    ->where("account.istoko", 'Y')
-                    ->where("produk.stock", '>' , 0)
-                    ->where("account.id_account", '!=', Auth::user()->id_account)
-                    ->groupby("imageproduk.id_produk")
-                    ->limit(20)
-                    ->get();
+        if (Auth::check()) {
+          $latest = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->latest('produk.created_at')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->where("account.id_account", '!=', Auth::user()->id_account)
+                      ->groupby("imageproduk.id_produk")
+                      ->limit(20)
+                      ->get();
 
-        $bestseller = DB::table("produk")
-                    ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                    ->join("account", 'produk.id_account', 'account.id_account')
-                    ->where("account.istoko", 'Y')
-                    ->where("produk.stock", '>' , 0)
-                    ->where("account.id_account", '!=', Auth::user()->id_account)
-                    ->groupby("imageproduk.id_produk")
-                    ->orderby('produk.sold', 'DESC')
-                    ->limit(10)
-                    ->get();
+          $bestseller = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->where("account.id_account", '!=', Auth::user()->id_account)
+                      ->groupby("imageproduk.id_produk")
+                      ->orderby('produk.sold', 'DESC')
+                      ->limit(10)
+                      ->get();
 
-        $forauction = DB::table("lelang")
-                    ->join('imageproduk', 'imageproduk.id_produk', '=', 'lelang.id_produk')
-                    ->join("account", 'lelang.id_account', 'account.id_account')
-                    ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
-                    ->latest('lelang.created_at')
-                    ->where("isactive", 'Y')
-                    ->where("iswon", 'N')
-                    ->where("account.istoko", 'Y')
-                    ->where("produk.stock", '>' , 0)
-                    ->where("account.id_account", '!=', Auth::user()->id_account)
-                    ->groupby("imageproduk.id_produk")
-                    ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
-                    ->limit(20)
-                    ->get();
+          $forauction = DB::table("lelang")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'lelang.id_produk')
+                      ->join("account", 'lelang.id_account', 'account.id_account')
+                      ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                      ->latest('lelang.created_at')
+                      ->where("isactive", 'Y')
+                      ->where("iswon", 'N')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->where("account.id_account", '!=', Auth::user()->id_account)
+                      ->groupby("imageproduk.id_produk")
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
+                      ->limit(20)
+                      ->get();
+        } else {
+          $latest = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->latest('produk.created_at')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->groupby("imageproduk.id_produk")
+                      ->limit(20)
+                      ->get();
 
+          $bestseller = DB::table("produk")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                      ->join("account", 'produk.id_account', 'account.id_account')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->groupby("imageproduk.id_produk")
+                      ->orderby('produk.sold', 'DESC')
+                      ->limit(10)
+                      ->get();
+
+          $forauction = DB::table("lelang")
+                      ->join('imageproduk', 'imageproduk.id_produk', '=', 'lelang.id_produk')
+                      ->join("account", 'lelang.id_account', 'account.id_account')
+                      ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                      ->latest('lelang.created_at')
+                      ->where("isactive", 'Y')
+                      ->where("iswon", 'N')
+                      ->where("account.istoko", 'Y')
+                      ->where("produk.stock", '>' , 0)
+                      ->groupby("imageproduk.id_produk")
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
+                      ->limit(20)
+                      ->get();
+        }
 
         foreach ($forauction as $key => $value) {
             $bid = DB::table("lelangbid")

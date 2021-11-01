@@ -40,42 +40,8 @@ class LelangController extends Controller
         $keyword = $req->keyword;
       }
 
-        if ($category != "all") {
-            if ($keyword != "") {
-              $data = DB::table("lelang")
-                          ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
-                          ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                          ->join("account", 'lelang.id_account', 'account.id_account')
-                          ->where("lelang.isactive", 'Y')
-                          ->where("lelang.iswon", 'N')
-                          ->where("account.istoko", 'Y')
-                          ->where("produk.stock", '>' , 0)
-                          ->where("produk.id_category", $category)
-                          ->where("account.id_account", '!=', Auth::user()->id_account)
-                          ->where('name', 'like', '%' . $keyword . '%')
-                          ->orWhere('namatoko', 'like', '%' . $keyword . '%')
-                          ->orWhere('address', 'like', '%' . $keyword . '%')
-                          ->groupby("imageproduk.id_produk")
-                          ->orderby('produk.'.$sortfield, $sort)
-                          ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
-                          ->paginate(10);
-            } else {
-              $data = DB::table("lelang")
-                          ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
-                          ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
-                          ->join("account", 'lelang.id_account', 'account.id_account')
-                          ->where("lelang.isactive", 'Y')
-                          ->where("lelang.iswon", 'N')
-                          ->where("account.istoko", 'Y')
-                          ->where("produk.stock", '>' , 0)
-                          ->where("produk.id_category", $category)
-                          ->where("account.id_account", '!=', Auth::user()->id_account)
-                          ->groupby("imageproduk.id_produk")
-                          ->orderby('produk.'.$sortfield, $sort)
-                          ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
-                          ->paginate(10);
-            }
-        } else {
+      if (Auth::check()) {
+          if ($category != "all") {
               if ($keyword != "") {
                 $data = DB::table("lelang")
                             ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
@@ -85,8 +51,9 @@ class LelangController extends Controller
                             ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
-                            ->where('name', 'like', '%' . $keyword . '%')
+                            ->where("produk.id_category", $category)
                             ->where("account.id_account", '!=', Auth::user()->id_account)
+                            ->where('name', 'like', '%' . $keyword . '%')
                             ->orWhere('namatoko', 'like', '%' . $keyword . '%')
                             ->orWhere('address', 'like', '%' . $keyword . '%')
                             ->groupby("imageproduk.id_produk")
@@ -102,12 +69,113 @@ class LelangController extends Controller
                             ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
+                            ->where("produk.id_category", $category)
                             ->where("account.id_account", '!=', Auth::user()->id_account)
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
                             ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
                             ->paginate(10);
               }
+          } else {
+                if ($keyword != "") {
+                  $data = DB::table("lelang")
+                              ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                              ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                              ->join("account", 'lelang.id_account', 'account.id_account')
+                              ->where("lelang.isactive", 'Y')
+                              ->where("lelang.iswon", 'N')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where('name', 'like', '%' . $keyword . '%')
+                              ->where("account.id_account", '!=', Auth::user()->id_account)
+                              ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                              ->orWhere('address', 'like', '%' . $keyword . '%')
+                              ->groupby("imageproduk.id_produk")
+                              ->orderby('produk.'.$sortfield, $sort)
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                              ->paginate(10);
+                } else {
+                  $data = DB::table("lelang")
+                              ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                              ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                              ->join("account", 'lelang.id_account', 'account.id_account')
+                              ->where("lelang.isactive", 'Y')
+                              ->where("lelang.iswon", 'N')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where("account.id_account", '!=', Auth::user()->id_account)
+                              ->groupby("imageproduk.id_produk")
+                              ->orderby('produk.'.$sortfield, $sort)
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                              ->paginate(10);
+                }
+          }
+        } else {
+          if ($category != "all") {
+              if ($keyword != "") {
+                $data = DB::table("lelang")
+                            ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                            ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                            ->join("account", 'lelang.id_account', 'account.id_account')
+                            ->where("lelang.isactive", 'Y')
+                            ->where("lelang.iswon", 'N')
+                            ->where("account.istoko", 'Y')
+                            ->where("produk.stock", '>' , 0)
+                            ->where("produk.id_category", $category)
+                            ->where('name', 'like', '%' . $keyword . '%')
+                            ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                            ->orWhere('address', 'like', '%' . $keyword . '%')
+                            ->groupby("imageproduk.id_produk")
+                            ->orderby('produk.'.$sortfield, $sort)
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                            ->paginate(10);
+              } else {
+                $data = DB::table("lelang")
+                            ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                            ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                            ->join("account", 'lelang.id_account', 'account.id_account')
+                            ->where("lelang.isactive", 'Y')
+                            ->where("lelang.iswon", 'N')
+                            ->where("account.istoko", 'Y')
+                            ->where("produk.stock", '>' , 0)
+                            ->where("produk.id_category", $category)
+                            ->groupby("imageproduk.id_produk")
+                            ->orderby('produk.'.$sortfield, $sort)
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                            ->paginate(10);
+              }
+          } else {
+                if ($keyword != "") {
+                  $data = DB::table("lelang")
+                              ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                              ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                              ->join("account", 'lelang.id_account', 'account.id_account')
+                              ->where("lelang.isactive", 'Y')
+                              ->where("lelang.iswon", 'N')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where('name', 'like', '%' . $keyword . '%')
+                              ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                              ->orWhere('address', 'like', '%' . $keyword . '%')
+                              ->groupby("imageproduk.id_produk")
+                              ->orderby('produk.'.$sortfield, $sort)
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                              ->paginate(10);
+                } else {
+                  $data = DB::table("lelang")
+                              ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                              ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                              ->join("account", 'lelang.id_account', 'account.id_account')
+                              ->where("lelang.isactive", 'Y')
+                              ->where("lelang.iswon", 'N')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->groupby("imageproduk.id_produk")
+                              ->orderby('produk.'.$sortfield, $sort)
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko')
+                              ->paginate(10);
+                }
+          }
         }
 
         $categorydata = DB::table('category')
@@ -115,6 +183,7 @@ class LelangController extends Controller
                     ->get();
 
         foreach ($categorydata as $key => $value) {
+          if (Auth::check()) {
             $value->total = DB::table('lelang')
                               ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
                               ->join("account", 'produk.id_account', 'account.id_account')
@@ -123,6 +192,15 @@ class LelangController extends Controller
                               ->where("account.id_account", '!=', Auth::user()->id_account)
                               ->where("id_category", $value->id_category)
                               ->count();
+          } else {
+            $value->total = DB::table('lelang')
+                              ->join('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+                              ->join("account", 'produk.id_account', 'account.id_account')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where("id_category", $value->id_category)
+                              ->count();
+          }
         }
 
         return view('lelang', compact('data', 'sort', 'sortfield', 'categorydata', 'category', 'keyword'));

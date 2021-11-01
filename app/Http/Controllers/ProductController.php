@@ -38,6 +38,7 @@ class ProductController extends Controller
         $keyword = $req->keyword;
       }
 
+      if (Auth::check()) {
         if ($category != "all") {
           if ($keyword != "") {
             $data = DB::table("produk")
@@ -91,12 +92,64 @@ class ProductController extends Controller
                           ->paginate(10);
             }
         }
+      } else {
+        if ($category != "all") {
+          if ($keyword != "") {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where("produk.id_category", $category)
+                        ->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                        ->orWhere('address', 'like', '%' . $keyword . '%')
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+          } else {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where("produk.id_category", $category)
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+          }
+        } else {
+          if ($keyword != "") {
+            $data = DB::table("produk")
+                        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                        ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("account.istoko", 'Y')
+                        ->where("produk.stock", '>' , 0)
+                        ->where('name', 'like', '%' . $keyword . '%')
+                        ->orWhere('namatoko', 'like', '%' . $keyword . '%')
+                        ->orWhere('address', 'like', '%' . $keyword . '%')
+                        ->groupby("imageproduk.id_produk")
+                        ->orderby('produk.'.$sortfield, $sort)
+                        ->paginate(10);
+            } else {
+              $data = DB::table("produk")
+                          ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                          ->join("account", 'produk.id_account', 'account.id_account')
+                          ->where("account.istoko", 'Y')
+                          ->where("produk.stock", '>' , 0)
+                          ->groupby("imageproduk.id_produk")
+                          ->orderby('produk.'.$sortfield, $sort)
+                          ->paginate(10);
+            }
+        }
+      }
 
         $categorydata = DB::table('category')
                     ->select('id_category', 'id_category as total', 'category_name')
                     ->get();
 
         foreach ($categorydata as $key => $value) {
+          if (Auth::check()) {
             $value->total = DB::table('produk')
                               ->join("account", 'produk.id_account', 'account.id_account')
                               ->where("account.istoko", 'Y')
@@ -104,6 +157,14 @@ class ProductController extends Controller
                               ->where("account.id_account", '!=', Auth::user()->id_account)
                               ->where("id_category", $value->id_category)
                               ->count();
+          } else {
+            $value->total = DB::table('produk')
+                              ->join("account", 'produk.id_account', 'account.id_account')
+                              ->where("account.istoko", 'Y')
+                              ->where("produk.stock", '>' , 0)
+                              ->where("id_category", $value->id_category)
+                              ->count();
+          }
         }
 
         return view('product', compact('data', 'sort', 'sortfield', 'categorydata', 'category', 'keyword'));
