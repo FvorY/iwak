@@ -217,7 +217,7 @@ class ProductController extends Controller
                             ->join("account", 'produk.id_account', 'account.id_account')
                             ->where("produk.id_category", $get_id_related[0]->id_category)
                             // ->select("produk.id_category","produk.name")
-                            ->get();
+                            ->get();  
         
         $image = DB::table("imageproduk")
                 ->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')
@@ -225,9 +225,20 @@ class ProductController extends Controller
                 ->where("produk.id_produk", $id)
                 ->get();
 
+        $feedback =  DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $id)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->get();
+    
+        // dd(count($feedback));
+        // dd($feedback);
         // dd($get_id_related[0]->id_category);
 
-        return view('product/detail', compact('data', 'image','related'));
+        return view('product/detail', compact('data', 'image','related','feedback'));
     }
 
     /**
