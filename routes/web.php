@@ -15,6 +15,7 @@ Route::get('/', 'HomepageController@index');
 Route::get('/getinfo', 'HomepageController@getinfo');
 Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
+Route::get('/product/detail/{id}', 'ProductController@show')->name('detailproduct');
 Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
@@ -22,7 +23,6 @@ Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
 Route::post('/editmember', 'MemberController@edit')->name('editmember');
 Route::get('/logoutmemberjson', 'MemberController@logoutjson');
-
 
 Route::get('/pembeli/profile', 'MemberController@profile')->name('profilemember');
 Route::get('/pembeli/history', 'HistoryController@index')->name('historymember');

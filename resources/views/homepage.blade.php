@@ -95,7 +95,7 @@
 														<div class="box">
 															<div class="b1">
 																<div class="b2">
-																	<a href="product-detail.html"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
+																	<a href="{{route('detailproduct', $value->id_produk)}}"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
 																	<span class="caption">
 																		@if ($value->isdiskon == "Y")
 																			<span class="off">{{$value->diskon}}% off</span>

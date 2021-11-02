@@ -200,6 +200,34 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        $data = DB::table("produk")
+                ->join("account", 'produk.id_account', 'account.id_account')
+                ->where("produk.id_produk", $id)
+                ->get();
+
+        $get_id_related = DB::table("produk")
+                  // ->join("account", 'produk.id_account', 'account.id_account')
+                  ->where("produk.id_produk", $id)
+                  ->select("produk.id_category")
+                  ->get();
+                  
+
+        $related = DB::table("produk")
+                            ->join('imageproduk', 'imageproduk.id_produk', 'produk.id_produk')
+                            ->join("account", 'produk.id_account', 'account.id_account')
+                            ->where("produk.id_category", $get_id_related[0]->id_category)
+                            // ->select("produk.id_category","produk.name")
+                            ->get();
+        
+        $image = DB::table("imageproduk")
+                ->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')
+                // ->join("account", 'produk.id_account', 'account.id_account')
+                ->where("produk.id_produk", $id)
+                ->get();
+
+        // dd($get_id_related[0]->id_category);
+
+        return view('product/detail', compact('data', 'image','related'));
     }
 
     /**
