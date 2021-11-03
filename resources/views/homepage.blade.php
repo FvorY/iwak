@@ -127,6 +127,7 @@
 															@if ($value->isdiskon == "Y")
 																<?php
 																$diskonval = ($value->diskon/100)*$value->price;
+																$diskonval = $value->price * $value->diskon / 100;
 																$res = $value->price - $diskonval;
 																?>
 																<span class="price">{{FormatRupiahFront($res)}}</span>

@@ -35,6 +35,26 @@ class EdittokoController extends Controller
 
      }
 
+     public function apitoko(Request $req) {
+
+       $data = DB::table("account")->where("id_account", $req->id_account)->first();
+
+       if ($data == null) {
+         return response()->json([
+           "code" => 400,
+           "message" => "Toko tidak ditemukan",
+           "data" => $data
+         ]);
+       } else {
+         return response()->json([
+           "code" => 200,
+           "message" => "Sukses",
+           "data" => $data
+         ]);
+       }
+
+     }
+
      public function simpan(Request $req) {
 
          if ($req->namatoko == null) {
@@ -57,7 +77,7 @@ class EdittokoController extends Controller
                $imgPath = null;
                $tgl = Carbon::now('Asia/Jakarta');
                $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-               $dir = 'image/uploads/Toko/' . $req->id;
+               $dir = 'image/uploads/Toko/' . Auth::user()->id_account;
                $childPath = $dir . '/';
                $path = $childPath;
 
@@ -116,6 +136,100 @@ class EdittokoController extends Controller
                Session::flash('gagal', 'gagal');
 
                return back()->with('gagal','gagal');
+             }
+
+     }
+
+     public function apisimpan(Request $req) {
+
+         if ($req->namatoko == null) {
+           // dd($req);
+           return response()->json([
+             "code" => 400,
+             "message" => "Isi nama toko terlebih dahulu"
+           ]);
+         }
+
+         if ($req->namatoko == "") {
+           // dd($req);
+           return response()->json([
+             "code" => 400,
+             "message" => "Isi nama toko terlebih dahulu"
+           ]);
+         }
+
+         DB::beginTransaction();
+         try {
+               // dd($req);
+               $imgPath = null;
+               $tgl = Carbon::now('Asia/Jakarta');
+               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+               $dir = 'image/uploads/Toko/' . $req->id_account;
+               $childPath = $dir . '/';
+               $path = $childPath;
+
+               $file = $req->file('image');
+               $name = null;
+               if ($file != null) {
+                   $this->deleteDir($dir);
+                   $name = $folder . '.' . $file->getClientOriginalExtension();
+                   if (!File::exists($path)) {
+                       if (File::makeDirectory($path, 0777, true)) {
+                           if ($_FILES['image']['type'] == 'image/webp') {
+
+                           } else if ($_FILES['image']['type'] == 'webp') {
+
+                           } else {
+                             compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                           }
+                           $file->move($path, $name);
+                           $imgPath = $childPath . $name;
+                       } else
+                           $imgPath = null;
+                   } else {
+                       return 'already exist';
+                   }
+                 }
+
+                   if ($imgPath == null) {
+                     DB::table("account")
+                         ->where('id_account', $req->id_account)
+                         ->update([
+                         "namatoko" => $req->namatoko,
+                         "nomor_rekening" => $req->nomor_rekening,
+                         "bank" => $req->bank,
+                         "istoko" => $req->istoko,
+                         "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   } else {
+                     DB::table("account")
+                         ->where('id_account', $req->id_account)
+                         ->update([
+                         "namatoko" => $req->namatoko,
+                         "nomor_rekening" => $req->nomor_rekening,
+                         "bank" => $req->bank,
+                         "profile_toko" => $imgPath,
+                         "istoko" => $req->istoko,
+                         "updated_at" => Carbon::now('Asia/Jakarta'),
+                       ]);
+                   }
+
+              $data = DB::table("account")
+                  ->where('id_account', $req->id_account)
+                  ->first();
+
+               DB::commit();
+               return response()->json([
+                 "code" => 200,
+                 "message" => "Sukses simpan data",
+                 "data" => $data
+               ]);
+             } catch (\Exception $e) {
+               DB::rollback();
+               return response()->json([
+                 "code" => 400,
+                 "message" => "Gagal simpan data, periksa koneksi anda terlebih dahulu!"
+               ]);
              }
 
      }

@@ -97,7 +97,7 @@
 												<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 												@if ($value->isdiskon == "Y")
 													<?php
-													$diskonval = $value->diskon * $value->price;
+													$diskonval = $value->price * $value->diskon / 100;
 													$res = $value->price - $diskonval;
 													?>
 													<span class="price"><span>{{FormatRupiahFront($res)}}</span></span>
