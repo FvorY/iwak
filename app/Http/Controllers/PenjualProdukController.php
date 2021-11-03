@@ -166,13 +166,6 @@ class PenjualProdukController extends Controller
 
           $max = DB::table('imageproduk')->where("id_produk", $req->id)->max('id_image');
 
-          $cek = DB::table("produk")->where("url_segment", strtolower(str_replace(" ", "-", $req->name)))->first();
-
-          $urlsegment = strtolower(str_replace(" ", "-", $req->name));
-          if ($cek != null) {
-              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) . "-" . unique_id(3);
-          }
-
           $price = str_replace('.','',$req->price);
           $price = str_replace('Rp ','',$price);
 
@@ -187,8 +180,6 @@ class PenjualProdukController extends Controller
                 "diskon" => $req->diskon,
                 "isdiskon" => $req->isdiskon,
                 "description" => $req->description,
-                "url_segment" => $urlsegment,
-                "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
           $file = $req->file('file');
@@ -413,13 +404,6 @@ class PenjualProdukController extends Controller
 
           $max = DB::table('imageproduk')->where("id_produk", $req->id)->max('id_image');
 
-          $cek = DB::table("produk")->where("url_segment", strtolower(str_replace(" ", "-", $req->name)))->first();
-
-          $urlsegment = strtolower(str_replace(" ", "-", $req->name));
-          if ($cek != null) {
-              $urlsegment = strtolower(str_replace(" ", "-", $req->name)) . "-" . unique_id(3);
-          }
-
           $price = str_replace('.','',$req->price);
           $price = str_replace('Rp ','',$price);
 
@@ -434,8 +418,6 @@ class PenjualProdukController extends Controller
                 "diskon" => $req->diskon,
                 "isdiskon" => $req->isdiskon,
                 "description" => $req->description,
-                "url_segment" => $urlsegment,
-                "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
           $file = $req->file('file');
