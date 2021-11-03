@@ -203,7 +203,6 @@ class PenjualListpesananController extends Controller
         DB::commit();
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
-        dd($e);
         DB::rollback();
         return response()->json(["status" => 4]);
       }
@@ -286,6 +285,119 @@ class PenjualListpesananController extends Controller
             ->get();
 
         return response()->json($data);
+
+    }
+
+    public function apilistorder(Request $req) {
+      $data = DB::table('transaction')
+        ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+        ->where("id_penjual", $req->id_account)
+        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota")
+        ->orderby("date", "DESC")
+        ->get();
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data
+        ]);
+    }
+
+    public function apicancel(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->update([
+              "cancelled" => "Y"
+            ]);
+
+        $cekdetail = DB::table('transaction_detail')
+                      ->where('id_transaction', $req->id)
+                      ->get();
+
+        for ($i=0; $i < count($cekdetail); $i++) {
+
+          $cekproduk = DB::table('produk')
+                      ->where("id_produk", $cekdetail[$i]->id_produk)
+                      ->first();
+
+          DB::table('produk')
+            ->where("id_produk", $cekdetail[$i]->id_produk)
+            ->update([
+              'stock' => $cekproduk->stock + $cekdetail[$i]->qty,
+              'sold' => $cekproduk->sold - $cekdetail[$i]->qty,
+            ]);
+        }
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => "Gagal",
+        ]);
+      }
+
+    }
+
+    public function apihapus(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $transaction = DB::table("transaction")
+                      ->where("id_transaction", $req->id)
+                      ->first();
+
+        if ($transaction->cancelled == "N") {
+          $cekdetail = DB::table('transaction_detail')
+                        ->where('id_transaction', $req->id)
+                        ->get();
+
+          for ($i=0; $i < count($cekdetail); $i++) {
+
+            $cekproduk = DB::table('produk')
+                        ->where("id_produk", $cekdetail[$i]->id_produk)
+                        ->first();
+
+            DB::table('produk')
+              ->where("id_produk", $cekdetail[$i]->id_produk)
+              ->update([
+                'stock' => $cekproduk->stock + $cekdetail[$i]->qty,
+                'sold' => $cekproduk->sold - $cekdetail[$i]->qty,
+              ]);
+          }
+        }
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->delete();
+
+        DB::table("transaction_detail")
+          ->where("id_transaction", $req->id)
+          ->delete();
+
+        DB::table("payment")
+          ->where("id_transaction", $req->id)
+          ->delete();
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => "Gagal",
+        ]);
+      }
 
     }
 

@@ -51,4 +51,14 @@ Route::middleware('api')->group(function () {
     Route::any('penjual/lelang/pemenang', 'PenjualLelangController@apipemenang');
     Route::any('penjual/lelang/won', 'PenjualLelangController@apiwon');
 
+    //List Pesanan
+    Route::any('penjual/listorder', 'PenjualListpesananController@apilistorder');
+    Route::any('penjual/listorder/cancel', 'PenjualListpesananController@apicancel');
+    Route::any('penjual/listorder/hapus', 'PenjualListpesananController@apihapus');
+    Route::any('penjual/listorder/detail', 'PenjualListpesananController@apidetail');
+    Route::any('penjual/listorder/deliver', 'PenjualListpesananController@apideliver');
+    Route::any('penjual/listorder/deliverdone', 'PenjualListpesananController@apideliverdone');
+    Route::any('penjual/listorder/showpayment/{id}', 'PenjualListpesananController@apishowpayment');
+    Route::any('penjual/listorder/approve', 'PenjualListpesananController@apiapprove');
+
 });
