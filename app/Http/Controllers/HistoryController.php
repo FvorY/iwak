@@ -187,7 +187,6 @@ class HistoryController extends Controller
           DB::commit();
           return response()->json(["status" => 3]);
         } catch (\Exception $e) {
-          dd($e);
           DB::rollback();
           return response()->json(["status" => 4]);
         }

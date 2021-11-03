@@ -66,4 +66,42 @@ class PenjualHomeController extends Controller
 
        return view("homepenjual", compact('omset', 'pesananbelomterbayar', 'pesanansudahterbayar', 'pesananbelomterkirim', 'feedback'));
      }
+
+     public function apilaporan(Request $req) {
+         $omset = DB::table("transaction")
+                  ->where("id_penjual", $req->id_account)
+                  ->where("pay", "Y")
+                  ->sum("transaction.subtotal");
+
+         $pesananbelomterbayar = DB::table("transaction")
+                              ->where("id_penjual", $req->id_account)
+                              ->where("cancelled", 'N')
+                              ->where("pay", 'N')
+                              ->count();
+
+         $pesanansudahterbayar = DB::table("transaction")
+                               ->where("id_penjual", $req->id_account)
+                               ->where("cancelled", 'N')
+                               ->where("pay", 'Y')
+                               ->count();
+
+         $pesananbelomterkirim = DB::table("transaction")
+                              ->where("id_penjual", $req->id_account)
+                              ->where("cancelled", 'N')
+                              ->where("deliver", 'N')
+                              ->count();
+
+        $feedback = DB::table("feedback")->where("id_toko", $req->id_account)->count();
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "omset" => $omset,
+          "pesananbelomterbayar" => $pesananbelomterbayar,
+          "pesanansudahterbayar" => $pesanansudahterbayar,
+          "pesananbelomterkirim" => $pesananbelomterkirim,
+          "pesananbelomterkirim" => $pesananbelomterkirim,
+          "feedback" => $feedback
+        ]);
+     }
 }

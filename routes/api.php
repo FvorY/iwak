@@ -20,5 +20,35 @@ Route::middleware('api')->group(function () {
     Route::any('/logout', 'MemberController@apilogout');
     Route::any('/profile', 'MemberController@apiprofile');
     Route::any('/editprofile', 'MemberController@apiedit');
+    Route::any('/getinfo', 'HomepageController@getinfo');
+
+    //Penjual
+    Route::any('/penjual/laporan', 'PenjualHomeController@apilaporan');
+
+    //Penjual Toko
+    Route::any('/penjual/toko', 'EdittokoController@apitoko');
+    Route::any('/penjual/toko/simpan', 'EdittokoController@apisimpan');
+
+    //List Feedback / Review
+    Route::any('/penjual/feed', 'FeedController@apifeed');
+
+    //Manage Produk
+    Route::any('/penjual/produk', 'PenjualProdukController@apiproduk');
+    Route::any('/penjual/produk/simpan', 'PenjualProdukController@apisimpan');
+    Route::any('/penjual/produk/view', 'PenjualProdukController@apiget');
+    Route::any('/penjual/produk/removeimage', 'PenjualProdukController@apiremoveimage');
+    Route::any('/penjual/produk/hapus', 'PenjualProdukController@apihapus');
+
+    //Manage Lelang
+    Route::any('penjual/lelang', 'PenjualLelangController@apilelang');
+    Route::any('penjual/lelang/listbid/{id}', 'PenjualLelangController@apilistbid');
+    Route::any('penjual/lelang/hapus', 'PenjualLelangController@apihapus');
+    Route::any('penjual/lelang/aktif', 'PenjualLelangController@apiaktif');
+    Route::any('penjual/lelang/nonaktif', 'PenjualLelangController@apinonaktif');
+    Route::any('penjual/lelang/view', 'PenjualLelangController@apiview');
+    Route::any('penjual/lelang/simpan', 'PenjualLelangController@apisimpan');
+    Route::any('penjual/lelang/update', 'PenjualLelangController@apiupdate');
+    Route::any('penjual/lelang/pemenang', 'PenjualLelangController@apipemenang');
+    Route::any('penjual/lelang/won', 'PenjualLelangController@apiwon');
 
 });

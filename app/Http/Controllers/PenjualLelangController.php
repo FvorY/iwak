@@ -370,4 +370,248 @@ class PenjualLelangController extends Controller
       }
 
     }
+
+    public function apilelang(Request $req) {
+        $data = DB::table('lelang')
+          ->leftjoin('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+          ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+          ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon')
+          ->where('lelang.id_account', $req->id_account)
+          ->groupby("lelang.id_lelang")
+          ->get();
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data
+        ]);
+    }
+
+    public function apilistbid($id) {
+      $data = DB::table("lelang")
+              ->join('lelangbid', 'lelangbid.id_lelang', '=', 'lelang.id_lelang')
+              ->leftjoin('account', 'account.id_account', '=', 'lelangbid.id_account')
+              ->select('lelangbid.price', 'account.fullname', 'lelang.iswon', 'lelangbid.id_lelangbid')
+              ->groupby('lelangbid.id_lelangbid')
+              ->orderby('lelangbid.id_lelangbid', "DESC")
+              ->where("lelang.id_lelang", $id)
+              ->get();
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data
+        ]);
+    }
+
+    public function apihapus(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("lelang")
+            ->where("id_lelang", $req->id)
+            ->delete();
+
+        DB::table("lelangbid")
+            ->where("id_lelang", $req->id)
+            ->delete();
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
+      }
+    }
+
+    public function apiaktif(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("lelang")
+            ->where("id_lelang", $req->id)
+            ->update([
+              'isactive' => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
+      }
+    }
+
+    public function apinonaktif(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("lelang")
+            ->where("id_lelang", $req->id)
+            ->update([
+              'isactive' => "N"
+            ]);
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
+      }
+    }
+
+    public function apiview(Request $req) {
+      $data = DB::table("lelang")
+              ->leftjoin('produk', 'produk.id_produk', '=', 'lelang.id_produk')
+              ->select("produk.name", "lelang.price", 'id_lelang')
+              ->where("id_lelang", $req->id)
+              ->first();
+
+      return response()->json([
+        "code" => 200,
+        "message" => "Sukses",
+        "data" => $data
+      ]);
+    }
+
+    public function apisimpan(Request $req) {
+
+        if ($req->price == null) {
+            return response()->json(["code" => 400, "message" => "Isi harga awal terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
+        if ($req->price == "") {
+            return response()->json(["code" => 400, "message" => "Isi harga awal terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
+        DB::beginTransaction();
+        try {
+
+          DB::table("lelang")
+              ->insert([
+              "id_produk" => $req->id_produk,
+              "id_account" => $req->id_account,
+              "price" => $price,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+          DB::commit();
+          return response()->json([
+            "code" => 200,
+            "message" => "Sukses",
+          ]);
+        } catch (\Exception $e) {
+          DB::rollback();
+          return response()->json([
+            "code" => 400,
+            "message" => $e,
+          ]);
+        }
+
+    }
+
+    public function apiupdate(Request $req) {
+
+        if ($req->price == null) {
+            return response()->json(["code" => 400, "message" => "Isi harga awal terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
+        if ($req->price == "") {
+            return response()->json(["code" => 400, "message" => "Isi harga awal terlebih dahulu, tidak dapat disimpan!"]);
+        }
+
+        DB::beginTransaction();
+        try {
+
+          DB::table("lelang")
+              ->where("id_lelang", $req->id)
+              ->update([
+              "price" => $price,
+              "updated_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+          DB::commit();
+          return response()->json([
+            "code" => 200,
+            "message" => "Sukses",
+          ]);
+        } catch (\Exception $e) {
+          DB::rollback();
+          return response()->json([
+            "code" => 400,
+            "message" => $e,
+          ]);
+        }
+
+    }
+
+    public function apipemenang(Request $req) {
+      $data = DB::table("lelangbid")
+              ->leftjoin('account', 'account.id_account', '=', 'lelangbid.id_account')
+              ->where("id_lelang", $req->id)
+              ->where("status", "Y")
+              ->first();
+
+      return response()->json([
+        "code" => 200,
+        "message" => "Sukses",
+        "data" => $data
+      ]);
+    }
+
+    public function apiwon(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $getlelang = DB::table("lelangbid")
+                      ->where("id_lelangbid", $req->id)
+                      ->first();
+
+        DB::table("lelangbid")
+            ->where("id_lelangbid", $req->id)
+            ->update([
+              'status' => "Y"
+            ]);
+
+        DB::table("lelang")
+            ->where("id_lelang", $getlelang->id_lelang)
+            ->update([
+              'iswon' => "Y",
+              'isactive' => "N"
+            ]);
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
+      }
+
+    }
+
 }

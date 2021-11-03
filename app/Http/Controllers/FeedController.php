@@ -90,6 +90,34 @@ class FeedController extends Controller
           ->make(true);
     }
 
+    public function apifeed(Request $req) {
+      $data = DB::table('feedback')
+        ->join('transaction', 'transaction.id_transaction', '=', 'feedback.id_transaction')
+        ->select("feedback.star", "feedback.image", 'transaction.nota', "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
+        ->orderBy("feedback.created_at", "desc")
+        ->where("id_toko", $req->id_account)
+        ->get();
+
+        foreach ($data as $key => $value) {
+          $data[$key]->akun = DB::table("account")->where("id_account", $data[$key]->akun)->first();
+          $data[$key]->toko = DB::table("account")->where("id_account", $data[$key]->toko)->first();
+
+          if ($data[$key]->akun == null) {
+            $data[$key]->akun->fullname = "User tidak ditemukan (Dihapus dari sistem)";
+          }
+
+          if ($data[$key]->toko == null) {
+            $data->toko->namatoko = "Toko tidak ditemukan (Dihapus dari sistem)";
+          }
+        }
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          "data" => $data,
+        ]);
+    }
+
     public function datatablewtoko() {
       $data = DB::table('feedback')
         ->join('transaction', 'transaction.id_transaction', '=', 'feedback.id_transaction')

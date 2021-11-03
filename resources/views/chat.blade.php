@@ -251,7 +251,7 @@
         </div>
         <div class="message-footer">
           <input type="file" class="form-control form-control-sm uploadGambar" id="fileInput" name="image" accept="image/*" style="display:none;">
-          <button type="button" name="button" style="background-color: grey; width:40px; color:white; border-radius: 10px;" onclick="document.getElementById('fileInput').click();"> <span class="fa fa-file"></span> </button>
+          <button type="button" name="button" style="background-color: grey; width:40px; color:white; border-radius: 10px;" onclick="document.getElementById('fileInput').click();"> <span class="fa fa-picture-o"></span> </button>
           <input type="text" data-placeholder="Send a message to {0}" id="placeholder" />
           <button type="button" name="button" onclick="sendmessage()" style="background-color: green; width:40px; color:white; border-radius: 10px;"> <span class="fa fa-send"></span> </button>
         </div>
