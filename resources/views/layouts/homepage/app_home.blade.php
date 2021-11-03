@@ -612,13 +612,22 @@
 										'</div>';
 					}
 
-					html += '<div class="cart-row-total">'+
-										'<span class="mt-total">Sub Total</span>'+
-										'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
-									'</div>'+
-									'<div class="col-xs-12 col-sm-12">'+
-										'<a href="'+"{{url('/')}}/viewcart"+'" style="width:100%; text-align:center;" class="btn-type3">VIEW CART</a>'+
-									'</div>';
+					if (data.length > 0) {
+						html += '<div class="cart-row-total">'+
+											'<span class="mt-total">Sub Total</span>'+
+											'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
+										'</div>'+
+										'<div class="col-xs-12 col-sm-12">'+
+											'<a href="'+"{{url('/')}}/viewcart"+'" style="width:100%; text-align:center;" class="btn-type3">VIEW CART</a>'+
+										'</div>';
+					} else {
+						html += '<div class="cart-row-total">'+
+											'<span class="mt-total">Sub Total</span>'+
+											'<span class="mt-total-txt">'+"Rp. " + accounting.formatMoney(subtotal,"",0,'.',',')+'</span>'+
+										'</div>'+
+										'<div class="col-xs-12 col-sm-12">'+
+										'</div>';
+					}
 
 					$('.carditem').html(html);
 
