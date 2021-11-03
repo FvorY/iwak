@@ -562,7 +562,6 @@
 							  type: 'question',
 							  showCancelButton: true
 							}).then((result) => {
-								console.log(result);
 							  /* Read more about isConfirmed, isDenied below */
 							  if (result.value) {
 									$.ajax({
@@ -715,7 +714,7 @@
 					for (var i = 0; i < data.category.length; i++) {
 						 var res = data.category[i];
 
-						 htmlcat += "<li><a href=''>"+res.category_name+"</a></li>";
+						 htmlcat += "<li><a href='"+"{{url('/')}}/product?sort=ASC&sortfield=name&category="+res.id_category+"'>"+res.category_name+"</a></li>";
 					}
 
 					$('.categorylist').html(htmlcat);
