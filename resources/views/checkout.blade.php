@@ -208,7 +208,11 @@ function closecart(id) {
     url: "{{url('/')}}" + "/deletecart",
     data: {id},
     success: function(data) {
-        window.location.reload();
+        if ("{{count($cart)}}" == "1") {
+          window.location.href = "{{url('/')}}";
+        } else {
+          window.location.reload();
+        }
     }
   });
 }
