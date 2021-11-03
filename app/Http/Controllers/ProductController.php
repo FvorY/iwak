@@ -209,9 +209,9 @@ class ProductController extends Controller
         $data = DB::table("produk")
                 ->join("account", 'produk.id_account', 'account.id_account')
                 ->where("produk.id_produk", $get_id_produk[0]->id_produk)
-                ->select('produk.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko','account.star')
+                ->select('produk.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko')
                 ->get();
-        // dd($data);
+        // dd($data);  
 
         $get_id_related = DB::table("produk")
                   // ->join("account", 'produk.id_account', 'account.id_account')
@@ -238,7 +238,7 @@ class ProductController extends Controller
                     ->join("account", 'account.id_account', 'feedback.id_user')
                     ->where("transaction_detail.id_produk", $get_id_produk[0]->id_produk)
                     ->groupBy('feedback.id_feedback')
-                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko','account.star')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
                     // ->having('feedback.created_at')
                     ->get();
     

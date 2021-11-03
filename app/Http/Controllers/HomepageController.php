@@ -65,7 +65,7 @@ class HomepageController extends Controller
                       ->where("produk.stock", '>' , 0)
                       ->where("account.id_account", '!=', Auth::user()->id_account)
                       ->groupby("imageproduk.id_produk")
-                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice','produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(20)
                       ->get();
         } else {
@@ -99,7 +99,7 @@ class HomepageController extends Controller
                       ->where("account.istoko", 'Y')
                       ->where("produk.stock", '>' , 0)
                       ->groupby("imageproduk.id_produk")
-                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'account.*', 'imageproduk.*')
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice','produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(20)
                       ->get();
         }
@@ -113,7 +113,7 @@ class HomepageController extends Controller
               $forauction[$key]->price = $bid;
             }
         }
-
+        // dd($forauction);
         return view("homepage", compact('backgroundheader', 'forauction', 'latest', 'bestseller'));
     }
 

@@ -69,41 +69,24 @@
 									</div>
 									<!-- Rank Rating of the Page end -->
 									<div class="text-holder">
-										@if($list->isdiskon == "Y")
-											<?php
-											$diskon = ($list->diskon/100)*$list->price;
-											$total = $list->price - $diskon
-											?>
-										<span class="price">{{FormatRupiahFront($total)}}
-
-										@else
+										
 										<span class="price">{{FormatRupiahFront($list->price)}}
-										@endif
-											@if($list->isdiskon == "Y")
-											<del>{{FormatRupiahFront($list->price)}}</del>
-											@else
+											<span style="font-size:18px; color:#B8B8B8"> &nbsp;&nbsp;Start From</span>
 											
-											@endif
 										</span>
 									</div>
 									<!-- Product Form of the Page -->
 									<form action="#" class="product-form" style="margin-bottom: 40px">
 										<fieldset>
-                                        @if($list->stock == 0)
+                                        @if($list->isactive == "N")
+											
 											<div class="row-val">
-												<label for="qty">qty</label>
-												<input type="number" id="qty" placeholder="1" disabled>
-											</div>
-											<div class="row-val">
-												<button type="submit" class="btn btn-secondary" disabled style="background-color:grey;">Out of Stock</button>
+												<button type="submit" class="btn btn-secondary" disabled style="background-color:grey;">Bidding Closed</button>
 											</div>
                                             @else
-                                            <div class="row-val">
-												<label for="qty">qty</label>
-												<input type="number" id="qty" placeholder="1" >
-											</div>
+                                            
 											<div class="row-val">
-                                                <button type="button" onclick="addtocard({{$list->id_produk}})">Add to Cart</button>
+                                                <button type="button" onclick="addtocard({{$list->id_produk}})">Next Bid</button>
 											</div>
                                             @endif
 										</fieldset>

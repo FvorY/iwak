@@ -117,13 +117,13 @@
 															</div>
 														</div>
 														<div class="txt">
-															<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+															<strong class="title"><a href="{{route('detailproduct', $value->url_segment)}}">{{$value->name}}</a></strong>
 															<?php
 															$string = $value->address;
 															$output = explode(" ",$string);
 															?>
-															<strong class="title"><a href="product-detail.html"><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-															<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
+															<strong class="title"><span class="fa fa-map-marker"></span> {{end($output)}}</strong>
+															<strong class="title"><span class="fa fa-home"></span> {{$value->namatoko}}</strong>
 															@if ($value->isdiskon == "Y")
 																<?php
 																$diskonval = ($value->diskon/100)*$value->price;
@@ -156,7 +156,7 @@
 														<div class="box">
 															<div class="b1">
 																<div class="b2">
-																	<a href="product-detail.html"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
+																	<a href="{{route('detaillelang', $value->url_segment)}}"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
 																	<span class="caption">
 																		<span class="new">AUCTION</span>
 																	</span>
@@ -215,7 +215,7 @@
 												<div class="box">
 													<div class="b1">
 														<div class="b2">
-															<a href="product-detail.html"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:275px; height:285px" alt="{{$value->name}}"></a>
+															<a href="{{route('detailproduct', $value->url_segment)}}"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:275px; height:285px" alt="{{$value->name}}"></a>
 															<span class="caption">
 																@if ($value->isdiskon == "Y")
 																	<span class="off">{{$value->diskon}}% off</span>
@@ -228,13 +228,13 @@
 													</div>
 												</div>
 												<div class="txt">
-													<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+													<strong class="title"><a href="{{route('detailproduct', $value->url_segment)}}">{{$value->name}}</a></strong>
 													<?php
 													$string = $value->address;
 													$output = explode(" ",$string);
 													?>
-													<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-													<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
+													<strong class="title"> <span class="fa fa-map-marker"></span> {{end($output)}}</strong>
+													<strong class="title"> <span class="fa fa-home"></span> {{$value->namatoko}}</strong>
 													<span class="price">{{FormatRupiahFront($value->price)}}</span>
 											</div><!-- mt product1 center end here -->
 										</div>

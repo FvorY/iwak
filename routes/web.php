@@ -17,6 +17,7 @@ Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
 Route::get('/product/detail/{url_segment}', 'ProductController@show')->name('detailproduct');
 Route::get('/lelang', 'LelangController@index');
+Route::get('/lelang/detail/{url_segment}', 'LelangController@show')->name('detaillelang');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
@@ -53,7 +54,7 @@ Route::post('/sendimgchat', 'ChatController@sendimgchat');
 
 Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
 
-Route::get('/toko/{id}', 'ProfileTokoController@index');
+Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
 
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {

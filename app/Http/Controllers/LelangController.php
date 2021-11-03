@@ -202,7 +202,7 @@ class LelangController extends Controller
                               ->count();
           }
         }
-
+        // dd($data);
         return view('lelang', compact('data', 'sort', 'sortfield', 'categorydata', 'category', 'keyword'));
     }
 
@@ -241,9 +241,57 @@ class LelangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($url_segment)
     {
         //
+        $get_id_produk = DB::table("produk")
+                        // ->join("account", 'produk.id_account', 'account.id_account')
+                        ->where("produk.url_segment", $url_segment)
+                        ->select('produk.id_produk')
+                        ->get();
+        // dd($get_id_produk[0]);
+        $data = DB::table("lelang")
+                ->join("produk", 'lelang.id_produk', 'produk.id_produk')
+                ->join("account", 'lelang.id_account', 'account.id_account')
+                ->where("lelang.id_produk", $get_id_produk[0]->id_produk)
+                ->select('produk.*','lelang.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko')
+                ->get();
+        // dd($data);
+
+        $get_id_related = DB::table("produk")
+                  // ->join("account", 'produk.id_account', 'account.id_account')
+                  ->where("produk.id_produk", $get_id_produk[0]->id_produk)
+                  ->select("produk.id_category")
+                  ->get();
+                  
+
+        $related = DB::table("produk")
+                            ->join('imageproduk', 'imageproduk.id_produk', 'produk.id_produk')
+                            ->join("account", 'produk.id_account', 'account.id_account')
+                            ->where("produk.id_category", $get_id_related[0]->id_category)
+                            // ->select("produk.id_category","produk.name")
+                            ->get();  
+        
+        $image = DB::table("imageproduk")
+                ->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')
+                // ->join("account", 'produk.id_account', 'account.id_account')
+                ->where("produk.id_produk", $get_id_produk[0]->id_produk)
+                ->get();
+
+        $feedback =  DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk[0]->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->get();
+    
+        // dd(count($feedback));
+        // dd($feedback);
+        // dd($get_id_related[0]->id_category);
+
+        return view('lelang/detail', compact('data', 'image','related','feedback'));
     }
 
     /**
