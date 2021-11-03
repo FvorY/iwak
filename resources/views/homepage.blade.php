@@ -95,7 +95,7 @@
 														<div class="box">
 															<div class="b1">
 																<div class="b2">
-																	<a href="{{route('detailproduct', $value->id_produk)}}"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
+																	<a href="{{route('detailproduct', $value->url_segment)}}"><img src="{{url('/')}}/{{$value->image}}" class="imageproduk" style="width:215px; height:215px" alt="{{$value->name}}"></a>
 																	<span class="caption">
 																		@if ($value->isdiskon == "Y")
 																			<span class="off">{{$value->diskon}}% off</span>
@@ -126,6 +126,7 @@
 															<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 															@if ($value->isdiskon == "Y")
 																<?php
+																$diskonval = ($value->diskon/100)*$value->price;
 																$diskonval = $value->price * $value->diskon / 100;
 																$res = $value->price - $diskonval;
 																?>

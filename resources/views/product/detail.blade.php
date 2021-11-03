@@ -39,7 +39,7 @@
 									<ul class="list-unstyled slick-slider pagg-slider">
                                         @foreach ($image as $img)
 
-										<li><div class="img"><img src="{{url('/')}}/{{$img->image}}" alt="image description"></div></li>
+										<li><div class="img"><img src="{{url('/')}}/{{$img->image}}"class="imageproduk" style="height: 8vw;object-fit: cover;" alt="{{$img->name}}"></div></li>
 										<!-- <li><div class="img"><img src="http://placehold.it/105x105" alt="image description"></div></li>
 										<li><div class="img"><img src="http://placehold.it/105x105" alt="image description"></div></li>
 										<li><div class="img"><img src="http://placehold.it/105x105" alt="image description"></div></li>
@@ -57,20 +57,24 @@
 									<div class="rank-rating">
 										<span class="total-price">Reviews ({{count($feedback)}})</span>
 										<ul class="list-unstyled rating-list">
+										@for($x = 0; $x < $list->star ; $x++)
+											<li><a href="#"><i class="fa fa-star"></i></a></li>
+											
+										@endfor
+										@for($x = 5; $x > $list->star ; $x--)
 
-											<li><a href="#"><i class="fa fa-star"></i></a></li>
-											<li><a href="#"><i class="fa fa-star"></i></a></li>
-											<li><a href="#"><i class="fa fa-star"></i></a></li>
 											<li><a href="#"><i class="fa fa-star-o"></i></a></li>
+										@endfor
 										</ul>
 									</div>
 									<!-- Rank Rating of the Page end -->
 									<div class="text-holder">
 										@if($list->isdiskon == "Y")
 											<?php
-											$price = ($list->diskon/100)*$list->price;
+											$diskon = ($list->diskon/100)*$list->price;
+											$total = $list->price - $diskon
 											?>
-										<span class="price">{{FormatRupiahFront($price)}}
+										<span class="price">{{FormatRupiahFront($total)}}
 
 										@else
 										<span class="price">{{FormatRupiahFront($list->price)}}
@@ -99,9 +103,7 @@
 												<input type="number" id="qty" placeholder="1" >
 											</div>
 											<div class="row-val">
-												<a onclick="addtocard({{$list->id_produk}})">
-                                                <button type="submit" >Add to Cart</button>
-												</a>
+                                                <button type="button" onclick="addtocard({{$list->id_produk}})">Add to Cart</button>
 											</div>
                                             @endif
 										</fieldset>
@@ -117,6 +119,37 @@
 						</div>
 					</div>
 				</section><!-- Mt Product Detial of the Page end -->
+				<!-- profile toko -->
+				<br>
+				<div class="container-fluid" style="background-color:#F6F6F6;width:100%;padding:30px 0">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="container">
+								<div class="row">
+									<div class="col-xs-4"></div>
+									<div class="col-xs-2">
+									<center>
+									<img src="{{url('/')}}/{{$list->profile_toko}}"class=" img-circle" style="width:70% ;height: 9vw;border-radius:50%" alt="{{$list->profile_toko}}">
+									</center>
+									</div>
+									<div class="col-xs-4">
+										<div class="row">
+											<div class="col-xs-12">
+												<h2>{{$list->namatoko}}</h2>
+											</div>
+											<div class="col-xs-12">
+												<a href="toko/{{$list->id_account}}" class="btn btn-md btn-success">Kunjungi Toko</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-5"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<!-- end profil toko -->
 				<div class="product-detail-tab wow fadeInUp" data-wow-delay="0.4s">
 					<div class="container">
 						<div class="row">
@@ -135,16 +168,29 @@
 											@foreach ($feedback as $feedbacks)
 											<div class="mt-box">
 												<div class="mt-hold">
+													
 													<ul class="mt-star">
+													@for($x = 0; $x < $feedbacks->star ; $x++)
 														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
+														
+													@endfor
+													@for($x = 5; $x > $feedbacks->star ; $x--)
+
 														<li><i class="fa fa-star-o"></i></li>
-													</ul>
+													@endfor
+														<!-- <li><i class="fa fa-star"></i></li>
+														<li><i class="fa fa-star"></i></li>
+														<li><i class="fa fa-star"></i></li>
+														<li><i class="fa fa-star-o"></i></li> -->
+													</ul>	
+													
 													<span class="name">{{$feedbacks->fullname}}</span>
 													<time datetime="2016-01-01">{{date("j M Y", strtotime($feedbacks->created_at))}}</time>
 												</div>
-												<p>{{$feedbacks->feedback}}</p>
+												<p>{{$feedbacks->feedback}}</p><br>
+												@if ($feedbacks->image != "")
+													<img src="{{url('/')}}/{{$feedbacks->image}}" class="imageproduk" style="width:18%; height: 8vw;" alt="{{$feedbacks->image}}">
+													@endif
 											</div>
 											@endforeach
 											

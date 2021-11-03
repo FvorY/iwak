@@ -15,7 +15,7 @@ Route::get('/', 'HomepageController@index');
 Route::get('/getinfo', 'HomepageController@getinfo');
 Route::get('/admin', 'HomeController@checklogin');
 Route::get('/product', 'ProductController@index');
-Route::get('/product/detail/{id}', 'ProductController@show')->name('detailproduct');
+Route::get('/product/detail/{url_segment}', 'ProductController@show')->name('detailproduct');
 Route::get('/lelang', 'LelangController@index');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
