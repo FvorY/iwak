@@ -56,6 +56,8 @@ Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
 
 Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
 
+Route::get('/updateprice', 'LelangController@updateprice');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 

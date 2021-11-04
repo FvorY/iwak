@@ -51,7 +51,7 @@
 								<!-- Slider of the Page end -->
 								<!-- Detail Holder of the Page -->
 								<div class="detial-holder">
-									
+
 									<h2>{{$list->name}}</h2>
 									<!-- Rank Rating of the Page -->
 									<div class="rank-rating">
@@ -59,7 +59,7 @@
 										<ul class="list-unstyled rating-list">
 										@for($x = 0; $x < $list->star ; $x++)
 											<li><a href="#"><i class="fa fa-star"></i></a></li>
-											
+
 										@endfor
 										@for($x = 5; $x > $list->star ; $x--)
 
@@ -69,33 +69,41 @@
 									</div>
 									<!-- Rank Rating of the Page end -->
 									<div class="text-holder">
-										
-										<span class="price">{{FormatRupiahFront($list->price)}}
+
+										<span class="price"><span id="pricebid">{{FormatRupiahFront($list->price)}}</span>
 											<span style="font-size:18px; color:#B8B8B8"> &nbsp;&nbsp;Start From</span>
-											
+
 										</span>
 									</div>
 									<!-- Product Form of the Page -->
 									<form action="#" class="product-form" style="margin-bottom: 40px">
 										<fieldset>
-                                        @if($list->isactive == "N")
-											
-											<div class="row-val">
-												<button type="submit" class="btn btn-secondary" disabled style="background-color:grey;">Bidding Closed</button>
-											</div>
-                                            @else
-                                            
-											<div class="row-val">
-                                                <button type="button" onclick="addtocard({{$list->id_produk}})">Next Bid</button>
-											</div>
-                                            @endif
+                      @if(Auth::check())
+
+                        @if ($list->isactive == "N")
+                          <div class="row-val">
+    												<button type="submit" class="btn btn-secondary" disabled style="background-color:grey;">Bidding Closed</button>
+    											</div>
+                        @else
+                          <div class="row-val">
+                            <button type="button" onclick="addtocard({{$list->id_produk}})">Next Bid</button>
+    											</div>
+                        @endif
+
+                      @else
+
+  											<div class="row-val">
+                          <button type="button" onclick="addtocard({{$list->id_produk}})" disabled style="background-color:grey;">Next Bid</button>
+  											</div>
+
+                      @endif
 										</fieldset>
 									</form>
 									<div class="txt-wrap">
 										<p>{{$list->description}}</p>
-										
+
 									</div>
-									
+
 								</div>
 								<!-- Detail Holder of the Page end -->
 							</div>
@@ -144,18 +152,18 @@
 								<div class="tab-content">
 									<div id="tab1">
 										<p>{{$list->description}}</p>
-										
+
 									</div>
 									<div id="tab3">
 										<div class="product-comment">
 											@foreach ($feedback as $feedbacks)
 											<div class="mt-box">
 												<div class="mt-hold">
-													
+
 													<ul class="mt-star">
 													@for($x = 0; $x < $feedbacks->star ; $x++)
 														<li><i class="fa fa-star"></i></li>
-														
+
 													@endfor
 													@for($x = 5; $x > $feedbacks->star ; $x--)
 
@@ -165,8 +173,8 @@
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star-o"></i></li> -->
-													</ul>	
-													
+													</ul>
+
 													<span class="name">{{$feedbacks->fullname}}</span>
 													<time datetime="2016-01-01">{{date("j M Y", strtotime($feedbacks->created_at))}}</time>
 												</div>
@@ -178,7 +186,7 @@
 													@endif
 											</div>
 											@endforeach
-											
+
 										</div>
 									</div>
 								</div>
@@ -189,4 +197,22 @@
                 @endforeach
 
 			</main><!-- mt main end here -->
+@endsection
+
+@section('extra_script')
+  <script type="text/javascript">
+  @if (Auth::check())
+  setInterval(function(){
+
+    $.ajax({
+      url: "{{url('/')}}" + "/updateprice",
+      data: {id: "{{$list->id_lelang}}"},
+      success: function(data) {
+          $('#pricebid').text("Rp. " + accounting.formatMoney(data,"",0,'.',','));
+      }
+    });
+
+  }, 3000);
+  @endif
+  </script>
 @endsection

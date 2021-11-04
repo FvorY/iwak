@@ -178,6 +178,12 @@ class LelangController extends Controller
           }
         }
 
+        foreach ($data as $key => $value) {
+            $value->price = DB::table("lelangbid")
+                              ->where("id_lelang", $value->id_lelang)
+                              ->max('price');
+        }
+
         $categorydata = DB::table('category')
                     ->select('id_category', 'id_category as total', 'category_name')
                     ->get();
@@ -210,6 +216,14 @@ class LelangController extends Controller
       $res = DB::table("lelangbid")
               ->whereIn("id_lelang", $req->arrid)
               ->get();
+
+      return response()->json($res);
+    }
+
+    public function updateprice(Request $req) {
+      $res = DB::table("lelangbid")
+              ->where("id_lelang", $req->id)
+              ->max('price');
 
       return response()->json($res);
     }
@@ -258,20 +272,20 @@ class LelangController extends Controller
                 ->get();
         // dd($data);
 
-        $get_id_related = DB::table("produk")
-                  // ->join("account", 'produk.id_account', 'account.id_account')
-                  ->where("produk.id_produk", $get_id_produk[0]->id_produk)
-                  ->select("produk.id_category")
-                  ->get();
-                  
+        // $get_id_related = DB::table("produk")
+        //           // ->join("account", 'produk.id_account', 'account.id_account')
+        //           ->where("produk.id_produk", $get_id_produk[0]->id_produk)
+        //           ->select("produk.id_category")
+        //           ->get();
 
-        $related = DB::table("produk")
-                            ->join('imageproduk', 'imageproduk.id_produk', 'produk.id_produk')
-                            ->join("account", 'produk.id_account', 'account.id_account')
-                            ->where("produk.id_category", $get_id_related[0]->id_category)
-                            // ->select("produk.id_category","produk.name")
-                            ->get();  
-        
+
+        // $related = DB::table("produk")
+        //                     ->join('imageproduk', 'imageproduk.id_produk', 'produk.id_produk')
+        //                     ->join("account", 'produk.id_account', 'account.id_account')
+        //                     ->where("produk.id_category", $get_id_related[0]->id_category)
+        //                     // ->select("produk.id_category","produk.name")
+        //                     ->get();
+
         $image = DB::table("imageproduk")
                 ->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')
                 // ->join("account", 'produk.id_account', 'account.id_account')
@@ -286,12 +300,18 @@ class LelangController extends Controller
                     ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
                     // ->having('feedback.created_at')
                     ->get();
-    
+
+        if ($data[0] != null) {
+          $data[0]->price = DB::table("lelangbid")
+                            ->where("id_lelang", $data[0]->id_lelang)
+                            ->max('price');
+        }
+
         // dd(count($feedback));
         // dd($feedback);
         // dd($get_id_related[0]->id_category);
 
-        return view('lelang/detail', compact('data', 'image','related','feedback'));
+        return view('lelang/detail', compact('data', 'image','feedback'));
     }
 
     /**
