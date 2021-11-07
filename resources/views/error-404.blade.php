@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Atonergi</title>
+  <title>iWak</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}">
@@ -25,7 +25,7 @@
             <h1 class="display-1 mb-0">404</h1>
             <h2 class="mb-4">Page Not Founds!</h2>
             <p>You seem to be trying to find this way home</p>
-            <a class="btn btn-primary mt-5 btn-rounded btn-lg" href="{{ url()->previous() }}">Back to home</a>
+            <a class="btn btn-primary mt-5 btn-rounded btn-lg" href="{{ url('/') }}">Back to home</a>
           </div>
         </div>
         <!-- content-wrapper ends -->
