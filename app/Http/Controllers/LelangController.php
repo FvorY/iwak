@@ -225,7 +225,16 @@ class LelangController extends Controller
               ->where("id_lelang", $req->id)
               ->max('price');
 
-      return response()->json($res);
+      $lastbid = DB::table("lelangbid")
+              ->where("id_lelang", $req->id)
+              ->orderby("price", 'desc')
+              ->limit(1)
+              ->first();
+
+      return response()->json([
+          'price' => $res,
+          'lastbid' => $lastbid,
+        ]);
     }
 
     /**

@@ -77,7 +77,7 @@
 									</div>
 									<!-- Product Form of the Page -->
 									<form action="#" class="product-form" style="margin-bottom: 40px">
-										<fieldset>
+										<fieldset id="btnbid">
                       @if(Auth::check())
 
                         @if ($list->isactive == "N")
@@ -202,13 +202,30 @@
 @section('extra_script')
   <script type="text/javascript">
   @if (Auth::check())
+
+  $.ajax({
+    url: "{{url('/')}}" + "/updateprice",
+    data: {id: "{{$list->id_lelang}}"},
+    success: function(data) {
+        $('#pricebid').text("Rp. " + accounting.formatMoney(data.price,"",0,'.',','));
+
+          if (data.lastbid.id_account == "{{Auth::user()->id_account}}") {
+              $('#btnbid').html('<button type="button" disabled style="background-color:grey;" onclick="addtocard({{$list->id_produk}})">Next Bid</button>')
+          }
+    }
+  });
+  
   setInterval(function(){
 
     $.ajax({
       url: "{{url('/')}}" + "/updateprice",
       data: {id: "{{$list->id_lelang}}"},
       success: function(data) {
-          $('#pricebid').text("Rp. " + accounting.formatMoney(data,"",0,'.',','));
+          $('#pricebid').text("Rp. " + accounting.formatMoney(data.price,"",0,'.',','));
+
+            if (data.lastbid.id_account == "{{Auth::user()->id_account}}") {
+                $('#btnbid').html('<button type="button" disabled style="background-color:grey;" onclick="addtocard({{$list->id_produk}})">Next Bid</button>')
+            }
       }
     });
 
