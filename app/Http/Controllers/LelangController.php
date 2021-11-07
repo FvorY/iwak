@@ -10,6 +10,10 @@ use DB;
 
 use Auth;
 
+use Carbon\Carbon;
+
+use File;
+
 class LelangController extends Controller
 {
     /**
@@ -48,7 +52,6 @@ class LelangController extends Controller
                             ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                             ->join("account", 'lelang.id_account', 'account.id_account')
                             ->where("lelang.isactive", 'Y')
-                            ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
                             ->where("produk.id_category", $category)
@@ -66,7 +69,6 @@ class LelangController extends Controller
                             ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                             ->join("account", 'lelang.id_account', 'account.id_account')
                             ->where("lelang.isactive", 'Y')
-                            ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
                             ->where("produk.id_category", $category)
@@ -83,7 +85,6 @@ class LelangController extends Controller
                               ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                               ->join("account", 'lelang.id_account', 'account.id_account')
                               ->where("lelang.isactive", 'Y')
-                              ->where("lelang.iswon", 'N')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
                               ->where('name', 'like', '%' . $keyword . '%')
@@ -100,7 +101,6 @@ class LelangController extends Controller
                               ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                               ->join("account", 'lelang.id_account', 'account.id_account')
                               ->where("lelang.isactive", 'Y')
-                              ->where("lelang.iswon", 'N')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
                               ->where("account.id_account", '!=', Auth::user()->id_account)
@@ -118,7 +118,6 @@ class LelangController extends Controller
                             ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                             ->join("account", 'lelang.id_account', 'account.id_account')
                             ->where("lelang.isactive", 'Y')
-                            ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
                             ->where("produk.id_category", $category)
@@ -135,7 +134,6 @@ class LelangController extends Controller
                             ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                             ->join("account", 'lelang.id_account', 'account.id_account')
                             ->where("lelang.isactive", 'Y')
-                            ->where("lelang.iswon", 'N')
                             ->where("account.istoko", 'Y')
                             ->where("produk.stock", '>' , 0)
                             ->where("produk.id_category", $category)
@@ -151,7 +149,6 @@ class LelangController extends Controller
                               ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                               ->join("account", 'lelang.id_account', 'account.id_account')
                               ->where("lelang.isactive", 'Y')
-                              ->where("lelang.iswon", 'N')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
                               ->where('name', 'like', '%' . $keyword . '%')
@@ -167,7 +164,6 @@ class LelangController extends Controller
                               ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                               ->join("account", 'lelang.id_account', 'account.id_account')
                               ->where("lelang.isactive", 'Y')
-                              ->where("lelang.iswon", 'N')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
                               ->groupby("imageproduk.id_produk")
@@ -231,10 +227,50 @@ class LelangController extends Controller
               ->limit(1)
               ->first();
 
+      $pemenang = DB::table("lelangbid")
+              ->where("id_lelang", $req->id)
+              ->where("status", 'Y')
+              ->first();
+
       return response()->json([
           'price' => $res,
           'lastbid' => $lastbid,
+          'pemenang' => $pemenang
         ]);
+    }
+
+    public function addbid(Request $req) {
+
+      DB::beginTransaction();
+      try {
+
+        $price = str_replace('.','',$req->price);
+        $price = str_replace('Rp ','',$price);
+
+        $lastbid = DB::table("lelangbid")
+                ->where("id_lelang", $req->id)
+                ->orderby("price", 'desc')
+                ->limit(1)
+                ->first();
+
+        if ($price <= $lastbid->price){
+            return response()->json(["status" => 7, "message" => "Silahkan bid diatas harga terakhir!"]);
+        }
+
+        DB::table("lelangbid")
+            ->insert([
+              'id_lelang' => $req->id,
+              'id_account' => Auth::user()->id_account,
+              'price' => $price,
+              'created_at' => Carbon::now('Asia/Jakarta')
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
     }
 
     /**
@@ -267,7 +303,7 @@ class LelangController extends Controller
     public function show($url_segment)
     {
         //
-        
+
         $get_id_produk = DB::table("produk")
                         // ->join("account", 'produk.id_account', 'account.id_account')
                         ->where("produk.url_segment", $url_segment)
@@ -276,12 +312,12 @@ class LelangController extends Controller
         // dd($get_id_produk[0]);
         if($get_id_produk == null){
           return view('error-404');
-        }else{  
+        }else{
         $data = DB::table("lelang")
                 ->join("produk", 'lelang.id_produk', 'produk.id_produk')
                 ->join("account", 'lelang.id_account', 'account.id_account')
                 ->where("lelang.id_produk", $get_id_produk->id_produk)
-                ->select('produk.*','lelang.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko')
+                ->select('produk.*','lelang.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko', 'account.bank', 'account.nomor_rekening')
                 ->get();
         // dd($data);
 
@@ -319,6 +355,7 @@ class LelangController extends Controller
                             ->where("id_lelang", $data[0]->id_lelang)
                             ->max('price');
         }
+
         return view('lelang/detail', compact('data', 'image','feedback'));
 
       }
@@ -326,6 +363,121 @@ class LelangController extends Controller
         // dd($feedback);
         // dd($get_id_related[0]->id_category);
 
+    }
+
+    public function checkoutlelang(Request $req) {
+        DB::beginTransaction();
+        try {
+
+          $arridproduk = json_decode($req->arridproduk);
+          $arrqty = json_decode($req->arrqty);
+          $arrprice = json_decode($req->arrprice);
+
+          $max = DB::table("transaction")->max('id_transaction') + 1;
+
+          $imgPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/Payment/' . $max;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                      if ($_FILES['image']['type'] == 'image/webp') {
+
+                      } else if ($_FILES['image']['type'] == 'webp') {
+
+                      } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      }
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          } else {
+              return response()->json(["status" => 7, "message" => "Upload bukti pembayaran terlebih dahulu!"]);
+          }
+
+          $index = str_pad($max, 3, '0', STR_PAD_LEFT);
+          $date = date('my');
+          $nota = 'PO-'.$index.'/'.$date;
+
+          $price = str_replace('.','',$req->price);
+          $price = str_replace('Rp ','',$price);
+
+          $subtotal = str_replace('.','',$req->subtotal);
+          $subtotal = str_replace('Rp ','',$subtotal);
+
+          DB::table("transaction")
+              ->insert([
+              "id_transaction" => $max,
+              "nota" => $nota,
+              "id_pembeli" => Auth::user()->id_account,
+              "id_penjual" => $req->id_penjual,
+              "date" => Carbon::now('Asia/Jakarta'),
+              "subtotal" => $subtotal,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+          DB::table("payment")
+              ->insert([
+              "id_transaction" => $max,
+              "image" => $imgPath,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+          for ($i=0; $i < count($arridproduk); $i++) {
+              $price = str_replace('.','',$arrprice[$i]);
+              $price = str_replace('Rp ','',$price);
+
+              $max1 = DB::table("transaction_detail")->max('id_detail') + 1;
+
+              DB::table("transaction_detail")
+                  ->insert([
+                  "id_detail" => $max1,
+                  "id_transaction" => $max,
+                  "id_produk" => $arridproduk[$i],
+                  "price" => $price,
+                  "qty" => $arrqty[$i],
+                ]);
+
+              $cekproduk = DB::table('produk')
+                          ->where("id_produk", $arridproduk[$i])
+                          ->first();
+
+              DB::table('produk')
+                ->where("id_produk", $arridproduk[$i])
+                ->update([
+                  'stock' => $cekproduk->stock - $arrqty[$i],
+                  'sold' => $cekproduk->sold + $arrqty[$i],
+                ]);
+
+              DB::table('cart')
+                  ->where('id_account', Auth::user()->id_account)
+                  ->delete();
+
+              DB::table('lelang')
+                  ->where('id_lelang', $req->id_lelang)
+                  ->update([
+                    'isactive' => 'N'
+                  ]);
+          }
+
+          DB::commit();
+          return response()->json(["status" => 3]);
+        } catch (\Exception $e) {
+          DB::rollback();
+          return response()->json(["status" => 4]);
+        }
     }
 
     /**
@@ -361,4 +513,23 @@ class LelangController extends Controller
     {
         //
     }
+
+    public function deleteDir($dirPath)
+     {
+         if (!is_dir($dirPath)) {
+             return false;
+         }
+         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+             $dirPath .= '/';
+         }
+         $files = glob($dirPath . '*', GLOB_MARK);
+         foreach ($files as $file) {
+             if (is_dir($file)) {
+                 self::deleteDir($file);
+             } else {
+                 unlink($file);
+             }
+         }
+         rmdir($dirPath);
+     }
 }

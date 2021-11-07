@@ -401,4 +401,96 @@ class PenjualListpesananController extends Controller
 
     }
 
+    public function apidetail(Request $req) {
+
+        $data = DB::table("transaction_detail")
+            ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_produk')
+            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price')
+            ->where("id_transaction", $req->id)
+            ->get();
+
+        return response()->json($data);
+
+    }
+
+    public function apideliver(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->update([
+              "deliver" => "P"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function apideliverdone(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        DB::table("transaction")
+            ->where("id_transaction", $req->id)
+            ->update([
+              "deliver" => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function apishowpayment($id) {
+      $data = DB::table("payment")
+              ->join('transaction', 'transaction.id_transaction', '=', 'payment.id_transaction')
+              ->orderby('payment.created_at', "DESC")
+              ->where("payment.id_transaction", $id)
+              ->get();
+
+      return response()->json([
+        "code" => 200,
+        "message" => "Sukses",
+        "data" => $data
+      ]);
+    }
+
+    public function apiapprove(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $payment = DB::table("payment")
+                      ->where("id_payment", $req->id)
+                      ->first();
+
+        DB::table("payment")
+            ->where("id_payment", $req->id)
+            ->update([
+              "confirm" => "Y"
+            ]);
+
+        DB::table("transaction")
+            ->where("id_transaction", $payment->id_transaction)
+            ->update([
+              "pay" => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json(["status" => 3]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 4]);
+      }
+    }
+
 }

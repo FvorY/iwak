@@ -488,8 +488,8 @@
 
 	  </div>
 	</div>
+	@include('modal_toko')
 
-@include('modal_toko')
 	<!-- include jQuery -->
 	<script src="{{asset('assets/js/jquery.js')}}"></script>
 	<!-- include jQuery -->
@@ -502,11 +502,16 @@
 	<script rel="stylesheet" src="{{asset('assets/node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
 
 	<script src="{{asset('assets/js/accounting.min.js')}}"></script>
+
+	<script src="{{asset('assets/js/jquery.maskMoney.js')}}"></script>
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js')}}"></script> --}}
 
 @yield('extra_script')
 
 	<script type="text/javascript">
+
+	$('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
+
 	@if(Auth::check())
 		@if (Auth::user()->role == "admin")
 		$.ajax({
@@ -514,6 +519,7 @@
 			success: function(data) {
 					window.location.reload();
 			},
+			async: false
 		});
 		@endif
 
@@ -523,6 +529,7 @@
 				success: function(data) {
 						$('.numcart').text(data);
 				},
+				async: false
 			});
 		}
 
@@ -631,7 +638,8 @@
 
 					$('.carditem').html(html);
 
-				}
+				},
+				async: false
 			});
 		}
 
@@ -645,7 +653,8 @@
 				success: function(data) {
 					opencart();
 					countcart();
-				}
+				},
+				async: false
 			});
 		}
 
@@ -653,7 +662,8 @@
 			url: "{{url('/')}}" + "/countchat",
 			success: function(data) {
 				$('.numchat').text(data);
-			}
+			},
+			async: false
 		});
 
 		setInterval(function(){
@@ -662,7 +672,8 @@
 				url: "{{url('/')}}" + "/countchat",
 				success: function(data) {
 					$('.numchat').text(data);
-				}
+				},
+				async: false
 			});
 
 		}, 3000);
@@ -727,7 +738,8 @@
 					}
 
 					$('.categorylist').html(htmlcat);
-				}
+				},
+				async: false
 			});
 		});
 

@@ -285,7 +285,7 @@ class PenjualLelangController extends Controller
       $data = DB::table("lelang")
               ->join('lelangbid', 'lelangbid.id_lelang', '=', 'lelang.id_lelang')
               ->leftjoin('account', 'account.id_account', '=', 'lelangbid.id_account')
-              ->select('lelangbid.price', 'account.fullname', 'lelang.iswon', 'lelangbid.id_lelangbid')
+              ->select('lelangbid.price', 'account.fullname', 'lelang.iswon', 'lelangbid.id_lelangbid', 'lelangbid.status')
               ->groupby('lelangbid.id_lelangbid')
               ->orderby('lelangbid.id_lelangbid', "DESC")
               ->where("lelang.id_lelang", $id)
@@ -299,24 +299,31 @@ class PenjualLelangController extends Controller
             return $data->fullname;
           }
         })
+        ->addColumn("status", function($data) {
+          if ($data->status == 'Y') {
+            return "<span class='badge badge-success'> Pemenang <span>";
+          } else {
+            return "";
+          }
+        })
         ->addColumn("price", function($data) {
           return FormatRupiahFront($data->price);
         })
         ->addColumn('aksi', function ($data) {
-          if ($data->iswon == "Y") {
-            return "";
-          } else {
-            if ($data->fullname == null) {
-              return "";
-            } else {
+          // if ($data->iswon == "Y") {
+          //   return "";
+          // } else {
+          //   if ($data->fullname == null) {
+          //     return "";
+          //   } else {
               return  '<div class="btn-group">'.
                        '<button type="button" onclick="won('.$data->id_lelangbid.')" class="btn btn-success btn-lg" title="Pilih Pemenang">'.
                        '<label class="fa fa-check"></label></button>'.
                     '</div>';
-            }
-          }
+            // }
+          // }
         })
-        ->rawColumns(['aksi', 'status', 'image', 'name'])
+        ->rawColumns(['aksi', 'status', 'image', 'name', 'status'])
         ->addIndexColumn()
         ->make(true);
     }
@@ -350,6 +357,12 @@ class PenjualLelangController extends Controller
                       ->first();
 
         DB::table("lelangbid")
+          ->where("id_lelang", $getlelang->id_lelang)
+          ->update([
+            'status' => 'N',
+          ]);
+
+        DB::table("lelangbid")
             ->where("id_lelangbid", $req->id)
             ->update([
               'status' => "Y"
@@ -359,7 +372,6 @@ class PenjualLelangController extends Controller
             ->where("id_lelang", $getlelang->id_lelang)
             ->update([
               'iswon' => "Y",
-              'isactive' => "N"
             ]);
 
         DB::commit();
@@ -586,6 +598,12 @@ class PenjualLelangController extends Controller
                       ->first();
 
         DB::table("lelangbid")
+          ->where("id_lelang", $getlelang->id_lelang)
+          ->update([
+            'status' => 'N',
+          ]);
+
+        DB::table("lelangbid")
             ->where("id_lelangbid", $req->id)
             ->update([
               'status' => "Y"
@@ -595,7 +613,6 @@ class PenjualLelangController extends Controller
             ->where("id_lelang", $getlelang->id_lelang)
             ->update([
               'iswon' => "Y",
-              'isactive' => "N"
             ]);
 
         DB::commit();

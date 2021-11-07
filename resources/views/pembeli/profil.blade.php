@@ -16,11 +16,11 @@
 						</div>
 						<hr class="text-center" style="width:50%;">
 						</center>
-						<div class="col-md-12 container"> 
+						<div class="col-md-12 container">
 							<center>
 							<div class="col-md-4">
 								<img class='img-circle img-responsive' alt="Responsive image" src="{{url('/')}}/{{$data->profile_picture}}" style="border-radius:100%;width: 200pt;height: 180pt;margin-bottom: 10px;">
-								
+
 								<input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
 							</div>
 							</center>
@@ -65,6 +65,9 @@
 								<div class="col-md-12">
 								  <label for="pwd">Address :</label>
 								  <input type="text" class="form-control" placeholder="Enter Address" value="@isset($data){{$data->address}}@endisset" id="pwd" style="width:100%" name="address">
+										<div class="alert alert-warning" role="alert">
+			                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) provinsi)
+			              </div>
 								</div>
 								<br>
 								<div class="col-md-12"><br></div>
@@ -91,7 +94,7 @@
 						</div>
 						<div class="col-xs-12 col-md-1"></div>
 
-						
+
 					</div>
 					<br>
 				</div>

@@ -58,6 +58,10 @@ Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
 
 Route::get('/updateprice', 'LelangController@updateprice');
 
+Route::get('/addbid', 'LelangController@addbid');
+
+Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 

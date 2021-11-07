@@ -16,6 +16,7 @@
                   <th>No</th>
                   <th>Nama User</th>
                   <th>Harga</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>

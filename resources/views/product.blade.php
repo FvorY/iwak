@@ -88,13 +88,13 @@
 											</div><!-- box end here -->
 											<!-- txt end here -->
 											<div class="txt">
-												<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+												<strong class="title"><a>{{$value->name}}</a></strong>
 												<?php
 												$string = $value->address;
 												$output = explode(" ",$string);
 												?>
-												<strong class="title"><a href="product-detail.html"><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-												<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
+												<strong class="title"><a><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+												<strong class="title"><a> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 												@if ($value->isdiskon == "Y")
 													<?php
 													$diskonval = $value->price * $value->diskon / 100;

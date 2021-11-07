@@ -188,11 +188,16 @@ var table = $('#table-data').DataTable({
                      targets: 3,
                      className: 'center'
                   },
+                  {
+                     targets: 4,
+                     className: 'center'
+                  },
                 ],
             "columns": [
               {data: 'DT_Row_Index', name: 'DT_Row_Index'},
               {data: 'name', name: 'name'},
               {data: 'price', name: 'price'},
+              {data: 'status', name: 'status'},
               {data: 'aksi', name: 'aksi'},
             ]
       });
