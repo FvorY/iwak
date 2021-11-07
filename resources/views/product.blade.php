@@ -83,7 +83,7 @@
 												</ul>
 												<ul class="links">
 													<li><a onclick="addtocard({{$value->id_produk}})"><i class="icon-handbag"></i></a></li>
-													<li><a href="#"><i class="fa fa-eye"></i></a></li>
+													<li><a href="{{route('detailproduct', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
 												</ul>
 											</div><!-- box end here -->
 											<!-- txt end here -->

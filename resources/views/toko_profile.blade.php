@@ -17,7 +17,7 @@
       font-family: 'Poppins', sans-serif;
       align-items: center;
       justify-content: center;
-      background-color: #ADE5F9;
+      /* background-color: #ADE5F9; */
       min-height: 100vh;
     }
     img {
@@ -160,7 +160,7 @@
 			<!-- mt main start here -->
 			<main id="mt-main">
         {{-- <center> --}}
-        <div class="container">
+        <div class="container-fluid profiltoko">
           <div class="card">
             <div class="img">
               <img src="{{url('/')}}/{{$cek->profile_toko}}" style="width:80px; height:80px;">
@@ -202,7 +202,75 @@
           </div>
         </div>
       {{-- </center> --}}
+      <div class="container">
+					<div class="row">
+						<!-- sidebar of the Page start here -->
+					
+						<div class="col-xs-12  wow fadeInRight" data-wow-delay="0.4s">
+							<!-- mt shoplist header start here -->
+							<br>
+              <div class="mt-producttabs wow fadeInUp" data-wow-delay="0.4s">
+								<!-- producttabs start here -->
+								<ul class="producttabs">
+									<li>&nbsp;&nbsp; ALL PRODUCT</li>
+									<!-- <li><a href="#tab2">LATEST AUCTION</a></li> -->
+								</ul>
+  </div>
+              <!-- mt shoplist header end here -->
+							<!-- mt productlisthold start here -->
+							<ul class="mt-productlisthold list-inline">
+								@foreach ($produk as $key => $value)
+									<li>
+										<!-- mt product2 start here -->
+										<div class="mt-product2 large bg-grey">
+											<!-- box start here -->
+											<div class="box">
+												<img src="{{url('/')}}/{{$value->image}}" style="width:275px; height:290px;" class="imageproduk" alt="{{$value->name}}">
+												<span class="caption">
+													<span class="new">AUCTION</span>
+												</span>
+												<ul class="mt-stars">
+													@for ($i=0; $i < $value->star; $i++)
+														<li><i class="fa fa-star"></i></li>
+													@endfor
+													@for ($i=0; $i < (5 - $value->star); $i++)
+														<li><i class="fa fa-star-o"></i></li>
+													@endfor
+												</ul>
+												<ul class="links">
+													<li><a href="{{route('detaillelang', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
+												</ul>
+											</div><!-- box end here -->
+											<!-- txt end here -->
+											<div class="txt">
+												<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+												<?php
+												$string = $value->address;
+												$output = explode(" ",$string);
+												?>
+												<strong class="title"><a href="product-detail.html"><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+												<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
+												<span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
+											</div><!-- txt end here -->
+										</div><!-- mt product2 end here -->
+									</li>
+								@endforeach
+							</ul><!-- mt productlisthold end here -->
+							<!-- mt pagination start here -->
+							<nav class="mt-pagination">
+								<ul class="list-inline">
+									<li><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+								</ul>
+							</nav><!-- mt pagination end here -->
+						</div>
+					</div>
+				</div>
 			</main><!-- mt main end here -->
+      
+      
 @endsection
 
 @section('extra_script')
@@ -230,7 +298,7 @@
       return color;
     }
     function setRandomColor() {
-      $("body").css("background-color", getRandomColor());
+      $(".profiltoko").css("background-color", getRandomColor());
     }
   })
 

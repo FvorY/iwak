@@ -200,15 +200,19 @@ class ProductController extends Controller
     public function show($url_segment)
     {
         //
+        // dd($url_segment);
         $get_id_produk = DB::table("produk")
                         // ->join("account", 'produk.id_account', 'account.id_account')
                         ->where("produk.url_segment", $url_segment)
                         ->select('produk.id_produk')
-                        ->get();
-        // dd($get_id_produk[0]);
+                        ->first();
+        // dd($get_id_produk);
+        if($get_id_produk == null){
+          return view('error-404');
+        }else{  
         $data = DB::table("produk")
                 ->join("account", 'produk.id_account', 'account.id_account')
-                ->where("produk.id_produk", $get_id_produk[0]->id_produk)
+                ->where("produk.id_produk", $get_id_produk->id_produk)
                 ->select('produk.*','account.id_account','account.fullname','account.email','account.namatoko','account.profile_toko')
                 ->get();
         // dd($data);
@@ -230,23 +234,28 @@ class ProductController extends Controller
         $image = DB::table("imageproduk")
                 ->join('produk', 'produk.id_produk', '=', 'imageproduk.id_produk')
                 // ->join("account", 'produk.id_account', 'account.id_account')
-                ->where("produk.id_produk", $get_id_produk[0]->id_produk)
+                ->where("produk.id_produk", $get_id_produk->id_produk)
                 ->get();
 
         $feedback =  DB::table("transaction_detail")
                     ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
                     ->join("account", 'account.id_account', 'feedback.id_user')
-                    ->where("transaction_detail.id_produk", $get_id_produk[0]->id_produk)
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
                     ->groupBy('feedback.id_feedback')
                     ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
                     // ->having('feedback.created_at')
                     ->get();
+                    return view('product/detail', compact('data', 'image','feedback'));
 
+        }
         // dd(count($feedback));
         // dd($feedback);
         // dd($get_id_related[0]->id_category);
-
-        return view('product/detail', compact('data', 'image','feedback'));
+        // if($get_id_produk == null){
+        //   return view('error-404');
+        // }
+        // else{
+        // }
     }
 
     /**

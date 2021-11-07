@@ -80,7 +80,7 @@
 													@endfor
 												</ul>
 												<ul class="links">
-													<li><a href="#"><i class="fa fa-eye"></i></a></li>
+													<li><a href="{{route('detaillelang', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
 												</ul>
 											</div><!-- box end here -->
 											<!-- txt end here -->
