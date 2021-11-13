@@ -285,26 +285,52 @@
                   let res = data[i]
 
                   if (res.counter > 0) {
-                    html += '<div class="list">'+
-                      '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
-                      '<div class="info">'+
-                        '<span class="user">'+res.account.fullname+'</span>'+
-                        '<span class="text">'+res.last_message+'</span>'+
-                      '</div>'+
-                      '<span class="count">'+res.counter+'</span>'+
-                      '<span class="time">'+res.created_at+'</span>'+
-                      '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
-                      '</div>';
+                    if res.account.profile_picture != null {
+                      html += '<div class="list">'+
+                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                        '<div class="info">'+
+                          '<span class="user">'+res.account.fullname+'</span>'+
+                          '<span class="text">'+res.last_message+'</span>'+
+                        '</div>'+
+                        '<span class="count">'+res.counter+'</span>'+
+                        '<span class="time">'+res.created_at+'</span>'+
+                        '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                        '</div>';
+                    } else {
+                      html += '<div class="list">'+
+                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
+                        '<div class="info">'+
+                          '<span class="user">'+res.account.fullname+'</span>'+
+                          '<span class="text">'+res.last_message+'</span>'+
+                        '</div>'+
+                        '<span class="count">'+res.counter+'</span>'+
+                        '<span class="time">'+res.created_at+'</span>'+
+                        '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                        '</div>';
+                    }
                   } else {
-                    html += '<div class="list">'+
-                      '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
-                      '<div class="info">'+
-                        '<span class="user">'+res.account.fullname+'</span>'+
-                        '<span class="text">'+res.last_message+'</span>'+
-                      '</div>'+
-                      '<span class="time">'+res.created_at+'</span>'+
-                      '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
-                      '</div>';
+                    if res.account.profile_picture != null {
+                      html += '<div class="list">'+
+                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                        '<div class="info">'+
+                          '<span class="user">'+res.account.fullname+'</span>'+
+                          '<span class="text">'+res.last_message+'</span>'+
+                        '</div>'+
+                        '<span class="time">'+res.created_at+'</span>'+
+                        '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                        '</div>';
+                    } else {
+                      html += '<div class="list">'+
+                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
+                        '<div class="info">'+
+                          '<span class="user">'+res.account.fullname+'</span>'+
+                          '<span class="text">'+res.last_message+'</span>'+
+                        '</div>'+
+                        '<span class="time">'+res.created_at+'</span>'+
+                        '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
+                        '</div>';
+                    }
+
                   }
                 }
 
@@ -421,16 +447,7 @@
 
                 if (arraccount[0] == "{{Auth::user()->id_account}}") {
                   penerima = arraccount[1];
-                  if (res.profile_toko != null) {
-                    html += '<div class="message-list me">'+
-                              '<div class="msg">'+
-                                  '<p>'+
-                                  '<a href="{{url('/')}}/'+res.profile_toko+'" target="_blank"> <img src="{{url('/')}}/'+res.photourl+'" style="width:150px; height:150px;"> </a>'+
-                                  '</p>'+
-                              '</div>'+
-                              '<div class="time">'+res.created_at+'</div>'+
-                            '</div>';
-                  } else if (res.photourl != null) {
+                  if (res.photourl != null) {
                     html += '<div class="message-list me">'+
                               '<div class="msg">'+
                                   '<p>'+
@@ -451,16 +468,7 @@
                   }
                 } else {
                   penerima = arraccount[0];
-                  if (res.profile_toko != null) {
-                    html += '<div class="message-list me">'+
-                              '<div class="msg">'+
-                                  '<p>'+
-                                  '<a href="{{url('/')}}/'+res.profile_toko+'" target="_blank"> <img src="{{url('/')}}/'+res.photourl+'" style="width:150px; height:150px;"> </a>'+
-                                  '</p>'+
-                              '</div>'+
-                              '<div class="time">'+res.created_at+'</div>'+
-                            '</div>';
-                  } else if (res.photourl != null) {
+                  if (res.photourl != null) {
                     html += '<div class="message-list">'+
                               '<div class="msg">'+
                                   '<p>'+
