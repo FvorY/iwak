@@ -285,9 +285,9 @@
                   let res = data[i]
 
                   if (res.counter > 0) {
-                    if (res.account.profile_picture != null) {
+                    if (res.account.profile_toko != null) {
                       html += '<div class="list">'+
-                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
@@ -298,7 +298,7 @@
                         '</div>';
                     } else {
                       html += '<div class="list">'+
-                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
+                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
@@ -309,9 +309,9 @@
                         '</div>';
                     }
                   } else {
-                    if (res.account.profile_picture != null) {
+                    if (res.account.profile_toko != null) {
                       html += '<div class="list">'+
-                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
+                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
@@ -321,7 +321,7 @@
                         '</div>';
                     } else {
                       html += '<div class="list">'+
-                        '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
+                        '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
