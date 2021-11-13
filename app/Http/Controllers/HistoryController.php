@@ -43,6 +43,35 @@ class HistoryController extends Controller
         return view('pembelihistory/index', compact('data'));
     }
 
+    public function apihistory(Request $req)
+    {
+        //
+        $data = DB::table('transaction')
+                  ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
+                  ->where("id_pembeli", $req->id_account)
+                  ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "transaction.id_penjual", "account.fullname", "transaction.nota","transaction.date", "account.id_account as penjual", "account.id_account as ulasan")
+                  ->orderby("date", "DESC")
+                  ->get();
+
+        foreach ($data as $key => $value) {
+            $value->penjual = DB::table("account")
+                                ->where("id_account", $value->id_penjual)
+                                ->first();
+
+            $value->ulasan = DB::table("feedback")
+                                ->where("id_user", $req->id_account)
+                                ->where("id_toko", $value->id_penjual)
+                                ->where("id_transaction", $value->id_transaction)
+                                ->first();
+        }
+
+        return Response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+          'data' => $data
+        ])
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -119,6 +148,63 @@ class HistoryController extends Controller
         } catch (\Exception $e) {
           DB::rollback();
           return response()->json(["status" => 4]);
+        }
+    }
+
+    public function apipay(Request $req) {
+        DB::beginTransaction();
+        try {
+
+          $max = $req->id;
+
+          $imgPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/Payment/' . $max;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                      if ($_FILES['image']['type'] == 'image/webp') {
+
+                      } else if ($_FILES['image']['type'] == 'webp') {
+
+                      } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      }
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
+          DB::table("payment")
+              ->insert([
+              "id_transaction" => $max,
+              "image" => $imgPath,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+            DB::commit();
+            return response()->json([
+              "code" => 200,
+              "message" => "Sukses",
+            ]);
+          } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+              "code" => 400,
+              "message" => $e,
+            ]);
         }
     }
 

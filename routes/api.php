@@ -22,6 +22,44 @@ Route::middleware('api')->group(function () {
     Route::any('/editprofile', 'MemberController@apiedit');
     Route::any('/getinfo', 'HomepageController@getinfo');
 
+    Route::any('/pembeli/product', 'ProductController@apiproduk');
+    Route::any('/pembeli/product/detail/{url_segment}', 'ProductController@apishow');
+    Route::any('/pembeli/lelang', 'LelangController@apilelang');
+    Route::any('/pembeli/lelang/detail/{url_segment}', 'LelangController@apishow');
+
+    Route::any('/pembeli/history', 'HistoryController@apihistory');
+    Route::post('/pembeli/pay', 'HistoryController@apipay');
+
+    Route::any('/pembeli/lelangupdate', 'LelangController@apilelangupdate');
+    Route::any('/pembeli/countcart', 'CartController@apicountcart');
+    Route::any('/pembeli/addcart', 'CartController@apiaddcart');
+    Route::any('/pembeli/opencart', 'CartController@apiopencart');
+    Route::any('/pembeli/deletecart', 'CartController@deletecart');
+    Route::post('/pembeli/bukatoko', 'TokoController@simpan');
+
+    Route::get('/pembeli/viewcart', 'CartController@viewcart');
+    Route::get('/pembeli/addcart', 'CartController@addcart');
+    Route::get('/pembeli/changetoko', 'CartController@changetoko');
+    Route::post('/pembeli/checkout', 'CartController@checkout');
+
+    Route::get('/chat', 'ChatController@index');
+    Route::get('/listroom', 'ChatController@listroom');
+    Route::get('/countchat', 'ChatController@countchat');
+    Route::get('/listchat', 'ChatController@listchat');
+    Route::get('/sendchat', 'ChatController@sendchat');
+    Route::get('/newchat', 'ChatController@newchat');
+    Route::post('/sendimgchat', 'ChatController@sendimgchat');
+
+    Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
+
+    Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
+
+    Route::get('/updateprice', 'LelangController@updateprice');
+
+    Route::get('/addbid', 'LelangController@addbid');
+
+    Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
+
     //Penjual
     Route::any('/penjual/laporan', 'PenjualHomeController@apilaporan');
 

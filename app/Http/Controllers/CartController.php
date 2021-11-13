@@ -32,6 +32,14 @@ class CartController extends Controller
         return Response()->json($cart);
     }
 
+    public function apicountcart(Request $req) {
+       $cart = DB::table('cart')
+                ->where("id_account", $req->id_account)
+                ->count();
+
+        return Response()->json($cart);
+    }
+
     public function viewcart() {
       $cart = DB::table('cart')
                ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
@@ -49,6 +57,17 @@ class CartController extends Controller
                 ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
                 ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                 ->where("cart.id_account", Auth::user()->id_account)
+                ->groupby("cart.id_produk")
+                ->get();
+
+        return Response()->json($cart);
+    }
+
+    public function apiopencart(Request $req) {
+       $cart = DB::table('cart')
+                ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
+                ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+                ->where("cart.id_account", $req->id_account)
                 ->groupby("cart.id_produk")
                 ->get();
 
@@ -126,6 +145,66 @@ class CartController extends Controller
       } catch (\Exception $e) {
         DB::rollback();
         return response()->json(["status" => 4]);
+      }
+
+    }
+
+    public function apiaddcart(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $cekcart = DB::table("cart")
+                    ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
+                    ->where("cart.id_account", $req->id_account)
+                    ->first();
+
+        $cekexist = DB::table("produk")
+                      ->where("produk.id_produk", $req->id)
+                      ->first();
+
+        if ($cekcart != null && $cekexist != null) {
+          if ($cekexist->id_account != $cekcart->id_account) {
+            return response()->json([
+              "code" => 400,
+              "message" => "Mau ganti card ke toko lain?",
+            ]);
+          }
+        }
+
+        $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("cart.id_account", Auth::user()->id_account)->where("produk.id_produk", $req->id)->first();
+
+        if ($cek == null) {
+          DB::table("cart")
+            ->insert([
+              "id_produk" => $req->id,
+              "id_account" => $req->id_account,
+              "qty" => 1,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+            DB::commit();
+            return response()->json(["status" => 1]);
+        } else {
+          DB::table("cart")
+            ->where("id_cart", $cek->id_cart)
+            ->update([
+              "qty" => (int)$cek->qty + 1,
+              "created_at" => Carbon::now('Asia/Jakarta'),
+            ]);
+
+            DB::commit();
+            return response()->json([
+              "code" => 200,
+              "message" => "Sukses",
+            ]);
+        }
+
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
       }
 
     }

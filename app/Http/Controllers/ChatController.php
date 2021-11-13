@@ -83,6 +83,7 @@ class ChatController extends Controller
     public function listroom(Request $req) {
         $chat = DB::table('roomchat')
                  ->where('account', 'like', '%' . Auth::user()->id_account . '%')
+                 ->orderby("id_roomchat", "ASC")
                  ->get();
 
         foreach ($chat as $key => $value) {
