@@ -285,7 +285,7 @@
                   let res = data[i]
 
                   if (res.counter > 0) {
-                    if res.account.profile_picture != null {
+                    if (res.account.profile_picture != null) {
                       html += '<div class="list">'+
                         '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
@@ -309,7 +309,7 @@
                         '</div>';
                     }
                   } else {
-                    if res.account.profile_picture != null {
+                    if (res.account.profile_picture != null) {
                       html += '<div class="list">'+
                         '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
