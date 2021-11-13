@@ -421,7 +421,16 @@
 
                 if (arraccount[0] == "{{Auth::user()->id_account}}") {
                   penerima = arraccount[1];
-                  if (res.photourl != null) {
+                  if (res.profile_toko != null) {
+                    html += '<div class="message-list me">'+
+                              '<div class="msg">'+
+                                  '<p>'+
+                                  '<a href="{{url('/')}}/'+res.profile_toko+'" target="_blank"> <img src="{{url('/')}}/'+res.photourl+'" style="width:150px; height:150px;"> </a>'+
+                                  '</p>'+
+                              '</div>'+
+                              '<div class="time">'+res.created_at+'</div>'+
+                            '</div>';
+                  } else if (res.photourl != null) {
                     html += '<div class="message-list me">'+
                               '<div class="msg">'+
                                   '<p>'+
@@ -442,7 +451,16 @@
                   }
                 } else {
                   penerima = arraccount[0];
-                  if (res.photourl != null) {
+                  if (res.profile_toko != null) {
+                    html += '<div class="message-list me">'+
+                              '<div class="msg">'+
+                                  '<p>'+
+                                  '<a href="{{url('/')}}/'+res.profile_toko+'" target="_blank"> <img src="{{url('/')}}/'+res.photourl+'" style="width:150px; height:150px;"> </a>'+
+                                  '</p>'+
+                              '</div>'+
+                              '<div class="time">'+res.created_at+'</div>'+
+                            '</div>';
+                  } else if (res.photourl != null) {
                     html += '<div class="message-list">'+
                               '<div class="msg">'+
                                   '<p>'+
