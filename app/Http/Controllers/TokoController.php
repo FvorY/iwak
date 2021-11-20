@@ -165,6 +165,85 @@ class TokoController extends Controller
 
     }
 
+    public function apisimpan(Request $req) {
+
+        if ($req->namatoko == null) {
+          return response()->json([
+            "code" => 400,
+            "message" => "Isi nama toko anda terlebih dahulu, tidak dapat disimpan!"
+          ]);
+        }
+
+        if ($req->namatoko == "") {
+          return response()->json([
+            "code" => 400,
+            "message" => "Isi nama toko anda terlebih dahulu, tidak dapat disimpan!"
+          ]);
+        }
+
+        DB::beginTransaction();
+        try {
+          $imgPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/Toko/' . $req->id;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                      compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
+          if ($imgPath == null) {
+            DB::table("account")
+                ->where('id_account', $req->id)
+                ->update([
+                "namatoko" => $req->namatoko,
+                "star" => $req->star,
+                "bank" => $req->bank,
+                "updated_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+          } else {
+            DB::table("account")
+                ->where('id_account', $req->id)
+                ->update([
+                "namatoko" => $req->namatoko,
+                "star" => $req->star,
+                "nomor_rekening" => $req->nomor_rekening,
+                "bank" => $req->bank,
+                "profile_toko" => $imgPath,
+                "updated_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+          }
+
+          DB::commit();
+          return response()->json([
+            "code" => 200,
+            "message" => "Sukses simpan data",
+          ]);
+        } catch (\Exception $e) {
+          DB::rollback();
+          return response()->json([
+            "code" => 400,
+            "message" => "Gagal simpan data, periksa koneksi anda terlebih dahulu!"
+          ]);
+        }
+
+    }
+
     public function aktif(Request $req) {
       DB::beginTransaction();
       try {

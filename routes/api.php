@@ -34,15 +34,15 @@ Route::middleware('api')->group(function () {
     Route::any('/pembeli/countcart', 'CartController@apicountcart');
     Route::any('/pembeli/addcart', 'CartController@apiaddcart');
     Route::any('/pembeli/opencart', 'CartController@apiopencart');
-    Route::any('/pembeli/deletecart', 'CartController@deletecart');
-    Route::post('/pembeli/bukatoko', 'TokoController@simpan');
+    Route::any('/pembeli/deletecart', 'CartController@apideletecart');
+    
+    Route::post('/pembeli/bukatoko', 'TokoController@apisimpan');
 
-    Route::get('/pembeli/viewcart', 'CartController@viewcart');
+    Route::any('/pembeli/viewcart', 'CartController@apiviewcart');
     Route::get('/pembeli/addcart', 'CartController@addcart');
     Route::get('/pembeli/changetoko', 'CartController@changetoko');
     Route::post('/pembeli/checkout', 'CartController@checkout');
 
-    Route::get('/chat', 'ChatController@index');
     Route::get('/listroom', 'ChatController@listroom');
     Route::get('/countchat', 'ChatController@countchat');
     Route::get('/listchat', 'ChatController@listchat');

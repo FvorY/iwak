@@ -52,6 +52,18 @@ class CartController extends Controller
       return view('checkout', compact('cart'));
     }
 
+    public function apiviewcart(Request $req) {
+      $cart = DB::table('cart')
+               ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
+               ->join('account', 'account.id_account', '=', 'produk.id_account')
+               ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+               ->where("cart.id_account", $req->id_account)
+               ->groupby("cart.id_produk")
+               ->get();
+
+      return Response()->json($cart);
+    }
+
     public function opencart() {
        $cart = DB::table('cart')
                 ->join('produk', 'produk.id_produk', '=', 'cart.id_produk')
@@ -80,6 +92,17 @@ class CartController extends Controller
                 ->delete();
 
         return Response()->json('sukses');
+    }
+
+    public function apideletecart(Request $req) {
+        DB::table('cart')
+                ->where('id_cart', $req->id)
+                ->delete();
+
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
     }
 
     public function changetoko(Request $req) {
