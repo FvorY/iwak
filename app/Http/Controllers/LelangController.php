@@ -401,8 +401,9 @@ class LelangController extends Controller
           'sortfield' => $sortfield,
           'sort' => $sort,
           'data' => $data
-        ])
+        ]);
     }
+
 
     public function apilelangupdate(Request $req) {
       $res = DB::table("lelangbid")
@@ -413,7 +414,7 @@ class LelangController extends Controller
         "code" => 200,
         "message" => "Sukses",
         'data' => $res
-      ])
+      ]);
     }
 
     public function updateprice(Request $req) {
@@ -579,7 +580,7 @@ class LelangController extends Controller
           return Response()->json([
             "code" => 404,
             "message" => "Data not found"
-          ])
+          ]);
         }else{
         $data = DB::table("lelang")
                 ->join("produk", 'lelang.id_produk', 'produk.id_produk')
@@ -630,7 +631,7 @@ class LelangController extends Controller
           'feedback' => $feedback,
           'image' => $image,
           'data' => $data
-        ])
+        ]);
 
       }
         // dd(count($feedback));
