@@ -35,28 +35,27 @@ Route::middleware('api')->group(function () {
     Route::any('/pembeli/addcart', 'CartController@apiaddcart');
     Route::any('/pembeli/opencart', 'CartController@apiopencart');
     Route::any('/pembeli/deletecart', 'CartController@apideletecart');
-    
+
     Route::post('/pembeli/bukatoko', 'TokoController@apisimpan');
 
     Route::any('/pembeli/viewcart', 'CartController@apiviewcart');
-    Route::get('/pembeli/addcart', 'CartController@addcart');
-    Route::get('/pembeli/changetoko', 'CartController@changetoko');
-    Route::post('/pembeli/checkout', 'CartController@checkout');
+    Route::any('/pembeli/changetoko', 'CartController@apichangetoko');
+    Route::post('/pembeli/checkout', 'CartController@apicheckout');
 
-    Route::get('/listroom', 'ChatController@listroom');
-    Route::get('/countchat', 'ChatController@countchat');
-    Route::get('/listchat', 'ChatController@listchat');
-    Route::get('/sendchat', 'ChatController@sendchat');
-    Route::get('/newchat', 'ChatController@newchat');
-    Route::post('/sendimgchat', 'ChatController@sendimgchat');
+    Route::any('/chat/listroom', 'ChatController@apilistroom');
+    Route::any('/chat/countchat', 'ChatController@apicountchat');
+    Route::any('/chat/listchat', 'ChatController@apilistchat');
+    Route::any('/chat/sendchat', 'ChatController@apisendchat');
+    Route::any('/chat/newchat', 'ChatController@apinewchat');
+    Route::post('/chat/sendimgchat', 'ChatController@apisendimgchat');
 
-    Route::post('pembeli/inputulasan', 'HistoryController@inputulasan');
+    Route::post('/pembeli/inputulasan', 'HistoryController@apiinputulasan');
 
-    Route::get('/toko/{id}', 'ProfileTokoController@index')->name('profilToko');
+    Route::any('/toko/{id}', 'ProfileTokoController@apitoko');
 
-    Route::get('/updateprice', 'LelangController@updateprice');
+    Route::any('/updateprice', 'LelangController@updateprice');
 
-    Route::get('/addbid', 'LelangController@addbid');
+    Route::any('/addbid', 'LelangController@apiaddbid');
 
     Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
 

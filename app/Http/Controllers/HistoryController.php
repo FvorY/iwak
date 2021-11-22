@@ -278,6 +278,76 @@ class HistoryController extends Controller
         }
     }
 
+    public function apiinputulasan(Request $req) {
+        DB::beginTransaction();
+        try {
+
+          $max = DB::table("feedback")->max('id_feedback') + 1;
+
+          $imgPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+          $dir = 'image/uploads/Ulasan/' . $max;
+          $childPath = $dir . '/';
+          $path = $childPath;
+
+          $file = $req->file('image');
+          $name = null;
+          if ($file != null) {
+              $this->deleteDir($dir);
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              if (!File::exists($path)) {
+                  if (File::makeDirectory($path, 0777, true)) {
+                      if ($_FILES['image']['type'] == 'image/webp') {
+
+                      } else if ($_FILES['image']['type'] == 'webp') {
+
+                      } else {
+                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                      }
+                      $file->move($path, $name);
+                      $imgPath = $childPath . $name;
+                  } else
+                      $imgPath = null;
+              } else {
+                  return 'already exist';
+              }
+          }
+
+          $toko = DB::table('transaction')->where("id_transaction", $req->id)->first();
+          if ($imgPath == null) {
+            DB::table("feedback")
+              ->insert([
+                'id_feedback' => $max,
+                'id_user' => $req->id_account,
+                'id_toko' => $toko->id_penjual,
+                'id_transaction' => $req->id,
+                'star' => $req->rating,
+                'feedback' => $req->ulasan,
+                'created_at' => Carbon::now('Asia/Jakarta'),
+              ]);
+          } else {
+            DB::table("feedback")
+              ->insert([
+                'id_feedback' => $max,
+                'id_user' => $req->id_account,
+                'id_toko' => $toko->id_penjual,
+                'id_transaction' => $req->id,
+                'star' => $req->rating,
+                'image' => $imgPath,
+                'feedback' => $req->ulasan,
+                'created_at' => Carbon::now('Asia/Jakarta'),
+              ]);
+          }
+
+          DB::commit();
+          return response()->json(["status" => 3]);
+        } catch (\Exception $e) {
+          DB::rollback();
+          return response()->json(["status" => 4]);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
