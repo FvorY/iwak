@@ -209,13 +209,13 @@
 						<div class="col-xs-12  wow fadeInRight" data-wow-delay="0.4s">
 							<!-- mt shoplist header start here -->
 							<br>
-              <div class="mt-producttabs wow fadeInUp" data-wow-delay="0.4s">
+              <div class="wow fadeInUp" data-wow-delay="0.4s">
 								<!-- producttabs start here -->
 								<ul class="producttabs">
 									<li>&nbsp;&nbsp; ALL PRODUCT</li>
 									<!-- <li><a href="#tab2">LATEST AUCTION</a></li> -->
 								</ul>
-  </div>
+              </div>
               <!-- mt shoplist header end here -->
 							<!-- mt productlisthold start here -->
 							<ul class="mt-productlisthold list-inline">
