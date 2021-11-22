@@ -331,7 +331,7 @@ class ProductController extends Controller
           'sortfield' => $sortfield,
           'sort' => $sort,
           'data' => $data
-        ])
+        ]);
     }
 
     /**
