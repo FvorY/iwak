@@ -309,7 +309,7 @@ class ProductController extends Controller
                               ->join("account", 'produk.id_account', 'account.id_account')
                               ->where("account.istoko", 'Y')
                               ->where("produk.stock", '>' , 0)
-                              ->where("account.id_account", '!=', $req->id_account
+                              ->where("account.id_account", '!=', $req->id_account)
                               ->where("id_category", $value->id_category)
                               ->count();
           } else {
