@@ -209,7 +209,7 @@
 						<div class="col-xs-12  wow fadeInRight" data-wow-delay="0.4s">
 							<!-- mt shoplist header start here -->
 							<br>
-              <div class="wow fadeInUp" data-wow-delay="0.4s">
+              <div class="mt-producttabs wow fadeInUp" data-wow-delay="0.4s">
 								<!-- producttabs start here -->
 								<ul class="producttabs">
 									<li>&nbsp;&nbsp; ALL PRODUCT</li>
