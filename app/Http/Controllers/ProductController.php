@@ -428,7 +428,7 @@ class ProductController extends Controller
           return Response()->json([
             "code" => 404,
             "message" => "Data not found"
-          ])
+          ]);
         }else{
         $data = DB::table("produk")
                 ->join("account", 'produk.id_account', 'account.id_account')
@@ -457,7 +457,7 @@ class ProductController extends Controller
               'feedback' => $feedback,
               'image' => $image,
               'data' => $data
-            ])
+            ]);
 
         }
     }
