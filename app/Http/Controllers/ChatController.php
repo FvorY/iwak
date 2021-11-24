@@ -226,6 +226,7 @@ class ChatController extends Controller
                   ->where("id_roomchat", $req->id)
                   ->update([
                     'counter' => $count,
+                    'created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
            }
 
@@ -259,6 +260,7 @@ class ChatController extends Controller
                   ->where("id_roomchat", $req->id)
                   ->update([
                     'counter' => $count,
+                    'created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
            }
 
@@ -324,6 +326,7 @@ class ChatController extends Controller
                               ->where("id_roomchat", $req->id)
                               ->update([
                                 'counter' => $count,
+                                'created_at' => Carbon::now('Asia/Jakarta'),
                               ]);
                        }
                   }
@@ -391,6 +394,7 @@ class ChatController extends Controller
                               ->where("id_roomchat", $req->id)
                               ->update([
                                 'counter' => $count,
+                                'created_at' => Carbon::now('Asia/Jakarta'),
                               ]);
                        }
                   }

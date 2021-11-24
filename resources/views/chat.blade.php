@@ -262,6 +262,7 @@
     <script type="text/javascript">
 
         var idselect = 0;
+        var selectedroom = false;
         var penerima = "";
 
         roomchat();
@@ -335,7 +336,9 @@
                 }
 
 
-                idselect = data[0].id_roomchat;
+                if (selectedroom == false) {
+                  idselect = data[0].id_roomchat;
+                }
 
                 listchat();
 
@@ -412,6 +415,8 @@
                   idselect = id;
 
                   listchat(idselect);
+
+                  selectedroom = true;
 
                   $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
 
@@ -490,9 +495,9 @@
                 }
               }
 
-              $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
-
               $('#listchat').html(html);
+
+              $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
 
             }
           });
