@@ -18,7 +18,7 @@ class LelangController extends Controller
     public function index()
     {
         //
-        return view('checkot');
+        return view('checkuot');
     }
 
     /**
