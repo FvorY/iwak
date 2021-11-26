@@ -18,6 +18,16 @@ class CategoryController extends Controller
 
     }
 
+    public function apicategory() {
+      $data = DB::table("category")
+                ->get();
+
+      return response()->json([
+        'status' => 200,
+        'data' => $data,
+      ]);
+    }
+
     public function dosavecategory(Request $request) {
       DB::beginTransaction();
       try {

@@ -98,4 +98,7 @@ Route::middleware('api')->group(function () {
     Route::any('penjual/listorder/showpayment/{id}', 'PenjualListpesananController@apishowpayment');
     Route::any('penjual/listorder/approve', 'PenjualListpesananController@apiapprove');
 
+    //List Category
+    Route::get('/category', 'CategoryController@apicategory');
+
 });
