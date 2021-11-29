@@ -43,11 +43,12 @@ class HomepageController extends Controller
                       ->limit(20)
                       ->get();
 
-          $bestseller = DB::table("produk")
+          $promo = DB::table("produk")
                       ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                       ->join("account", 'produk.id_account', 'account.id_account')
                       ->where("account.istoko", 'Y')
                       ->where("produk.stock", '>' , 0)
+                      ->where("produk.isdiskon", 'Y')
                       ->where("account.id_account", '!=', Auth::user()->id_account)
                       ->groupby("imageproduk.id_produk")
                       ->orderby('produk.sold', 'DESC')
@@ -79,11 +80,12 @@ class HomepageController extends Controller
                       ->limit(20)
                       ->get();
 
-          $bestseller = DB::table("produk")
+          $promo = DB::table("produk")
                       ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
                       ->join("account", 'produk.id_account', 'account.id_account')
                       ->where("account.istoko", 'Y')
                       ->where("produk.stock", '>' , 0)
+                      ->where("produk.isdiskon", 'Y')
                       ->groupby("imageproduk.id_produk")
                       ->orderby('produk.sold', 'DESC')
                       ->limit(10)
@@ -114,7 +116,7 @@ class HomepageController extends Controller
             }
         }
         // dd($forauction);
-        return view("homepage", compact('backgroundheader', 'forauction', 'latest', 'bestseller'));
+        return view("homepage", compact('backgroundheader', 'forauction', 'latest', 'promo'));
     }
 
     public function getinfo() {

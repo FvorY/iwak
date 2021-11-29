@@ -208,7 +208,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="bestseller-slider">
-									@foreach ($bestseller as $key => $value)
+									@foreach ($promo as $key => $value)
 										<div class="slide">
 											<!-- mt product1 center start here -->
 											<div class="mt-product1 large">
