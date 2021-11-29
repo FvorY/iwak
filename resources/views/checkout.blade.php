@@ -58,7 +58,7 @@
             <div class="col-xs-12 col-sm-2">
               <form class="qyt-form">
                 <fieldset>
-                  <input type="number" name="qty[]" onkeyup="qtychange({{$value->id_cart}})" id="qtyvalue{{$value->id_cart}}" class="form-control qtyvalue" style="font-weight:bold; font-size: 20px;" value="{{$value->qty}}">
+                  <input type="number" name="qty[]" onkeyup="qtychange({{$value->id_cart}})" id="qtyvalue{{$value->id_cart}}" class="form-control qtyvalue" style="font-weight:bold; font-size: 20px;" value="{{$value->qty}}" oninput="this.value = Math.abs(this.value)">
                 </fieldset>
               </form>
             </div>

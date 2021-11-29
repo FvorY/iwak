@@ -77,7 +77,7 @@
 
                           <div class="col-md-10 col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" placeholder="Stock" name="stock" id="stock">
+                                <input type="number" class="form-control form-control-sm" placeholder="Stock" name="stock" id="stock" oninput="this.value = Math.abs(this.value)">
                             </div>
                           </div>
 
@@ -87,7 +87,7 @@
 
                           <div class="col-md-10 col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" placeholder="Diskon" name="diskon" id="diskon">
+                                <input type="number" class="form-control form-control-sm" placeholder="Diskon" name="diskon" id="diskon" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';}" oninput="this.value = Math.abs(this.value)">
                             </div>
                           </div>
 
