@@ -202,7 +202,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-12 mt-heading text-uppercase">
-								<h2 class="heading">BEST SELLER</h2>
+								<h2 class="heading">PROMO</h2>
 							</div>
 						</div>
 						<div class="row">
