@@ -433,6 +433,14 @@ class LelangController extends Controller
               ->where("status", 'Y')
               ->first();
 
+      if ($lastbid == null) {
+          $lelang = DB::table("lelang")
+                  ->where("lelang.id_produk", $req->id)
+                  ->first();
+
+          $lastbid->price = $lelang->price;
+      }
+
       return response()->json([
           'price' => $res,
           'lastbid' => $lastbid,
@@ -441,6 +449,7 @@ class LelangController extends Controller
     }
 
     public function addbid(Request $req) {
+      // dd($req->price);
 
       DB::beginTransaction();
       try {
@@ -454,8 +463,10 @@ class LelangController extends Controller
                 ->limit(1)
                 ->first();
 
-        if ($price <= $lastbid->price){
-            return response()->json(["status" => 7, "message" => "Silahkan bid diatas harga terakhir!"]);
+        if ($lastbid != null) {
+          if ($price <= $lastbid->price){
+              return response()->json(["status" => 7, "message" => "Silahkan bid diatas harga terakhir!"]);
+          }
         }
 
         DB::table("lelangbid")
@@ -488,12 +499,14 @@ class LelangController extends Controller
                 ->limit(1)
                 ->first();
 
-        if ($price <= $lastbid->price){
-          return Response()->json([
-            "code" => 400,
-            "message" => "Silahkan bid diatas harga terakhir!",
-          ]);
-        }
+        if ($lastbid != null) {
+          if ($price <= $lastbid->price){
+            return Response()->json([
+              "code" => 400,
+              "message" => "Silahkan bid diatas harga terakhir!",
+            ]);
+          }
+      }
 
         DB::table("lelangbid")
             ->insert([
@@ -594,13 +607,26 @@ class LelangController extends Controller
                     // ->having('feedback.created_at')
                     ->get();
 
+        $avgfeed = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->avg('feedback.star');
+
         if ($data[0] != null) {
-          $data[0]->price = DB::table("lelangbid")
+          $maxbid = DB::table("lelangbid")
                             ->where("id_lelang", $data[0]->id_lelang)
                             ->max('price');
+
+          if ($maxbid > 0) {
+            $data[0]->price = $maxbid;
+          }
         }
 
-        return view('lelang/detail', compact('data', 'image','feedback'));
+        return view('lelang/detail', compact('data', 'image','feedback', 'avgfeed'));
 
       }
         // dd(count($feedback));
@@ -662,10 +688,23 @@ class LelangController extends Controller
                     // ->having('feedback.created_at')
                     ->get();
 
+        $avgfeed = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->avg('feedback.star');
+
         if ($data[0] != null) {
-          $data[0]->price = DB::table("lelangbid")
+          $maxbid = DB::table("lelangbid")
                             ->where("id_lelang", $data[0]->id_lelang)
                             ->max('price');
+
+          if ($maxbid > 0) {
+            $data[0]->price = $maxbid;
+          }
         }
 
         return Response()->json([
@@ -673,7 +712,8 @@ class LelangController extends Controller
           "message" => "Sukses",
           'feedback' => $feedback,
           'image' => $image,
-          'data' => $data
+          'data' => $data,
+          'avgfeed' => $avgfeed
         ]);
 
       }

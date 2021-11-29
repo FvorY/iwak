@@ -51,17 +51,17 @@
 								<!-- Slider of the Page end -->
 								<!-- Detail Holder of the Page -->
 								<div class="detial-holder">
-									
+
 									<h2>{{$list->name}}</h2>
 									<!-- Rank Rating of the Page -->
 									<div class="rank-rating">
 										<span class="total-price">Reviews ({{count($feedback)}})</span>
 										<ul class="list-unstyled rating-list">
-										@for($x = 0; $x < $list->star ; $x++)
+										@for($x = 0; $x < $avgfeed ; $x++)
 											<li><a href="#"><i class="fa fa-star"></i></a></li>
-											
+
 										@endfor
-										@for($x = 5; $x > $list->star ; $x--)
+										@for($x = 5; $x > $avgfeed ; $x--)
 
 											<li><a href="#"><i class="fa fa-star-o"></i></a></li>
 										@endfor
@@ -82,7 +82,7 @@
 											@if($list->isdiskon == "Y")
 											<del>{{FormatRupiahFront($list->price)}}</del>
 											@else
-											
+
 											@endif
 										</span>
 									</div>
@@ -110,9 +110,9 @@
 									</form>
 									<div class="txt-wrap">
 										<p>{{$list->description}}</p>
-										
+
 									</div>
-									
+
 								</div>
 								<!-- Detail Holder of the Page end -->
 							</div>
@@ -161,18 +161,18 @@
 								<div class="tab-content">
 									<div id="tab1">
 										<p>{{$list->description}}</p>
-										
+
 									</div>
 									<div id="tab3">
 										<div class="product-comment">
 											@foreach ($feedback as $feedbacks)
 											<div class="mt-box">
 												<div class="mt-hold">
-													
+
 													<ul class="mt-star">
 													@for($x = 0; $x < $feedbacks->star ; $x++)
 														<li><i class="fa fa-star"></i></li>
-														
+
 													@endfor
 													@for($x = 5; $x > $feedbacks->star ; $x--)
 
@@ -182,8 +182,8 @@
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star-o"></i></li> -->
-													</ul>	
-													
+													</ul>
+
 													<span class="name">{{$feedbacks->fullname}}</span>
 													<time datetime="2016-01-01">{{date("j M Y", strtotime($feedbacks->created_at))}}</time>
 												</div>
@@ -195,7 +195,7 @@
 													@endif
 											</div>
 											@endforeach
-											
+
 										</div>
 									</div>
 								</div>

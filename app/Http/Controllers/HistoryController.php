@@ -69,7 +69,7 @@ class HistoryController extends Controller
           "code" => 200,
           "message" => "Sukses",
           'data' => $data
-        ])
+        ]);
     }
 
     /**

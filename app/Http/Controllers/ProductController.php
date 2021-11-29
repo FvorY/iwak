@@ -401,7 +401,7 @@ class ProductController extends Controller
                 ->where("produk.id_produk", $get_id_produk->id_produk)
                 ->get();
 
-        $feedback =  DB::table("transaction_detail")
+        $feedback = DB::table("transaction_detail")
                     ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
                     ->join("account", 'account.id_account', 'feedback.id_user')
                     ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
@@ -409,7 +409,17 @@ class ProductController extends Controller
                     ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
                     // ->having('feedback.created_at')
                     ->get();
-                    return view('product/detail', compact('data', 'image','feedback'));
+
+        $avgfeed = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->avg('feedback.star');
+
+        return view('product/detail', compact('data', 'image','feedback', 'avgfeed'));
 
         }
     }
@@ -451,12 +461,22 @@ class ProductController extends Controller
                     // ->having('feedback.created_at')
                     ->get();
 
+        $avgfeed = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    ->avg('feedback.star');
+
             return Response()->json([
               "code" => 200,
               "message" => "Sukses",
               'feedback' => $feedback,
               'image' => $image,
-              'data' => $data
+              'data' => $data,
+              'avgfeed' => $avgfeed
             ]);
 
         }

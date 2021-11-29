@@ -59,11 +59,11 @@
 									<div class="rank-rating">
 										<span class="total-price">Reviews ({{count($feedback)}})</span>
 										<ul class="list-unstyled rating-list">
-										@for($x = 0; $x < $list->star ; $x++)
+										@for($x = 0; $x < $avgfeed ; $x++)
 											<li><a href="#"><i class="fa fa-star"></i></a></li>
 
 										@endfor
-										@for($x = 5; $x > $list->star ; $x--)
+										@for($x = 5; $x > $avgfeed ; $x--)
 
 											<li><a href="#"><i class="fa fa-star-o"></i></a></li>
 										@endfor
