@@ -517,6 +517,9 @@ class PenjualLelangController extends Controller
         DB::beginTransaction();
         try {
 
+          $price = str_replace('.','',$req->price);
+          $price = str_replace('Rp ','',$price);
+
           DB::table("lelang")
               ->insert([
               "id_produk" => $req->id_produk,
@@ -552,6 +555,9 @@ class PenjualLelangController extends Controller
 
         DB::beginTransaction();
         try {
+
+          $price = str_replace('.','',$req->price);
+          $price = str_replace('Rp ','',$price);
 
           DB::table("lelang")
               ->where("id_lelang", $req->id)

@@ -32,7 +32,7 @@ class PenjualProdukController extends Controller
         ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
         ->select('imageproduk.image', 'produk.id_produk', 'produk.star', 'produk.price', 'produk.description', 'produk.sold', 'category.category_name', 'produk.stock', 'produk.name')
         ->where("id_account", Auth::user()->id_account)
-        ->groupby("imageproduk.id_produk")
+        ->groupby("produk.id_produk")
         ->get();
 
         return Datatables::of($data)
@@ -297,8 +297,8 @@ class PenjualProdukController extends Controller
           ->leftjoin('category', 'produk.id_category', '=', 'category.id_category')
           ->leftjoin('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
           ->select('imageproduk.image', 'produk.id_produk', 'produk.star', 'produk.price', 'produk.description', 'produk.sold', 'category.category_name', 'produk.stock', 'produk.name')
-          ->where("id_account", $req->id_account)
-          ->groupby("imageproduk.id_produk")
+          ->where("produk.id_account", $req->id_account)
+          ->groupby("produk.id_produk")
           ->get();
 
 
