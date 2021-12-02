@@ -210,8 +210,8 @@ class CartController extends Controller
           }
         }
 
-        $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("cart.id_account", Auth::user()->id_account)->where("produk.id_produk", $req->id)->first();
-
+        $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("cart.id_account", $req->id_account)->where("produk.id_produk", $req->id)->first();
+      
         if ($cek == null) {
           DB::table("cart")
             ->insert([
@@ -287,10 +287,7 @@ class CartController extends Controller
                   return 'already exist';
               }
           } else {
-            return response()->json([
-              "code" => 400,
-              "message" => "Upload bukti pembayaran terlebih dahulu!",
-            ]);
+            return response()->json(["status" => 7, "message" => "Upload bukti pembayaran terlebih dahulu!"]);
           }
 
           $index = str_pad($max, 3, '0', STR_PAD_LEFT);
@@ -353,16 +350,10 @@ class CartController extends Controller
           }
 
           DB::commit();
-          return response()->json([
-            "code" => 200,
-            "message" => "Sukses",
-          ]);
+          return response()->json(["status" => 3]);
         } catch (\Exception $e) {
           DB::rollback();
-          return response()->json([
-            "code" => 400,
-            "message" => $e,
-          ]);
+          return response()->json(["status" => 4]);
         }
     }
 
@@ -405,7 +396,10 @@ class CartController extends Controller
                   return 'already exist';
               }
           } else {
-              return response()->json(["status" => 7, "message" => "Upload bukti pembayaran terlebih dahulu!"]);
+            return response()->json([
+              "code" => 400,
+              "message" => "Upload bukti pembayaran terlebih dahulu!",
+            ]);
           }
 
           $index = str_pad($max, 3, '0', STR_PAD_LEFT);
@@ -464,12 +458,19 @@ class CartController extends Controller
                   ->delete();
           }
 
-          DB::commit();
-          return response()->json(["status" => 3]);
-        } catch (\Exception $e) {
-          DB::rollback();
-          return response()->json(["status" => 4]);
-        }
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 400,
+          "message" => $e,
+        ]);
+      }
     }
 
   public function deleteDir($dirPath)

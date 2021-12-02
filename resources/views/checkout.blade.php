@@ -92,7 +92,7 @@
                 </div>
               </li>
             </ul>
-            <a onclick="changepart()" class="process-btn">PROCEED TO CHECKOUT <i class="fa fa-check"></i></a>
+            <a onclick="changepart()" class="process-btn" style="cursor:pointer;">PROCEED TO CHECKOUT <i class="fa fa-check"></i></a>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@
               </div>
               <!-- Panel Group of the Page end -->
             </div>
-            <a class="process-btn save" id="simpan">PROCEED TO CHECKOUT <i class="fa fa-check"></i></a>
+            <a class="process-btn save" id="simpan" style="cursor:pointer;">PROCEED TO CHECKOUT <i class="fa fa-check"></i></a>
           </div>
         </div>
       </div>
@@ -282,6 +282,10 @@ $(".uploadGambar").on('change', function () {
 
   $('#simpan').click(function(){
 
+  $('#simpan').css("background", 'white');
+  $('#simpan').css("color", 'black');
+  $('#simpan').css("disabled", true);
+
   var formdata = new FormData();
   formdata.append('image', $('.uploadGambar')[0].files[0]);
 
@@ -312,6 +316,12 @@ $(".uploadGambar").on('change', function () {
     contentType: false,
     cache: false,
     success:function(data){
+      console.log(data);
+
+      $('#simpan').css("background", '#88bd6e');
+      $('#simpan').css("color", 'black');
+      $('#simpan').css("disabled", false);
+
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
