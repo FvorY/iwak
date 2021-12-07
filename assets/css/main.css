@@ -988,11 +988,11 @@ a:hover {
 
 #mt-header.style17 .mt-top-bar {
 	padding: 10px 0;
-	background: #f2f2f2;
+	background: #4C74A8;
 }
 
 #mt-header.style17 .mt-top-bar .tel {
-	color: #a1a1a1;
+	color: #F0C441;
 	margin: 0 46px 0 0;
 	font-family: "Source Sans Pro", sans-serif;
 }
@@ -1259,11 +1259,11 @@ a:hover {
 }
 
 .mt-top-bar a {
-	color: #fff;
+	color: #F0C441;
 }
 
 .mt-top-bar a:hover {
-	color: #ff6060;
+	color: #F0C441;
 }
 
 .mt-top-bar .tel {
@@ -1464,7 +1464,7 @@ a:hover {
 }
 
 .mt-bottom-bar .mt-icon-list li > a:hover {
-	color: #ff6060;
+	color: #F0C441;
 	text-decoration: none;
 }
 

@@ -64,7 +64,7 @@
 								<!-- mt top lang start here -->
 								<div class="mt-top-lang">
 
-									<a href="#" class="lang-opener text-capitalize" style="color:#A1A1A1; font-weight: bold;"> {{Auth::user()->fullname}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<a href="#" class="lang-opener text-capitalize" style="font-weight: bold;"> {{Auth::user()->fullname}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
 											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{url('/pembeli/profile')}}">My Account</a></li>
@@ -73,7 +73,7 @@
 									</div>
 								</div><!-- mt top lang end here -->
 								<span class="account">
-									<a href="{{url('/pembeli/history')}}" style="color:#A1A1A1">History</a>
+									<a href="{{url('/pembeli/history')}}">History</a>
 								</span>
 							</div>
 						</div>
@@ -103,7 +103,7 @@
 
 									@if (Auth::check())
 										<li class="drop">
-											<a class="cart-opener" onclick="redirectchat()" style="color:black !important">
+											<a class="cart-opener" onclick="redirectchat()">
 												<span class="icon-bubble"></span>
 												<span class="num numchat">0</span>
 											</a>
