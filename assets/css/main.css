@@ -1552,14 +1552,14 @@ a:hover {
 	text-align: right;
 	border-radius: 50%;
 	padding: 6px 4px 0 0;
-	border: 2px solid #000;
+	border: 2px solid #F0C441;
 }
 
 .mt-bottom-bar .bar-opener .bar {
 	height: 2px;
 	width: 11px;
 	float: right;
-	background: #000;
+	background: #F0C441;
 	margin: 0 0 1px 5px;
 }
 
@@ -1569,12 +1569,12 @@ a:hover {
 
 .mt-bottom-bar .bar-opener.active,
 .mt-bottom-bar .bar-opener:hover {
-	border-color: #ff6060;
+	border-color: #F0C441;
 }
 
 .mt-bottom-bar .bar-opener.active .bar,
 .mt-bottom-bar .bar-opener:hover .bar {
-	background: #ff6060;
+	background: #F0C441;
 }
 
 .mt-bottom-bar .bar-opener.big .bar {

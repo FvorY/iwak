@@ -15,6 +15,7 @@
 
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- include the site stylesheet -->
   <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
@@ -113,11 +114,11 @@
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
-													<a onclick="opentoko()" class="icon-home" data-placement="bottom" data-toggle="tooltip" title="Buka toko anda sekarang?"></a>
+													<a onclick="opentoko()" class="fa fa-store" data-placement="bottom" data-toggle="tooltip" title="Buka toko anda sekarang?"></a>
 										</li>
 										@else
 											<li class="drop">
-													<a href="{{url('/penjual/home')}}" class="icon-home" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?"></a>
+													<a href="{{url('/penjual/home')}}" class="fa fa-store" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?"></a>
 											</li>
 										@endif
 									@endif
@@ -193,7 +194,7 @@
 									@endif
 								</ul><!-- mt icon list end here -->
 								<!-- navigation start here -->
-								<nav id="nav">
+								<nav id="nav" style="background-color: #043C87;">
 									<ul>
 										<li>
 											<a href="{{url('/')}}">HOME</a>
