@@ -1403,7 +1403,7 @@ a:hover {
 -------------------------------------------------------------------*/
 
 .mt-bottom-bar {
-	background: #fff;
+	background: #043C87;
 	padding: 42px 31px 42px 48px;
 	-webkit-transition: all .4s linear;
 	transition: all .4s linear;
@@ -1460,7 +1460,7 @@ a:hover {
 }
 
 .mt-bottom-bar .mt-icon-list li > a {
-	color: #2f2f2f;
+	color: #F0C441;
 }
 
 .mt-bottom-bar .mt-icon-list li > a:hover {
@@ -1757,13 +1757,13 @@ a:hover {
 }
 
 #nav > ul > li > a {
-	color: #2e2e2e;
+	color: #F0C441;
 	position: relative;
 	letter-spacing: 1px;
 }
 
 #nav > ul > li > a:hover {
-	color: #ff6060;
+	color: #F0C441;
 	text-decoration: none;
 }
 

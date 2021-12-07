@@ -88,7 +88,7 @@
 							<div class="col-xs-12">
 								<!-- mt logo start here -->
 								<div class="mt-logo"><a href="{{url('/')}}">
-								<b><h4>iWak Store</h4></b>
+								<b><h4 style="color:#F0C441;">iWak Store</h4></b>
 								<!-- <img src="images/mt-logo.png" alt="schon"> -->
 								</a></div>
 								<!-- mt icon list start here -->
@@ -363,11 +363,11 @@
 				</div>
 				<!-- Footer Holder of the Page end -->
 				<!-- Footer Area of the Page -->
-				<div class="footer-area">
+				<div class="footer-area" style="background-color: #043C87;">
 					<div class="container">
 						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<p>© <a href="index.html">iWak.</a> - All rights Reserved</p>
+							<div class="col-xs-12 col-sm-6" style="color: #F0C441">
+								<p>© <a href="index.html" style="color: #F0C441">iWak.</a> - All rights Reserved</p>
 							</div>
 							{{-- <div class="col-xs-12 col-sm-6 text-right">
 								<div class="bank-card">
