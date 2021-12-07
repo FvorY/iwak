@@ -95,4 +95,19 @@ class HomeController extends Controller
         return Redirect('/admin/login');
       }
     }
+
+    public function notif() {
+      $data = DB::table("lelang")
+                ->join('lelangbid', 'lelangbid.id_lelang', '=', 'lelang.id_lelang')
+                ->where("lelang.id_account", Auth::user()->id_account)
+                ->whereDate('lelangbid.created_at', Carbon::today())
+                ->get();
+
+      $data1 = DB::table("transaction")
+                ->where("id_penjual", Auth::user()->id_account)
+                ->whereDate('created_at', Carbon::today())
+                ->get();
+
+      return response()->json(count($data) + count($data1));
+    }
 }

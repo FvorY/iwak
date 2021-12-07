@@ -61,6 +61,8 @@ Route::get('/addbid', 'LelangController@addbid');
 
 Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
 
+Route::get('/notif', 'HomeController@notif');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 
@@ -164,6 +166,7 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::post('/lelang/update', 'PenjualLelangController@update');
      Route::get('/lelang/pemenang', 'PenjualLelangController@pemenang');
      Route::get('/lelang/won', 'PenjualLelangController@won');
+     Route::get('/lelang/lelangnotif', 'PenjualLelangController@lelangnotif');
 
      //List Pesanan
      Route::get('/listorder', 'PenjualListpesananController@index');
@@ -175,6 +178,7 @@ Route::group(['middleware' => 'penjual'], function () {
      Route::get('/listorder/deliverdone', 'PenjualListpesananController@deliverdone');
      Route::get('/listorder/showpayment/{id}', 'PenjualListpesananController@showpayment');
      Route::get('/listorder/approve', 'PenjualListpesananController@approve');
+     Route::get('/listorder/pesanannotif', 'PenjualListpesananController@pesanannotif');
 
   });
 

@@ -493,4 +493,12 @@ class PenjualListpesananController extends Controller
       }
     }
 
+    public function pesanannotif() {
+      $data = DB::table("transaction")
+                ->where("id_penjual", Auth::user()->id_account)
+                ->whereDate('created_at', Carbon::today())
+                ->get();
+
+      return response()->json(count($data));
+    }
 }

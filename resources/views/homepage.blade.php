@@ -102,14 +102,6 @@
 																		@endif
 																		<span class="new">NEW</span>
 																	</span>
-																	<ul class="mt-stars">
-																		@for ($i=0; $i < $value->star; $i++)
-																			<li><i class="fa fa-star"></i></li>
-																		@endfor
-																		@for ($i=0; $i < (5 - $value->star); $i++)
-																			<li><i class="fa fa-star-o"></i></li>
-																		@endfor
-																	</ul>
 																	<ul class="links">
 																		<li><a onclick="addtocard({{$value->id_produk}})"><i class="icon-handbag"></i><span>Add to Cart</span></a></li>
 																	</ul>
@@ -118,12 +110,6 @@
 														</div>
 														<div class="txt">
 															<strong class="title"><a href="{{route('detailproduct', $value->url_segment)}}">{{$value->name}}</a></strong>
-															<?php
-															$string = $value->address;
-															$output = explode(" ",$string);
-															?>
-															<strong class="title"><span class="fa fa-map-marker"></span> {{end($output)}}</strong>
-															<strong class="title"><span class="fa fa-home"></span> {{$value->namatoko}}</strong>
 															@if ($value->isdiskon == "Y")
 																<?php
 																$diskonval = ($value->diskon/100)*$value->price;
@@ -134,6 +120,22 @@
 															@else
 																<span class="price">{{FormatRupiahFront($value->price)}}</span>
 														  @endif
+															<ul class="mt-stars">
+																@for ($i=0; $i < $value->star; $i++)
+																	<li><i class="fa fa-star"></i></li>
+																@endfor
+																@for ($i=0; $i < (5 - $value->star); $i++)
+																	<li><i class="fa fa-star-o"></i></li>
+																@endfor
+															</ul>
+															<?php
+															$string = $value->address;
+															$output = explode(" ",$string);
+															?>
+															<strong class="title"><span class="fa fa-map-marker"></span> {{end($output)}}</strong>
+															<strong class="title"><span class="fa fa-store"></span> {{$value->namatoko}}</strong>
+
+
 														</div>
 													</div>
 
@@ -160,26 +162,27 @@
 																	<span class="caption">
 																		<span class="new">AUCTION</span>
 																	</span>
-																	<ul class="mt-stars">
-																		@for ($i=0; $i < $value->star; $i++)
-																			<li><i class="fa fa-star"></i></li>
-																		@endfor
-																		@for ($i=0; $i < (5 - $value->star); $i++)
-																			<li><i class="fa fa-star-o"></i></li>
-																		@endfor
-																	</ul>
 																</div>
 															</div>
 														</div>
 														<div class="txt">
 															<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+															<span class="price" id="lelang{{$value->id_lelang}}">{{FormatRupiahFront($value->price)}}</span>
+															<ul class="mt-stars">
+																@for ($i=0; $i < $value->star; $i++)
+																	<li><i class="fa fa-star"></i></li>
+																@endfor
+																@for ($i=0; $i < (5 - $value->star); $i++)
+																	<li><i class="fa fa-star-o"></i></li>
+																@endfor
+															</ul>
 															<?php
 															$string = $value->address;
 															$output = explode(" ",$string);
 															?>
 															<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-															<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
-															<span class="price" id="lelang{{$value->id_lelang}}">{{FormatRupiahFront($value->price)}}</span>
+															<strong class="title"><a href="product-detail.html"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
+
 														</div>
 													</div>
 
@@ -229,13 +232,22 @@
 												</div>
 												<div class="txt">
 													<strong class="title"><a href="{{route('detailproduct', $value->url_segment)}}">{{$value->name}}</a></strong>
+													<span class="price">{{FormatRupiahFront($value->price)}}</span>
+													<ul class="mt-stars">
+														@for ($i=0; $i < $value->star; $i++)
+															<li><i class="fa fa-star"></i></li>
+														@endfor
+														@for ($i=0; $i < (5 - $value->star); $i++)
+															<li><i class="fa fa-star-o"></i></li>
+														@endfor
+													</ul>
 													<?php
 													$string = $value->address;
 													$output = explode(" ",$string);
 													?>
 													<strong class="title"> <span class="fa fa-map-marker"></span> {{end($output)}}</strong>
-													<strong class="title"> <span class="fa fa-home"></span> {{$value->namatoko}}</strong>
-													<span class="price">{{FormatRupiahFront($value->price)}}</span>
+													<strong class="title"> <span class="fa fa-store"></span> {{$value->namatoko}}</strong>
+
 											</div><!-- mt product1 center end here -->
 										</div>
 										</div>

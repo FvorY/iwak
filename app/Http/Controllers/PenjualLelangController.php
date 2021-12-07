@@ -637,4 +637,14 @@ class PenjualLelangController extends Controller
 
     }
 
+    public function lelangnotif() {
+      $data = DB::table("lelang")
+                ->join('lelangbid', 'lelangbid.id_lelang', '=', 'lelang.id_lelang')
+                ->where("lelang.id_account", Auth::user()->id_account)
+                ->whereDate('lelangbid.created_at', Carbon::today())
+                ->get();
+
+      return response()->json(count($data));
+    }
+
 }

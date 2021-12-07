@@ -230,7 +230,7 @@
               <li class="nav-item {{Request::is('penjual/lelang') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/lelang')}}">
                   <span class="menu-title">Manage Lelang</span>
-                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <span class="menu-sub-title" id="lelangnotif">( 0 new )</span>
                   <i class="mdi mdi-sale menu-icon"></i>
                 </a>
               </li>
@@ -238,7 +238,7 @@
               <li class="nav-item {{Request::is('penjual/listorder') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/listorder')}}">
                   <span class="menu-title">List Pesanan</span>
-                  {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
+                  <span class="menu-sub-title" id="pesanannotif">( 0 new )</span>
                   <i class="mdi mdi-cart-outline menu-icon"></i>
                 </a>
               </li>

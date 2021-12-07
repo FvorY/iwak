@@ -114,11 +114,16 @@
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
-													<a onclick="opentoko()" class="fa fa-store" data-placement="bottom" data-toggle="tooltip" title="Buka toko anda sekarang?"></a>
+											<a class="cart-opener" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
+												<span class="fa fa-store"></span>
+											</a>
 										</li>
 										@else
 											<li class="drop">
-													<a href="{{url('/penjual/home')}}" class="fa fa-store" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?"></a>
+												<a class="cart-opener" onclick="location.href = '{{url('/penjual/home')}}';" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
+													<span class="fa fa-store"></span>
+													<span class="num numchat" id="countnotif">0</span>
+												</a>
 											</li>
 										@endif
 									@endif
@@ -823,7 +828,30 @@
 	      }
 	    });
 	  })
+
+		var notif = 0
+		$.ajax({
+		  url: "{{url('/')}}" + "/notif",
+		  success: function(data) {
+
+		    $('#countnotif').text(data);
+		  }
+		});
+
+		setInterval(function(){
+
+		  $.ajax({
+		    url: "{{url('/')}}" + "/notif",
+		    success: function(data) {
+
+		      $('#countnotif').text(data);
+		    }
+		  });
+
+		}, 3000);
+
 		@endif
+
 	</script>
 
 </body>

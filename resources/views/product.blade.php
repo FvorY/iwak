@@ -73,14 +73,6 @@
 														<span class="off">{{$value->diskon}}% off</span>
 													@endif
 												</span>
-												<ul class="mt-stars">
-													@for ($i=0; $i < $value->star; $i++)
-														<li><i class="fa fa-star"></i></li>
-													@endfor
-													@for ($i=0; $i < (5 - $value->star); $i++)
-														<li><i class="fa fa-star-o"></i></li>
-													@endfor
-												</ul>
 												<ul class="links">
 													<li><a onclick="addtocard({{$value->id_produk}})"><i class="icon-handbag"></i></a></li>
 													<li><a href="{{route('detailproduct', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
@@ -89,12 +81,6 @@
 											<!-- txt end here -->
 											<div class="txt">
 												<strong class="title"><a>{{$value->name}}</a></strong>
-												<?php
-												$string = $value->address;
-												$output = explode(" ",$string);
-												?>
-												<strong class="title"><a><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-												<strong class="title"><a> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
 												@if ($value->isdiskon == "Y")
 													<?php
 													$diskonval = $value->price * $value->diskon / 100;
@@ -104,6 +90,21 @@
 												@else
 													<span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
 												@endif
+												<ul class="mt-stars">
+													@for ($i=0; $i < $value->star; $i++)
+														<li><i class="fa fa-star"></i></li>
+													@endfor
+													@for ($i=0; $i < (5 - $value->star); $i++)
+														<li><i class="fa fa-star-o"></i></li>
+													@endfor
+												</ul>
+												<?php
+												$string = $value->address;
+												$output = explode(" ",$string);
+												?>
+												<strong class="title"><a><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
+												<strong class="title"><a> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
+
 											</div><!-- txt end here -->
 										</div><!-- mt product2 end here -->
 									</li>

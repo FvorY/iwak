@@ -516,6 +516,46 @@ $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 
 <script type="text/javascript">
 
+$.ajax({
+  url: "{{url('/')}}" + "/penjual/lelang/lelangnotif",
+  success: function(data) {
+
+    $('#lelangnotif').text("( "+data+" new )");
+  }
+});
+
+setInterval(function(){
+
+  $.ajax({
+    url: "{{url('/')}}" + "/penjual/lelang/lelangnotif",
+    success: function(data) {
+
+      $('#lelangnotif').text("( "+data+" new )");
+    }
+  });
+
+}, 3000);
+
+$.ajax({
+  url: "{{url('/')}}" + "/penjual/listorder/pesanannotif",
+  success: function(data) {
+
+    $('#pesanannotif').text("( "+data+" new )");
+  }
+});
+
+setInterval(function(){
+
+  $.ajax({
+    url: "{{url('/')}}" + "/penjual/listorder/pesanannotif",
+    success: function(data) {
+
+      $('#pesanannotif').text("( "+data+" new )");
+    }
+  });
+
+}, 3000);
+
   // $(document).ajaxStart(function(){
   //   if (allowloading == true) {
   //     waitingDialog.show();

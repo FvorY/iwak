@@ -5682,6 +5682,7 @@ a:hover {
 -------------------------------------------------------------------*/
 
 .mt-product1 {
+	text-align: left;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -5801,6 +5802,7 @@ a:hover {
 }
 
 .mt-product1 .txt {
+	padding: 10px;
 	overflow: hidden;
 }
 
@@ -5936,13 +5938,13 @@ a:hover {
 .mt-product1 .mt-stars {
 	left: 0;
 	margin: 0;
-	padding: 0;
+	padding: 0px;
 	right: 8px;
-	bottom: -1px;
-	line-height: 1;
+	/* bottom: -1px; */
+	/* line-height: 1; */
 	font-size: 20px;
 	list-style: none;
-	position: absolute;
+	/* position: absolute; */
 }
 
 .mt-product1 .mt-stars li {
@@ -6107,15 +6109,15 @@ a:hover {
 }
 
 .mt-product2 .mt-stars {
+	left: 0;
 	margin: 0;
-	left: 20px;
-	padding: 0;
+	padding: 0px;
 	right: 8px;
-	bottom: -1px;
-	line-height: 1;
-	font-size: 12px;
+	/* bottom: -1px; */
+	/* line-height: 1; */
+	font-size: 20px;
 	list-style: none;
-	position: absolute;
+	/* position: absolute; */
 }
 
 .mt-product2 .mt-stars li {
@@ -11824,6 +11826,7 @@ a:hover {
 }
 
 .mt-paddingbottom20 {
+	text-align: left;
 	padding-bottom: 20px;
 }
 

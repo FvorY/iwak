@@ -71,6 +71,14 @@
 												<span class="caption">
 													<span class="new">AUCTION</span>
 												</span>
+												<ul class="links">
+													<li><a href="{{route('detaillelang', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
+												</ul>
+											</div><!-- box end here -->
+											<!-- txt end here -->
+											<div class="txt">
+												<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
+												<span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
 												<ul class="mt-stars">
 													@for ($i=0; $i < $value->star; $i++)
 														<li><i class="fa fa-star"></i></li>
@@ -79,20 +87,13 @@
 														<li><i class="fa fa-star-o"></i></li>
 													@endfor
 												</ul>
-												<ul class="links">
-													<li><a href="{{route('detaillelang', $value->url_segment)}}"><i class="fa fa-eye"></i></a></li>
-												</ul>
-											</div><!-- box end here -->
-											<!-- txt end here -->
-											<div class="txt">
-												<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
 												<?php
 												$string = $value->address;
 												$output = explode(" ",$string);
 												?>
 												<strong class="title"><a href="product-detail.html"><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-												<strong class="title"><a href="product-detail.html"> <span class="fa fa-home"></span> {{$value->namatoko}}</a></strong>
-												<span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
+												<strong class="title"><a href="product-detail.html"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
+
 											</div><!-- txt end here -->
 										</div><!-- mt product2 end here -->
 									</li>
