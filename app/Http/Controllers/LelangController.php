@@ -423,6 +423,7 @@ class LelangController extends Controller
               ->max('price');
 
       $lastbid = DB::table("lelangbid")
+              ->join("account", 'account.id_account', 'lelangbid.id_account')
               ->where("id_lelang", $req->id)
               ->orderby("price", 'desc')
               ->limit(1)
@@ -618,11 +619,14 @@ class LelangController extends Controller
 
         if ($data[0] != null) {
           $maxbid = DB::table("lelangbid")
+                            ->join("account", 'account.id_account', 'lelangbid.id_account')
                             ->where("id_lelang", $data[0]->id_lelang)
-                            ->max('price');
+                            ->orderBy('price', 'desc')
+                            ->first();
 
-          if ($maxbid > 0) {
-            $data[0]->price = $maxbid;
+          if ($maxbid->price > 0) {
+            $data[0]->price = $maxbid->price;
+            $data[0]->fullname = $maxbid->fullname;
           }
         }
 

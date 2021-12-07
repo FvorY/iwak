@@ -74,8 +74,9 @@
 
 										<span class="price"><span id="pricebid">{{FormatRupiahFront($list->price)}}</span>
 											<span style="font-size:18px; color:#B8B8B8"> &nbsp;&nbsp;Start From</span>
-
 										</span>
+
+                    <span id="userbid" style="font-size:18px; color:#B8B8B8">Bidding By : {{$list->fullname}}</span>
 									</div>
 									<!-- Product Form of the Page -->
 									<form action="#" class="product-form" style="margin-bottom: 40px">
@@ -203,14 +204,16 @@
 
 @section('extra_script')
   <script type="text/javascript">
-  @if (Auth::check())
+
 
   $.ajax({
     url: "{{url('/')}}" + "/updateprice",
     data: {id: "{{$list->id_lelang}}"},
     success: function(data) {
         $('#pricebid').text("Rp. " + accounting.formatMoney(data.price,"",0,'.',','));
+        $('#userbid').text("Bidding By : " + data.lastbid.fullname);
 
+        @if (Auth::check())
           if (data.lastbid.id_account == "{{Auth::user()->id_account}}") {
               $('#btnbid').html('<button type="button" disabled style="background-color:grey;" onclick="addbid({{$list->id_lelang}})">Next Bid</button>')
           }
@@ -218,6 +221,7 @@
           if (data.pemenang.id_account == "{{Auth::user()->id_account}}") {
               $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">Anda pemenang, Beli sekarang?</button>')
           }
+        @endif
     }
   });
 
@@ -227,8 +231,12 @@
       url: "{{url('/')}}" + "/updateprice",
       data: {id: "{{$list->id_lelang}}"},
       success: function(data) {
+
           $('#pricebid').text("Rp. " + accounting.formatMoney(data.price,"",0,'.',','));
 
+          $('#userbid').text("Bidding By : " + data.lastbid.fullname);
+
+          @if (Auth::check())
             if (data.lastbid.id_account == "{{Auth::user()->id_account}}") {
                 $('#btnbid').html('<button type="button" disabled style="background-color:grey;" onclick="addtocard({{$list->id_produk}})">Next Bid</button>')
             }
@@ -236,11 +244,13 @@
             if (data.pemenang.id_account == "{{Auth::user()->id_account}}") {
                 $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">Anda pemenang, Beli sekarang?</button>')
             }
+          @endif
       }
     });
 
   }, 3000);
 
+@if (Auth::check())
   function addbid(id) {
     $('.price').val('');
     $('.id').val(id);
