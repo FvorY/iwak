@@ -44,9 +44,12 @@ class loginController extends Controller
     	// dd($req->all());
         $validator = Validator::make($req->all(), $rules);
         if ($validator->fails()) {
-            return Redirect('/')
-                            ->withErrors($validator) // send back all errors to the login form
-                            ->withInput($req->except('password')); // send back the input (not the password) so that we can repopulate the form
+          Session::flash('username','Username Tidak Ada');
+          Session::flash('password','Password Yang Anda Masukan Salah!');
+          return back()->with('password','username');
+            // return Redirect('/')
+            //                 ->withErrors($validator) // send back all errors to the login form
+            //                 ->withInput($req->except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
             $username  = $req->username;
             $password  = $req->password;
