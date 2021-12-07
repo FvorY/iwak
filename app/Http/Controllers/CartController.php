@@ -211,7 +211,7 @@ class CartController extends Controller
         }
 
         $cek = DB::table("cart")->join('produk', 'produk.id_produk', '=', 'cart.id_produk')->where("cart.id_account", $req->id_account)->where("produk.id_produk", $req->id)->first();
-      
+
         if ($cek == null) {
           DB::table("cart")
             ->insert([
@@ -361,9 +361,9 @@ class CartController extends Controller
         DB::beginTransaction();
         try {
 
-          $arridproduk = json_decode($req->arridproduk);
-          $arrqty = json_decode($req->arrqty);
-          $arrprice = json_decode($req->arrprice);
+          $arridproduk = $req->arridproduk;
+          $arrqty = $req->arrqty;
+          $arrprice = $req->arrprice;
 
           $max = DB::table("transaction")->max('id_transaction') + 1;
 

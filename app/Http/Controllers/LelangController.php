@@ -842,9 +842,9 @@ class LelangController extends Controller
         DB::beginTransaction();
         try {
 
-          $arridproduk = json_decode($req->arridproduk);
-          $arrqty = json_decode($req->arrqty);
-          $arrprice = json_decode($req->arrprice);
+          $arridproduk = $req->arridproduk;
+          $arrqty = $req->arrqty;
+          $arrprice = $req->arrprice;
 
           $max = DB::table("transaction")->max('id_transaction') + 1;
 
