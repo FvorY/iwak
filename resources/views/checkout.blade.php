@@ -101,7 +101,25 @@
     <section class="mt-detail-sec toppadding-zero wow fadeInUp iditempart2" data-wow-delay="0.4s" style="display:none;">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-12">
+          <div class="col-xs-12 col-sm-6">
+            <h2>BILLING DETAILS</h2>
+            <!-- Bill Detail of the Page -->
+            <form class="bill-detail">
+              <fieldset>
+                <div class="form-group">
+                  <textarea class="form-control" placeholder="Address" id="address"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="kota" placeholder="Town / City">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="zip" placeholder="Postcode / Zip">
+                </div>
+              </fieldset>
+            </form>
+            <!-- Bill Detail of the Page end -->
+          </div>
+          <div class="col-xs-12 col-sm-6">
             <div class="holder">
               <h2>YOUR ORDER</h2>
               <ul class="list-unstyled block">
@@ -132,7 +150,47 @@
               </ul>
               <h2>PAYMENT</h2>
               <!-- Panel Group of the Page -->
+
               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!-- Panel Panel Default of the Page -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" onclick="showupload(1)" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                          DIRECT BANK TRANSFER
+                          <span class="check"><i class="fa fa-check"></i></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
+                      <div class="panel-body">
+                        {{-- <p>Make your payment directly into our bank account. Please use your order id as the payment reference. Your order wont be shippided until the funds have cleared in our account</p> --}}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Panel Panel Default of the Page end -->
+                  <!-- Panel Panel Default of the Page -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" onclick="showupload(0)" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          CASH ON DELIVERY
+                          <span class="check"><i class="fa fa-check"></i></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                      <div class="panel-body">
+                        {{-- <p>Make your payment directly into our bank account. Please use your order id as the payment reference. Your order wont be shippided until the funds have cleared in our account</p> --}}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Panel Panel Default of the Page end -->
+
+                  <!-- Panel Panel Default of the Page end -->
+                </div>
+
+              <div class="panel-group" id="accordionbank" role="tablist" aria-multiselectable="true">
                 <div class="alert alert-warning" role="alert">
                   <h4> Mohon upload bukti pembayaran dengan benar, dan transfer sesuai dengan informasi bank dibawah ini dan transfer sesuai dengan total pembelian. </h4>
                 </div>
@@ -306,6 +364,10 @@ $(".uploadGambar").on('change', function () {
   formdata.append('arrprice', JSON.stringify(arrprice));
   formdata.append('arrqty', JSON.stringify(arrqty));
 
+  formdata.append('address', $('#address').val());
+  formdata.append('kota', $('#kota').val());
+  formdata.append('zip', $('#zip').val());
+
   console.log(formdata);
 
   $.ajax({
@@ -360,6 +422,15 @@ $(".uploadGambar").on('change', function () {
     }
   });
 })
+
+function showupload(res) {
+  if (res == 1) {
+    $("#accordionbank").attr("style", "");
+  } else {
+    $("#accordionbank").attr("style", "display:none");
+  }
+
+}
 
 </script>
 

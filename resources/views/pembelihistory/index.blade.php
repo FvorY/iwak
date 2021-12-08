@@ -132,7 +132,7 @@
                   <strong class="price"><button type="submit" onclick="cancel({{$list->id_transaction}})" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i> Cancel Order</button></strong>
                 </div>
                 <div class="col-xs-12 col-sm-1">
-                  <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Transfer</button></strong>
+                  <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Bayar</button></strong>
                 </div>
                 @else
                   @if($list->pay == 'Y' && $list->deliver == "Y" && $list->ulasan == null)

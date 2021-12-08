@@ -66,7 +66,7 @@
 								  <label for="pwd">Address :</label>
 								  <input type="text" class="form-control" placeholder="Enter Address" value="@isset($data){{$data->address}}@endisset" id="pwd" style="width:100%" name="address">
 										<div class="alert alert-warning" role="alert">
-			                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) provinsi)
+			                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) kota)
 			              </div>
 								</div>
 								<br>
