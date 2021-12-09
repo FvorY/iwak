@@ -238,6 +238,41 @@ class PenjualListpesananController extends Controller
 
     }
 
+    public function apiapprove(Request $req) {
+      DB::beginTransaction();
+      try {
+
+        $payment = DB::table("payment")
+                      ->where("id_payment", $req->id)
+                      ->first();
+
+        DB::table("payment")
+            ->where("id_payment", $req->id)
+            ->update([
+              "confirm" => "Y"
+            ]);
+
+        DB::table("transaction")
+            ->where("id_transaction", $payment->id_transaction)
+            ->update([
+              "pay" => "Y"
+            ]);
+
+        DB::commit();
+        return response()->json([
+          "code" => 200,
+          "message" => "Sukses",
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          "code" => 200,
+          "message" => $e->getMessage(),
+        ]);
+      }
+
+    }
+
     public function deliver(Request $req) {
       DB::beginTransaction();
       try {
