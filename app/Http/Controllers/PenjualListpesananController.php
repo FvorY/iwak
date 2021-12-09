@@ -500,33 +500,33 @@ class PenjualListpesananController extends Controller
       ]);
     }
 
-    public function apiapprove(Request $req) {
-      DB::beginTransaction();
-      try {
-
-        $payment = DB::table("payment")
-                      ->where("id_payment", $req->id)
-                      ->first();
-
-        DB::table("payment")
-            ->where("id_payment", $req->id)
-            ->update([
-              "confirm" => "Y"
-            ]);
-
-        DB::table("transaction")
-            ->where("id_transaction", $payment->id_transaction)
-            ->update([
-              "pay" => "Y"
-            ]);
-
-        DB::commit();
-        return response()->json(["status" => 3]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json(["status" => 4]);
-      }
-    }
+    // public function apiapprove(Request $req) {
+    //   DB::beginTransaction();
+    //   try {
+    //
+    //     $payment = DB::table("payment")
+    //                   ->where("id_payment", $req->id)
+    //                   ->first();
+    //
+    //     DB::table("payment")
+    //         ->where("id_payment", $req->id)
+    //         ->update([
+    //           "confirm" => "Y"
+    //         ]);
+    //
+    //     DB::table("transaction")
+    //         ->where("id_transaction", $payment->id_transaction)
+    //         ->update([
+    //           "pay" => "Y"
+    //         ]);
+    //
+    //     DB::commit();
+    //     return response()->json(["status" => 3]);
+    //   } catch (\Exception $e) {
+    //     DB::rollback();
+    //     return response()->json(["status" => 4]);
+    //   }
+    // }
 
     public function pesanannotif() {
       $data = DB::table("transaction")
