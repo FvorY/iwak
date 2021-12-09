@@ -458,11 +458,17 @@ class PenjualListpesananController extends Controller
               "deliver" => "P"
             ]);
 
-        DB::commit();
-        return response()->json(["status" => 3]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json(["status" => 4]);
+            DB::commit();
+            return response()->json([
+              "code" => 200,
+              "message" => "Sukses",
+            ]);
+          } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+              "code" => 200,
+              "message" => $e->getMessage(),
+            ]);
       }
 
     }
@@ -477,11 +483,17 @@ class PenjualListpesananController extends Controller
               "deliver" => "Y"
             ]);
 
-        DB::commit();
-        return response()->json(["status" => 3]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json(["status" => 4]);
+            DB::commit();
+            return response()->json([
+              "code" => 200,
+              "message" => "Sukses",
+            ]);
+          } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+              "code" => 200,
+              "message" => $e->getMessage(),
+            ]);
       }
 
     }
