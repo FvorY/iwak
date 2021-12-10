@@ -315,8 +315,10 @@ class PenjualListpesananController extends Controller
 
         $data = DB::table("transaction_detail")
             ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_produk')
-            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price')
-            ->where("id_transaction", $req->id)
+            ->join("transaction", 'transaction.id_transaction', '=', 'transaction_detail.id_transaction')
+            ->join('account', 'account.id_account', '=', 'transaction.id_pembeli')
+            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price', 'account.address')
+            ->where("transaction_detail.id_transaction", $req->id)
             ->get();
 
         return response()->json($data);

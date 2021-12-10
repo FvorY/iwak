@@ -58,7 +58,7 @@
             <div class="col-xs-12 col-sm-2">
               <form class="qyt-form">
                 <fieldset>
-                  <input type="number" name="qty[]" onkeyup="qtychange({{$value->id_cart}})" id="qtyvalue{{$value->id_cart}}" class="form-control qtyvalue" style="font-weight:bold; font-size: 20px;" value="{{$value->qty}}" oninput="this.value = Math.abs(this.value)">
+                  <input type="number" name="qty[]" oninput="qtychange({{$value->id_cart}})" id="qtyvalue{{$value->id_cart}}" class="form-control qtyvalue" style="font-weight:bold; font-size: 20px;" value="{{$value->qty}}" oninput="this.value = Math.abs(this.value)">
                 </fieldset>
               </form>
             </div>
@@ -163,9 +163,7 @@
                       </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
-                      <div class="panel-body">
-                        {{-- <p>Make your payment directly into our bank account. Please use your order id as the payment reference. Your order wont be shippided until the funds have cleared in our account</p> --}}
-                      </div>
+
                     </div>
                   </div>
                   <!-- Panel Panel Default of the Page end -->
@@ -180,9 +178,7 @@
                       </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                      <div class="panel-body">
-                        {{-- <p>Make your payment directly into our bank account. Please use your order id as the payment reference. Your order wont be shippided until the funds have cleared in our account</p> --}}
-                      </div>
+
                     </div>
                   </div>
                   <!-- Panel Panel Default of the Page end -->
@@ -364,9 +360,34 @@ $(".uploadGambar").on('change', function () {
   formdata.append('arrprice', JSON.stringify(arrprice));
   formdata.append('arrqty', JSON.stringify(arrqty));
 
-  formdata.append('address', $('#address').val());
-  formdata.append('kota', $('#kota').val());
-  formdata.append('zip', $('#zip').val());
+  if ($('#address').val() == "") {
+    iziToast.warning({
+        icon: 'fa fa-info',
+        message: 'Alamat tidak boleh kosong!',
+    });
+  } else {
+    formdata.append('address', $('#address').val());
+  }
+
+  if ($('#kota').val() == "") {
+    iziToast.warning({
+        icon: 'fa fa-info',
+        message: 'Kota tidak boleh kosong!',
+    });
+    return
+  } else {
+    formdata.append('kota', $('#kota').val());
+  }
+
+  if ($('#zip').val() == "") {
+    iziToast.warning({
+        icon: 'fa fa-info',
+        message: 'zip tidak boleh kosong!',
+    });
+    return
+  } else {
+    formdata.append('zip', $('#zip').val());
+  }
 
   console.log(formdata);
 

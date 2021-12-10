@@ -172,7 +172,7 @@ class PenjualLelangController extends Controller
         try {
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("lelang")
               ->insert([
@@ -205,7 +205,7 @@ class PenjualLelangController extends Controller
         try {
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("lelang")
               ->where("id_lelang", $req->id)
@@ -518,7 +518,7 @@ class PenjualLelangController extends Controller
         try {
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("lelang")
               ->insert([
@@ -557,7 +557,7 @@ class PenjualLelangController extends Controller
         try {
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("lelang")
               ->where("id_lelang", $req->id)

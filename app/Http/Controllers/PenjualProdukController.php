@@ -92,7 +92,7 @@ class PenjualProdukController extends Controller
           }
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("produk")
               ->insert([
@@ -167,7 +167,7 @@ class PenjualProdukController extends Controller
           $max = DB::table('imageproduk')->where("id_produk", $req->id)->max('id_image');
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("produk")
               ->where("id_produk", $req->id)
@@ -324,7 +324,7 @@ class PenjualProdukController extends Controller
           }
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("produk")
               ->insert([
@@ -405,7 +405,7 @@ class PenjualProdukController extends Controller
           $max = DB::table('imageproduk')->where("id_produk", $req->id)->max('id_image');
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           DB::table("produk")
               ->where("id_produk", $req->id)

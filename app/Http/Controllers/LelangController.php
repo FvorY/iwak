@@ -456,7 +456,7 @@ class LelangController extends Controller
       try {
 
         $price = str_replace('.','',$req->price);
-        $price = str_replace('Rp ','',$price);
+        $price = str_replace('Rp','',$price);
 
         $lastbid = DB::table("lelangbid")
                 ->where("id_lelang", $req->id)
@@ -492,7 +492,7 @@ class LelangController extends Controller
       try {
 
         $price = str_replace('.','',$req->price);
-        $price = str_replace('Rp ','',$price);
+        $price = str_replace('Rp','',$price);
 
         $lastbid = DB::table("lelangbid")
                 ->where("id_lelang", $req->id)
@@ -774,10 +774,10 @@ class LelangController extends Controller
           $nota = 'PO-'.$index.'/'.$date;
 
           $price = str_replace('.','',$req->price);
-          $price = str_replace('Rp ','',$price);
+          $price = str_replace('Rp','',$price);
 
           $subtotal = str_replace('.','',$req->subtotal);
-          $subtotal = str_replace('Rp ','',$subtotal);
+          $subtotal = str_replace('Rp','',$subtotal);
 
           DB::table("transaction")
               ->insert([
@@ -799,7 +799,7 @@ class LelangController extends Controller
 
           for ($i=0; $i < count($arridproduk); $i++) {
               $price = str_replace('.','',$arrprice[$i]);
-              $price = str_replace('Rp ','',$price);
+              $price = str_replace('Rp','',$price);
 
               $max1 = DB::table("transaction_detail")->max('id_detail') + 1;
 
@@ -892,7 +892,7 @@ class LelangController extends Controller
           $nota = 'PO-'.$index.'/'.$date;
 
           $subtotal = str_replace('.','',$req->subtotal);
-          $subtotal = str_replace('Rp ','',$subtotal);
+          $subtotal = str_replace('Rp','',$subtotal);
 
           DB::table("transaction")
               ->insert([
@@ -914,7 +914,7 @@ class LelangController extends Controller
 
           for ($i=0; $i < count($arridproduk); $i++) {
               $price = str_replace('.','',$arrprice[$i]);
-              $price = str_replace('Rp ','',$price);
+              $price = str_replace('Rp','',$price);
 
               $max1 = DB::table("transaction_detail")->max('id_detail') + 1;
 

@@ -433,7 +433,7 @@ var table = $('#table-data').DataTable({
         for (var i = 0; i < response.length; i++) {
 
           let detail = response[i];
-          
+
           subtotal += detail.qty * detail.price;
 
           html += "<tr>"+
@@ -446,6 +446,7 @@ var table = $('#table-data').DataTable({
         }
 
         $('#subtotal').text(accounting.formatMoney(subtotal,"",0,'.',','));
+        $('#alamatpengiriman').text(response[0].address)
         $('#bodydetail').html(html);
         $('#detailpesanan').modal('show');
 

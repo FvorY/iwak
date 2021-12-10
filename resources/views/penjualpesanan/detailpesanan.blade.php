@@ -12,6 +12,11 @@
         <div class="alert alert-warning" role="alert">
           Detail pesanan ini sudah termasuk diskon pada pembelian, jika diskon pada produk berlaku <span style="color:red;">*</span>
         </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <p style="margin-left: 10px; margin-top: 20px;">Alamat Pengiriman : <span id="alamatpengiriman">Rp. 0</span></p>
+        </div>
+
         <div class="row">
           <table class="table table_status table-hover " style="width: 100% !important">
               <thead class="bg-gradient-info">
