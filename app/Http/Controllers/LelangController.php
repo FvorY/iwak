@@ -646,7 +646,9 @@ class LelangController extends Controller
           $avgfeed += $value->star;
         }
 
-        $avgfeed = $avgfeed / count($avgdata);
+        if ($avgfeed != 0)   {
+          $avgfeed = $avgfeed / count($avgdata);
+        }
 
         return view('lelang/detail', compact('data', 'image','feedback', 'avgfeed'));
 
