@@ -42,6 +42,7 @@ class ProfileTokoController extends Controller
                     ->where("produk.id_account", $id)
                     ->groupby("imageproduk.id_produk")
                     ->orderby('produk.'.$sortfield, $sort)
+                    ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                     ->paginate(10);
                     // dd($produk);
           if (substr($cek->phone, 0, 1) == "+") {
@@ -88,6 +89,7 @@ class ProfileTokoController extends Controller
                   ->where("produk.id_account", $id)
                   ->groupby("imageproduk.id_produk")
                   ->orderby('produk.'.$sortfield, $sort)
+                  ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                   ->paginate(10);
                   // dd($produk);
         if (substr($cek->phone, 0, 1) == "+") {
@@ -116,6 +118,7 @@ class ProfileTokoController extends Controller
                           ->where("id_toko", $id)
                           ->avg('star');
 
+
             return view('toko_profile', compact('cek', 'countproduk', 'countreview', 'avgstar','produk'));
           }
         }
@@ -141,6 +144,7 @@ class ProfileTokoController extends Controller
                   ->where("produk.id_account", $id)
                   ->groupby("imageproduk.id_produk")
                   ->orderby('produk.'.$sortfield, $sort)
+                  ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                   ->paginate(10);
                   // dd($produk);
         if (substr($cek->phone, 0, 1) == "+") {

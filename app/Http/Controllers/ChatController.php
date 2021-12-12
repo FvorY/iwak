@@ -54,7 +54,7 @@ class ChatController extends Controller
                     ->insertGetId([
                       'account' => Auth::user()->id_account . "-" . $req->idtoko,
                       'last_message' => $req->message,
-                      'counter' => 1,
+                      'counter2' => 1,
                       'created_at' => Carbon::now('Asia/Jakarta'),
                     ]);
 
@@ -66,6 +66,7 @@ class ChatController extends Controller
                    'created_at' => Carbon::now('Asia/Jakarta'),
                  ]);
           }
+          // dd($req);
            DB::commit();
       } catch (\Exception $e) {
            DB::rollback();

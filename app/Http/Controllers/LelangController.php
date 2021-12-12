@@ -630,6 +630,24 @@ class LelangController extends Controller
           }
         }
 
+        $avgdata = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $get_id_produk->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    // ->avg('feedback.star');
+                    ->get();
+                  // dd($avgfeed);
+
+        $avgfeed = 0;
+        foreach ($avgdata as $key => $value) {
+          $avgfeed += $value->star;
+        }
+
+        $avgfeed = $avgfeed / count($avgdata);
+
         return view('lelang/detail', compact('data', 'image','feedback', 'avgfeed'));
 
       }

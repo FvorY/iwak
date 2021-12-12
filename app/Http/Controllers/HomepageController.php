@@ -29,6 +29,38 @@ class HomepageController extends Controller
      */
     public function index()
     {
+
+      $produk = DB::table("produk")
+                  ->get();
+
+      foreach ($produk as $key => $value) {
+        $avgdata = DB::table("transaction_detail")
+                    ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                    ->join("account", 'account.id_account', 'feedback.id_user')
+                    ->where("transaction_detail.id_produk", $value->id_produk)
+                    ->groupBy('feedback.id_feedback')
+                    ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                    // ->having('feedback.created_at')
+                    // ->avg('feedback.star');
+                    ->get();
+                  // dd($avgfeed);
+
+        $avgfeed = 0;
+        foreach ($avgdata as $key1 => $value1) {
+          $avgfeed += $value1->star;
+        }
+
+        if ($avgfeed != 0)   {
+          $avgfeed = $avgfeed / count($avgdata);
+
+          DB::table("produk")
+            ->where("id_produk", $value->id_produk)
+            ->update([
+              'star' => $avgfeed
+            ]);
+        }
+      }
+
         $backgroundheader = DB::table("backgroundheader")->where("id", 1)->first();
 
         if (Auth::check()) {
@@ -40,6 +72,7 @@ class HomepageController extends Controller
                       ->where("produk.stock", '>' , 0)
                       ->where("account.id_account", '!=', Auth::user()->id_account)
                       ->groupby("imageproduk.id_produk")
+                      ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(20)
                       ->get();
 
@@ -52,6 +85,7 @@ class HomepageController extends Controller
                       ->where("account.id_account", '!=', Auth::user()->id_account)
                       ->groupby("imageproduk.id_produk")
                       ->orderby('produk.sold', 'DESC')
+                      ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(10)
                       ->get();
 
@@ -66,7 +100,7 @@ class HomepageController extends Controller
                       ->where("produk.stock", '>' , 0)
                       ->where("account.id_account", '!=', Auth::user()->id_account)
                       ->groupby("imageproduk.id_produk")
-                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice','produk.url_segment', 'account.*', 'imageproduk.*')
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'produk.isdiskon', 'produk.star as starproduk', 'produk.diskon', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(20)
                       ->get();
         } else {
@@ -78,6 +112,7 @@ class HomepageController extends Controller
                       ->where("produk.stock", '>' , 0)
                       ->groupby("imageproduk.id_produk")
                       ->limit(20)
+                      ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->get();
 
           $promo = DB::table("produk")
@@ -88,6 +123,7 @@ class HomepageController extends Controller
                       ->where("produk.isdiskon", 'Y')
                       ->groupby("imageproduk.id_produk")
                       ->orderby('produk.sold', 'DESC')
+                      ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(10)
                       ->get();
 
@@ -101,7 +137,7 @@ class HomepageController extends Controller
                       ->where("account.istoko", 'Y')
                       ->where("produk.stock", '>' , 0)
                       ->groupby("imageproduk.id_produk")
-                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice','produk.url_segment', 'account.*', 'imageproduk.*')
+                      ->select("lelang.*", 'produk.name', 'produk.price as produkprice', 'produk.isdiskon', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                       ->limit(20)
                       ->get();
         }

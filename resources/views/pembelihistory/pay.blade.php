@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Upload Bukti Transfer</h4>
+        <h4 class="modal-title">Form Upload Bukti Bayar</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">

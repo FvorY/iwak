@@ -238,10 +238,10 @@
 												<strong class="title"><a>{{$value->name}}</a></strong>
                         <span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
                         <ul class="mt-stars">
-													@for ($i=0; $i < $value->star; $i++)
+													@for ($i=0; $i < $value->starproduk; $i++)
 														<li><i class="fa fa-star"></i></li>
 													@endfor
-													@for ($i=0; $i < (5 - $value->star); $i++)
+													@for ($i=0; $i < (5 - $value->starproduk); $i++)
 														<li><i class="fa fa-star-o"></i></li>
 													@endfor
 												</ul>

@@ -57,7 +57,7 @@
           <tr>
             <td>Image</td>
             <td>
-              <input type="file" class="form-control form-control-sm uploadGambar" name="image" accept="image/*">
+              <input type="file" class="form-control form-control-sm uploadGambar" id="uploadGambar1" name="image" accept="image/*">
             </td>
           </tr>
           <tr>

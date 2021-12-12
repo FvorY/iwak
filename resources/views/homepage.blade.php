@@ -121,10 +121,10 @@
 																<span class="price">{{FormatRupiahFront($value->price)}}</span>
 														  @endif
 															<ul class="mt-stars">
-																@for ($i=0; $i < $value->star; $i++)
+																@for ($i=0; $i < $value->starproduk; $i++)
 																	<li><i class="fa fa-star"></i></li>
 																@endfor
-																@for ($i=0; $i < (5 - $value->star); $i++)
+																@for ($i=0; $i < (5 - $value->starproduk); $i++)
 																	<li><i class="fa fa-star-o"></i></li>
 																@endfor
 															</ul>
@@ -169,10 +169,10 @@
 															<strong class="title"><a href="product-detail.html">{{$value->name}}</a></strong>
 															<span class="price" id="lelang{{$value->id_lelang}}">{{FormatRupiahFront($value->price)}}</span>
 															<ul class="mt-stars">
-																@for ($i=0; $i < $value->star; $i++)
+																@for ($i=0; $i < $value->starproduk; $i++)
 																	<li><i class="fa fa-star"></i></li>
 																@endfor
-																@for ($i=0; $i < (5 - $value->star); $i++)
+																@for ($i=0; $i < (5 - $value->starproduk); $i++)
 																	<li><i class="fa fa-star-o"></i></li>
 																@endfor
 															</ul>
@@ -234,10 +234,10 @@
 													<strong class="title"><a href="{{route('detailproduct', $value->url_segment)}}">{{$value->name}}</a></strong>
 													<span class="price">{{FormatRupiahFront($value->price)}}</span>
 													<ul class="mt-stars">
-														@for ($i=0; $i < $value->star; $i++)
+														@for ($i=0; $i < $value->starproduk; $i++)
 															<li><i class="fa fa-star"></i></li>
 														@endfor
-														@for ($i=0; $i < (5 - $value->star); $i++)
+														@for ($i=0; $i < (5 - $value->starproduk); $i++)
 															<li><i class="fa fa-star-o"></i></li>
 														@endfor
 													</ul>

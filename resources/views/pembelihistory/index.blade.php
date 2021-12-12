@@ -404,7 +404,7 @@ $(".uploadGambar").on('change', function () {
   $('#simpanulasan').click(function(){
 
   var formdata = new FormData();
-  formdata.append('image', $('.uploadGambar')[0].files[0]);
+  formdata.append('image', $('#uploadGambar1')[0].files[0]);
   formdata.append('rating', rating);
   formdata.append('id', $('#id_transaction').val());
 

@@ -114,7 +114,7 @@
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
-											<a class="cart-opener" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
+											<a class="cart-opener" onclick="opentoko()" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
 												<span class="fa fa-store"></span>
 											</a>
 										</li>
