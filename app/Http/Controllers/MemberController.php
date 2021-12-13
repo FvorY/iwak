@@ -196,13 +196,13 @@ class MemberController extends Controller
                    $name = $folder . '.' . $file->getClientOriginalExtension();
                    if (!File::exists($path)) {
                        if (File::makeDirectory($path, 0777, true)) {
-                            if ($_FILES['image']['type'] == 'image/webp') {
+                         if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
 
-                           } else if ($_FILES['image']['type'] == 'webp') {
+                         } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
 
-                           } else {
-                               compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
-                           }
+                         } else {
+                           compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                         }
                            $file->move($path, $name);
                            $imgPath = $childPath . $name;
                        } else
@@ -431,13 +431,13 @@ class MemberController extends Controller
             $name = $folder . '.' . $file->getClientOriginalExtension();
             if (!File::exists($path)) {
                 if (File::makeDirectory($path, 0777, true)) {
-                     if ($_FILES['image']['type'] == 'image/webp') {
+                  if ($_FILES['image']['type'] == 'image/webp' || $_FILES['image']['type'] == 'image/jpeg') {
 
-                    } else if ($_FILES['image']['type'] == 'webp') {
+                  } else if ($_FILES['image']['type'] == 'webp' || $_FILES['image']['type'] == 'jpeg') {
 
-                    } else {
-                        compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
-                    }
+                  } else {
+                    compressImage($_FILES['image']['type'],$_FILES['image']['tmp_name'],$_FILES['image']['tmp_name'],75);
+                  }
                     $file->move($path, $name);
                     $imgPath = $childPath . $name;
                 } else

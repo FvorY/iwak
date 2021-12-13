@@ -28,7 +28,7 @@
             </td>
           </tr>
           <tr>
-            <td>Nomor Rekening</td>
+            <td>Nomor Rekening <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext nomor_rekening" name="nomor_rekening">
               <div class="alert alert-warning" role="alert">
@@ -37,7 +37,7 @@
             </td>
           </tr>
           <tr>
-            <td>Nama Bank</td>
+            <td>Nama Bank <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext bank" name="bank">
               <div class="alert alert-warning" role="alert">

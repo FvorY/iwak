@@ -317,7 +317,7 @@ class PenjualListpesananController extends Controller
             ->join('produk', 'produk.id_produk', '=', 'transaction_detail.id_produk')
             ->join("transaction", 'transaction.id_transaction', '=', 'transaction_detail.id_transaction')
             ->join('account', 'account.id_account', '=', 'transaction.id_pembeli')
-            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price', 'account.address')
+            ->select('produk.name', 'transaction_detail.qty', 'transaction_detail.price', 'account.address', 'account.bank', 'account.nomor_rekening')
             ->where("transaction_detail.id_transaction", $req->id)
             ->get();
 

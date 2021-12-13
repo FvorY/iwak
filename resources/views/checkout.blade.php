@@ -2,6 +2,15 @@
 
 @section('content')
 
+<style media="screen">
+input[type=radio] {
+  border: 0px;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+}
+</style>
+
   <main id="mt-main">
     <!-- Mt Process Section of the Page -->
     <div class="mt-process-sec wow fadeInUp" data-wow-delay="0.4s">
@@ -103,16 +112,22 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <h2>BILLING DETAILS</h2>
+            <div class="alert alert-warning" role="alert">
+              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            </div>
             <!-- Bill Detail of the Page -->
             <form class="bill-detail">
               <fieldset>
                 <div class="form-group">
+                  <span style="color:red;">*</span>
                   <textarea class="form-control" placeholder="Address" id="address"></textarea>
                 </div>
                 <div class="form-group">
+                  <span style="color:red;">*</span>
                   <input type="text" class="form-control" id="kota" placeholder="Town / City">
                 </div>
                 <div class="form-group">
+                  <span style="color:red;">*</span>
                   <input type="text" class="form-control" id="zip" placeholder="Postcode / Zip">
                 </div>
               </fieldset>
@@ -156,10 +171,12 @@
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                       <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" onclick="showupload(1)" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
-                          DIRECT BANK TRANSFER
-                          <span class="check"><i class="fa fa-check"></i></span>
-                        </a>
+                          <div class="form-check">
+                            <input class="form-check-input" onclick="showupload(1)" type="radio" name="paymentcheck" id="bankcheck" checked>
+                            <label class="form-check-label" for="bankcheck">
+                              DIRECT BANK TRANSFER
+                            </label>
+                          </div>
                       </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
@@ -169,16 +186,15 @@
                   <!-- Panel Panel Default of the Page end -->
                   <!-- Panel Panel Default of the Page -->
                   <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
+                    <div class="panel-heading" role="tab">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" onclick="showupload(0)" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          CASH ON DELIVERY
-                          <span class="check"><i class="fa fa-check"></i></span>
-                        </a>
+                          <div class="form-check">
+                            <input class="form-check-input" onclick="showupload(0)" type="radio" name="paymentcheck" id="codcheck">
+                            <label class="form-check-label" for="codcheck">
+                              CASH ON DELIVERY
+                            </label>
+                          </div>
                       </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-
                     </div>
                   </div>
                   <!-- Panel Panel Default of the Page end -->
@@ -360,11 +376,31 @@ $(".uploadGambar").on('change', function () {
   formdata.append('arrprice', JSON.stringify(arrprice));
   formdata.append('arrqty', JSON.stringify(arrqty));
 
+  if ($('#bankcheck').attr("class") != "collapsed" && $('#codcheck').attr("class") == "collapsed") {
+    alert("adsa");
+    iziToast.warning({
+        icon: 'fa fa-info',
+        message: 'Pilih payment terlebih dahulu!',
+    });
+
+    $('#simpan').css("background", '#88bd6e');
+    $('#simpan').css("color", 'black');
+    $('#simpan').css("disabled", false);
+
+    return
+  }
+
   if ($('#address').val() == "") {
     iziToast.warning({
         icon: 'fa fa-info',
         message: 'Alamat tidak boleh kosong!',
     });
+
+    $('#simpan').css("background", '#88bd6e');
+    $('#simpan').css("color", 'black');
+    $('#simpan').css("disabled", false);
+
+    return
   } else {
     formdata.append('address', $('#address').val());
   }
@@ -374,6 +410,11 @@ $(".uploadGambar").on('change', function () {
         icon: 'fa fa-info',
         message: 'Kota tidak boleh kosong!',
     });
+
+    $('#simpan').css("background", '#88bd6e');
+    $('#simpan').css("color", 'black');
+    $('#simpan').css("disabled", false);
+
     return
   } else {
     formdata.append('kota', $('#kota').val());
@@ -384,6 +425,11 @@ $(".uploadGambar").on('change', function () {
         icon: 'fa fa-info',
         message: 'zip tidak boleh kosong!',
     });
+
+    $('#simpan').css("background", '#88bd6e');
+    $('#simpan').css("color", 'black');
+    $('#simpan').css("disabled", false);
+
     return
   } else {
     formdata.append('zip', $('#zip').val());

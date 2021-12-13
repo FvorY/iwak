@@ -447,6 +447,8 @@ var table = $('#table-data').DataTable({
 
         $('#subtotal').text(accounting.formatMoney(subtotal,"",0,'.',','));
         $('#alamatpengiriman').text(response[0].address)
+        $('#namabankcust').text(response[0].bank)
+        $('#nomorbankcust').text(response[0].nomor_rekening)
         $('#bodydetail').html(html);
         $('#detailpesanan').modal('show');
 

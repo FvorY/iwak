@@ -17,6 +17,14 @@
           <p style="margin-left: 10px; margin-top: 20px;">Alamat Pengiriman : <span id="alamatpengiriman">Rp. 0</span></p>
         </div>
 
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <p style="margin-left: 10px; margin-top: 20px;">Nama Bank Customer : <span id="namabankcust">Rp. 0</span></p>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <p style="margin-left: 10px; margin-top: 20px;">Nomor Bank Customer : <span id="nomorbankcust">Rp. 0</span></p>
+        </div>
+
         <div class="row">
           <table class="table table_status table-hover " style="width: 100% !important">
               <thead class="bg-gradient-info">
