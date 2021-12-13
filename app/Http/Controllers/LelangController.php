@@ -624,10 +624,13 @@ class LelangController extends Controller
                             ->orderBy('price', 'desc')
                             ->first();
 
-          if ($maxbid->price > 0) {
-            $data[0]->price = $maxbid->price;
-            $data[0]->fullname = $maxbid->fullname;
+          if ($maxbid != null) {
+            if ($maxbid->price > 0) {
+              $data[0]->price = $maxbid->price;
+              $data[0]->fullname = $maxbid->fullname;
+            }
           }
+
         }
 
         $avgdata = DB::table("transaction_detail")
