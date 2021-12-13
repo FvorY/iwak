@@ -155,14 +155,9 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<ul class="mt-tabs text-center text-uppercase">
-									<li><a href="#tab1">DESCRIPTION</a></li>
 									<li><a href="#tab3" class="active">REVIEWS ({{count($feedback)}})</a></li>
 								</ul>
 								<div class="tab-content">
-									<div id="tab1">
-										<p>{{$list->description}}</p>
-
-									</div>
 									<div id="tab3">
 										<div class="product-comment">
 											@foreach ($feedback as $feedbacks)
