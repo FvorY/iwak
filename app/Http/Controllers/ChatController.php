@@ -95,7 +95,7 @@ class ChatController extends Controller
                     ->insertGetId([
                       'account' => $req->id_account . "-" . $req->idtoko,
                       'last_message' => $req->message,
-                      'counter' => 1,
+                      'counter2' => 1,
                       'created_at' => Carbon::now('Asia/Jakarta'),
                     ]);
 
