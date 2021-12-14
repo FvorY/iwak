@@ -42,6 +42,14 @@ class ChatController extends Controller
                   ->first();
 
           if ($cek != null) {
+            DB::table('roomchat')
+             ->where("id_roomchat", $cek->id_roomchat)
+             ->update([
+               'last_message' => $req->message,
+               'counter2' => $cek->counter2 + 1,
+               'created_at' => Carbon::now('Asia/Jakarta'),
+             ]);
+
             DB::table("listchat")
                ->insert([
                  'id_roomchat' => $cek->id_roomchat,
@@ -83,6 +91,14 @@ class ChatController extends Controller
                   ->first();
 
           if ($cek != null) {
+            DB::table('roomchat')
+             ->where("id_roomchat", $cek->id_roomchat)
+             ->update([
+               'last_message' => $req->message,
+               'counter2' => $cek->counter2 + 1,
+               'created_at' => Carbon::now('Asia/Jakarta'),
+             ]);
+
             DB::table("listchat")
                ->insert([
                  'id_roomchat' => $cek->id_roomchat,
@@ -156,7 +172,7 @@ class ChatController extends Controller
     public function listroom(Request $req) {
         $chat = DB::table('roomchat')
                  ->where('account', 'like', '%' . Auth::user()->id_account . '%')
-                 ->orderby("id_roomchat", "DESC")
+                 ->orderby("created_at", "DESC")
                  ->get();
 
         foreach ($chat as $key => $value) {
@@ -181,7 +197,7 @@ class ChatController extends Controller
     public function apilistroom(Request $req) {
         $chat = DB::table('roomchat')
                  ->where('account', 'like', '%' . $req->id_account . '%')
-                 ->orderby("id_roomchat", "DESC")
+                 ->orderby("created_at", "DESC")
                  ->get();
 
         foreach ($chat as $key => $value) {

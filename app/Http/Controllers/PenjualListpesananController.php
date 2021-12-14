@@ -30,7 +30,7 @@ class PenjualListpesananController extends Controller
       $data = DB::table('transaction')
         ->leftjoin('account', 'account.id_account', '=', 'transaction.id_pembeli')
         ->where("id_penjual", Auth::user()->id_account)
-        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota")
+        ->select("transaction.id_transaction", "transaction.subtotal", "transaction.pay", "transaction.deliver", "transaction.cancelled", "transaction.created_at", "account.fullname", "transaction.nota", "account.id_account")
         ->orderby("date", "DESC")
         ->get();
 
@@ -67,6 +67,9 @@ class PenjualListpesananController extends Controller
 
             $aksi = $aksi . '<button type="button" onclick="detail('.$data->id_transaction.')" class="btn btn-info btn-lg" title="Detail">'.
             '<label class="fa fa-folder"></label></button>';
+
+            $aksi = $aksi . '<button type="button" onclick="showChat('.$data->id_account.')" class="btn btn-info btn-lg" title="Detail">'.
+            '<label class="fa fa-comment"></label></button>';
 
             $aksi = $aksi . '<button type="button" onclick="showpayment('.$data->id_transaction.')" class="btn btn-success btn-lg" title="Show Payment">'.
             '<label class="fa fa-dollar"></label></button>';

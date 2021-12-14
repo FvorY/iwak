@@ -2,6 +2,7 @@
 @section('content')
 @include('penjualpesanan.listpayment')
 @include('penjualpesanan.detailpesanan')
+@include('modal_sendchat')
 
 <style type="text/css">
 
@@ -455,5 +456,26 @@ var table = $('#table-data').DataTable({
       }
     })
   }
+
+
+  function showChat(id) {
+    $("#message-text").val("");
+    $("#idtoko").val(id);
+    $("#modalchat").modal("show");
+  }
+
+  $("#simpanmessage").on('click', function() {
+    let message = $('#message-text').val();
+    let idtoko = $("#idtoko").val();
+
+    $.ajax({
+      url: "{{url('/')}}" + "/newchat",
+      data: {idtoko: idtoko, message: message},
+      success: function(data) {
+        window.location.href = "{{url('/')}}/chat";
+      }
+    });
+  })
+
 </script>
 @endsection

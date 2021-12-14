@@ -1,6 +1,8 @@
 @extends('layouts.homepage.app_home')
 @section('content')
 
+@include('modal_sendchat')
+
   <!-- Modal -->
   <style media="screen">
   .rating {
@@ -125,6 +127,7 @@
                 <strong class="price">
                   <!-- <button type="submit" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</button> -->
                   <a onclick="detail({{$list->id_transaction}})" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</a>
+                  <a onclick="showChat({{$list->penjual->id_account}})" class="btn btn-sm btn-info"> <i class="fa fa-comment"></i> Chat Penjual?</a>
                 </strong>
               </div>
                 @if($list->pay == 'N' && $list->deliver == 'N' && $list->cancelled == 'N')
@@ -449,6 +452,25 @@ $(".uploadGambar").on('change', function () {
         });
       }
 
+    }
+  });
+})
+
+function showChat(id) {
+  $("#message-text").val("");
+  $("#idtoko").val(id);
+  $("#modalchat").modal("show");
+}
+
+$("#simpanmessage").on('click', function() {
+  let message = $('#message-text').val();
+  let idtoko = $("#idtoko").val();
+
+  $.ajax({
+    url: "{{url('/')}}" + "/newchat",
+    data: {idtoko: idtoko, message: message},
+    success: function(data) {
+      window.location.href = "{{url('/')}}/chat";
     }
   });
 })
