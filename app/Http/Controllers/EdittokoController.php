@@ -193,7 +193,6 @@ class EdittokoController extends Controller
                    } else {
                        return 'already exist';
                    }
-                 }
 
                    if ($imgPath == null) {
                      DB::table("account")

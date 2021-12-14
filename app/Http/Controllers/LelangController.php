@@ -439,7 +439,9 @@ class LelangController extends Controller
                   ->where("lelang.id_produk", $req->id)
                   ->first();
 
-          $lastbid->price = $lelang->price;
+          if ($lastbid != null) {
+              $lastbid->price = $lelang->price;
+          }
       }
 
       return response()->json([
