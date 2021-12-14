@@ -364,7 +364,7 @@ class ChatController extends Controller
 
              if ($account[0] == $req->id_account) {
 
-               $count = $room->counter;
+               $count = $room->counter1;
 
                DB::table('roomchat')
                     ->where("id_roomchat", $req->id)
@@ -375,7 +375,7 @@ class ChatController extends Controller
                     ]);
              } else {
 
-               $count = $room->counter;
+               $count = $room->counter2;
 
                DB::table('roomchat')
                     ->where("id_roomchat", $req->id)
