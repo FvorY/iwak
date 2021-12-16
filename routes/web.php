@@ -20,6 +20,7 @@ Route::get('/lelang', 'LelangController@index');
 Route::get('/lelang/detail/{url_segment}', 'LelangController@show')->name('detaillelang');
 Route::get('/contact', 'KontakController@index');
 Route::get('loginmember', 'MemberController@login')->name('loginmember');
+Route::get('/forgot', 'MemberController@forgot');
 Route::get('/logoutmember', 'MemberController@logout')->name('logoutmember');
 Route::post('/registermember', 'MemberController@register')->name('registermember');
 Route::post('/editmember', 'MemberController@edit')->name('editmember');

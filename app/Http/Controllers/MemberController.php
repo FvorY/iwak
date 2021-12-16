@@ -152,6 +152,7 @@ class MemberController extends Controller
     public function profile(){
 
         $data = DB::table("account")->where("id_account", Auth::user()->id_account)->first();
+
         // $gender = DB::table("account")->select("gender");
         if ($data == null) {
          return view("/");
@@ -223,6 +224,7 @@ class MemberController extends Controller
                             "address" => $req['address'],
                             "nomor_rekening" => $req['norek'],
                             "bank" => $req['bank'],
+                            "codeforgot" => $req['code'],
                             "last_online" => Carbon::now(),
                             "updated_at" => Carbon::now('Asia/Jakarta'),
                        ]);
@@ -238,6 +240,7 @@ class MemberController extends Controller
                             "profile_picture" => $imgPath,
                             "nomor_rekening" => $req['norek'],
                             "bank" => $req['bank'],
+                            "codeforgot" => $req['code'],
                             "last_online" => Carbon::now(),
                             "updated_at" => Carbon::now('Asia/Jakarta'),
                        ]);
@@ -489,6 +492,38 @@ class MemberController extends Controller
           "data" => $data
         ]);
       }
+
+    }
+
+    public function forgot(Request $req) {
+
+        $cek = DB::table('account')
+                ->where("email", $req->email)
+                ->first();
+
+        if ($cek == null) {
+          return response()->json([
+            'status' => 2
+          ]);
+        } else {
+          if ($cek->codeforgot == $req->code) {
+            DB::table("account")
+                ->where("email", $req->email)
+                ->update([
+                  'password' => $req->password,
+                  'confirm_password' => $req->password,
+                  'updated_at' => Carbon::now('Asia/Jakarta')
+                ]);
+
+              return response()->json([
+                'status' => 1
+              ]);
+          } else {
+            return response()->json([
+              'status' => 2
+            ]);
+          }
+        }
 
     }
 

@@ -251,10 +251,10 @@
 								 @if (session('password'))
               	<div class="red"  style="color: red"><b>Passsword Tidak Ada</b></div>
             		@endif
-								{{-- <div class="box">
-									<span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span>
-									<a href="#" class="help">Help?</a>
-								</div> --}}
+								<div class="box">
+									{{-- <span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span> --}}
+									<a onclick="forgotpassword()" style="cursor: pointer;" class="help">Forgot Password?</a>
+								</div>
 								<button type="submit" class="btn-type1">Login</button>
 							</fieldset>
 						</form>
@@ -495,6 +495,7 @@
 	  </div>
 	</div>
 	@include('modal_toko')
+	@include('forgot')
 
 	<!-- include jQuery -->
 	<script src="{{asset('assets/js/jquery.js')}}"></script>
@@ -851,6 +852,39 @@
 		}, 3000);
 
 		@endif
+
+		function forgotpassword() {
+			$('#modal_forgot').modal('show');
+
+
+		}
+
+		$('#simpanforgot').click(function(){
+		$.ajax({
+			type: "get",
+			url: "{{url('/')}}" + "/forgot?"+$('.table_modal :input').serialize(),
+			processData: false, //important
+			contentType: false,
+			cache: false,
+			success:function(data){
+				$('.table_modal :input').val("");
+				$('#modal_forgot').modal('hide');
+				if (data.status == 1) {
+					swal(
+						'Berhasil forgot password :)',
+						'Selamat password sudah berhasil diperbarui',
+						'success'
+					)
+				} else {
+					swal(
+						'Gagal forgot password :(',
+						'Periksa kembali data anda, dan silahkan coba lagi nanti',
+						'info'
+					)
+				}
+			}
+		});
+	})
 
 	</script>
 
