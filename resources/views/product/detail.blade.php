@@ -170,7 +170,6 @@
 
 													@endfor
 													@for($x = 0; $x < (5 - $feedbacks->star) ; $x++)
-
 														<li><i class="fa fa-star-o"></i></li>
 													@endfor
 														<!-- <li><i class="fa fa-star"></i></li>
