@@ -461,12 +461,27 @@ class ChatController extends Controller
                        foreach ($chat as $key => $value) {
                          $account = explode("-",$value->account);
 
-                         DB::table('roomchat')
-                              ->where("id_roomchat", $req->id)
-                              ->update([
-                                'counter' => $count,
-                                'created_at' => Carbon::now('Asia/Jakarta'),
-                              ]);
+                         if ($account[0] == $req->id_account) {
+
+                           $count = $room->counter1;
+
+                           DB::table('roomchat')
+                                ->where("id_roomchat", $req->id)
+                                ->update([
+                                  'counter1' => $count + 1,
+                                  'created_at' => Carbon::now('Asia/Jakarta'),
+                                ]);
+                         } else {
+
+                           $count = $room->counter2;
+
+                           DB::table('roomchat')
+                                ->where("id_roomchat", $req->id)
+                                ->update([
+                                  'counter2' => $count + 1,
+                                  'created_at' => Carbon::now('Asia/Jakarta'),
+                                ]);
+                         }
                        }
                   }
 

@@ -168,8 +168,7 @@
 														<li><i class="fa fa-star"></i></li>
 
 													@endfor
-													@for($x = 5; $x > $feedbacks->star ; $x--)
-
+                          @for($x = 0; $x < (5 - $feedbacks->star) ; $x++)
 														<li><i class="fa fa-star-o"></i></li>
 													@endfor
 														<!-- <li><i class="fa fa-star"></i></li>
