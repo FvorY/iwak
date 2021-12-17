@@ -69,7 +69,7 @@
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
 											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{url('/pembeli/profile')}}">My Account</a></li>
-											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Log Out</a></li>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Sign Out</a></li>
 										</ul>
 									</div>
 								</div><!-- mt top lang end here -->
@@ -255,7 +255,7 @@
 									{{-- <span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span> --}}
 									<a onclick="forgotpassword()" style="cursor: pointer;" class="help">Forgot Password?</a>
 								</div>
-								<button type="submit" class="btn-type1">Login</button>
+								<button type="submit" class="btn-type1">Sign In</button>
 							</fieldset>
 						</form>
 					</div>
@@ -285,7 +285,7 @@
 								<input type="password" placeholder="Password" class="input" name="password" id="password" required>
 
 								<input id="password" class="input" type="password" placeholder="Re Type Password" id="password_confirmation" name="password_confirmation" required>
-								<button type="submit" class="btn-type1">Register</button>
+								<button type="submit" class="btn-type1">Sign Up</button>
 							</fieldset>
 						</form>
 					</div>
