@@ -138,7 +138,7 @@
 												<h2>{{$list->namatoko}}</h2>
 											</div>
 											<div class="col-xs-12">
-												<a href="{{route('profilToko', $list->id_account)}}" class="btn btn-md btn-success">Kunjungi Toko</a>
+												<a href="{{route('profilToko', $list->id_account)}}" class="btn btn-md btn-success">Visit Store</a>
 											</div>
 										</div>
 									</div>

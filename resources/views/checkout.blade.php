@@ -113,7 +113,7 @@ input[type=radio] {
           <div class="col-xs-12 col-sm-6">
             <h2>BILLING DETAILS</h2>
             <div class="alert alert-warning" role="alert">
-              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            Please fill in all the data marked with  <span style="color:red;">*</span>
             </div>
             <!-- Bill Detail of the Page -->
             <form class="bill-detail">
@@ -204,7 +204,7 @@ input[type=radio] {
 
               <div class="panel-group" id="accordionbank" role="tablist" aria-multiselectable="true">
                 <div class="alert alert-warning" role="alert">
-                  <h4> Mohon upload bukti pembayaran dengan benar, dan transfer sesuai dengan informasi bank dibawah ini dan transfer sesuai dengan total pembelian. </h4>
+                  <h4> Please upload proof of payment correctly, and transfer according to the bank information below and transfer according to the total purchase. </h4>
                 </div>
                 <!-- Panel Panel Default of the Page -->
 
@@ -380,7 +380,7 @@ $(".uploadGambar").on('change', function () {
     alert("adsa");
     iziToast.warning({
         icon: 'fa fa-info',
-        message: 'Pilih payment terlebih dahulu!',
+        message: 'Please choose a payment method',
     });
 
     $('#simpan').css("background", '#88bd6e');
@@ -393,7 +393,7 @@ $(".uploadGambar").on('change', function () {
   if ($('#address').val() == "") {
     iziToast.warning({
         icon: 'fa fa-info',
-        message: 'Alamat tidak boleh kosong!',
+        message: 'Address cannot be empty!',
     });
 
     $('#simpan').css("background", '#88bd6e');
@@ -408,7 +408,7 @@ $(".uploadGambar").on('change', function () {
   if ($('#kota').val() == "") {
     iziToast.warning({
         icon: 'fa fa-info',
-        message: 'Kota tidak boleh kosong!',
+        message: 'City cannot be empty!',
     });
 
     $('#simpan').css("background", '#88bd6e');
@@ -423,7 +423,7 @@ $(".uploadGambar").on('change', function () {
   if ($('#zip').val() == "") {
     iziToast.warning({
         icon: 'fa fa-info',
-        message: 'zip tidak boleh kosong!',
+        message: 'Postcode / Zip cannot be empty!',
     });
 
     $('#simpan').css("background", '#88bd6e');
@@ -454,7 +454,7 @@ $(".uploadGambar").on('change', function () {
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Pesanan Berhasil Disimpan!',
+            message: 'Order has been successfully saved!',
         });
 
         setTimeout(function(){
@@ -463,12 +463,12 @@ $(".uploadGambar").on('change', function () {
       }else if(data.status == 2){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Pesanan Gagal disimpan!, Periksa data dan koneksi anda!',
+            message: 'Order failed to save!, Check your data and connection!',
         });
       }else if (data.status == 3){
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Pesanan Berhasil Disimpan!',
+            message: 'Order has been successfully saved!',
         });
 
         setTimeout(function(){
@@ -477,7 +477,7 @@ $(".uploadGambar").on('change', function () {
       }else if (data.status == 4){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Pesanan Gagal Disimpan!',
+            message: 'Order failed to save!',
         });
       } else if (data.status == 7) {
         iziToast.warning({

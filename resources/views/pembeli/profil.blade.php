@@ -64,31 +64,31 @@
 								<div class="col-md-12"><br></div>
 								<div class="col-md-12">
 									<label for="code">Code Forgot Password :</label>
-									<input type="text" class="form-control" maxlength="6" placeholder="Enter Code" value="@isset($data){{$data->codeforgot}}@endisset" id="code" style="width:100%" name="code">
+									<input type="text" class="form-control" maxlength="6" placeholder="Enter Code" value="" id="code" style="width:100%" name="code">
 								</div>
 								<div class="col-md-12"><br></div>
 								<div class="col-md-12">
 								  <label for="pwd">Address :</label>
 								  <input type="text" class="form-control" placeholder="Enter Address" value="@isset($data){{$data->address}}@endisset" id="pwd" style="width:100%" name="address">
 										<div class="alert alert-warning" role="alert">
-			                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) kota)
+			                This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
 			              </div>
 								</div>
 								<br>
 								<div class="col-md-12"><br></div>
 								<br>
 								<div class="col-md-6">
-								  <label for="pwd">Nomor Rekening :</label>
-								  <input type="number" class="form-control" placeholder="Enter Rekening" value="@isset($data){{$data->nomor_rekening}}@endisset" id="pwd" style="width:100%; margin-bottom: 5px;" name="norek">
+								  <label for="pwd">Account Number :</label>
+								  <input type="number" class="form-control" placeholder="Enter Your Account Number" value="@isset($data){{$data->nomor_rekening}}@endisset" id="pwd" style="width:100%; margin-bottom: 5px;" name="norek">
 								  <div class="alert alert-warning" role="alert">
-                                      Mohon isi nomor rekening anda untuk kelancaran pembayaran
+								  Please fill in your account number for successful payment
                                     </div>
 								</div>
 								<div class="col-md-6">
-								  <label for="pwd">Nama Bank :</label>
+								  <label for="pwd">Bank Name :</label>
 								  <input type="text" class="form-control" placeholder="Enter Bank" value="@isset($data){{$data->bank}}@endisset" id="pwd" style="width:100%; margin-bottom: 5px;" name="bank">
 								  <div class="alert alert-warning" role="alert">
-                                      Mohon isi Nama Bank anda untuk kelancaran pembayaran
+								  Please fill in your bank name for successful payment
                                     </div>
 								</div>
 								</div>
