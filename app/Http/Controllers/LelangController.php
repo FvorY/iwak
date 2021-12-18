@@ -61,7 +61,7 @@ class LelangController extends Controller
                             ->orWhere('address', 'like', '%' . $keyword . '%')
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
-                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                             ->paginate(10);
               } else {
                 $data = DB::table("lelang")
@@ -75,7 +75,7 @@ class LelangController extends Controller
                             ->where("account.id_account", '!=', Auth::user()->id_account)
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
-                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                             ->paginate(10);
               }
           } else {
@@ -93,7 +93,7 @@ class LelangController extends Controller
                               ->orWhere('address', 'like', '%' . $keyword . '%')
                               ->groupby("imageproduk.id_produk")
                               ->orderby('produk.'.$sortfield, $sort)
-                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                               ->paginate(10);
                 } else {
                   $data = DB::table("lelang")
@@ -106,7 +106,7 @@ class LelangController extends Controller
                               ->where("account.id_account", '!=', Auth::user()->id_account)
                               ->groupby("imageproduk.id_produk")
                               ->orderby('produk.'.$sortfield, $sort)
-                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                               ->paginate(10);
                 }
           }
@@ -126,7 +126,7 @@ class LelangController extends Controller
                             ->orWhere('address', 'like', '%' . $keyword . '%')
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
-                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                             ->paginate(10);
               } else {
                 $data = DB::table("lelang")
@@ -139,7 +139,7 @@ class LelangController extends Controller
                             ->where("produk.id_category", $category)
                             ->groupby("imageproduk.id_produk")
                             ->orderby('produk.'.$sortfield, $sort)
-                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                            ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                             ->paginate(10);
               }
           } else {
@@ -156,7 +156,7 @@ class LelangController extends Controller
                               ->orWhere('address', 'like', '%' . $keyword . '%')
                               ->groupby("imageproduk.id_produk")
                               ->orderby('produk.'.$sortfield, $sort)
-                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                               ->paginate(10);
                 } else {
                   $data = DB::table("lelang")
@@ -168,7 +168,7 @@ class LelangController extends Controller
                               ->where("produk.stock", '>' , 0)
                               ->groupby("imageproduk.id_produk")
                               ->orderby('produk.'.$sortfield, $sort)
-                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment')
+                              ->select('produk.name', 'imageproduk.image', 'lelang.price', 'lelang.isactive', 'lelang.id_lelang', 'lelang.iswon', 'produk.star', 'account.address', 'account.namatoko', 'produk.url_segment', 'account.*')
                               ->paginate(10);
                 }
           }
