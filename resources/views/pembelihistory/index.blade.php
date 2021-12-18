@@ -127,7 +127,7 @@
                 <strong class="price">
                   <!-- <button type="submit" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</button> -->
                   <a onclick="detail({{$list->id_transaction}})" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</a>
-                  <a onclick="showChat({{$list->penjual->id_account}})" class="btn btn-sm btn-info"> <i class="fa fa-comment"></i>Chat Seller?</a>
+                  <a onclick="showChat({{$list->penjual->id_account}})" class="btn btn-sm btn-info"> <i class="fa fa-comment"></i> Chat Seller </a>
                 </strong>
               </div>
                 @if($list->pay == 'N' && $list->deliver == 'N' && $list->cancelled == 'N')
