@@ -252,7 +252,7 @@
             <a href="javascript:;">UP</a>
           </div>
         </header>
-        <div class="message-wrap" id="listchat">
+        <div class="message-wrap" id="listchat" onscroll="detectScroll()">
 
         </div>
         <div class="message-footer">
@@ -270,6 +270,7 @@
         var idselect = 0;
         var selectedroom = false;
         var penerima = "";
+        var scrolled = false
 
         roomchat();
 
@@ -293,7 +294,7 @@
 
                   if (res.counter > 0) {
                     if (res.account.profile_toko != null) {
-                      html += '<div class="list">'+
+                      html += '<div class="list" onclick="clicked()">'+
                         '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
@@ -304,7 +305,7 @@
                         '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
                         '</div>';
                     } else {
-                      html += '<div class="list">'+
+                      html += '<div class="list" onclick="clicked()">'+
                         '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
@@ -317,7 +318,7 @@
                     }
                   } else {
                     if (res.account.profile_toko != null) {
-                      html += '<div class="list">'+
+                      html += '<div class="list" onclick="clicked()">'+
                         '<img src="{{url('/')}}/'+res.account.profile_toko+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
@@ -327,7 +328,7 @@
                         '<input type="hidden" class="iduser" name="id" value="'+res.id_roomchat+'">'+
                         '</div>';
                     } else {
-                      html += '<div class="list">'+
+                      html += '<div class="list" onclick="clicked()">'+
                         '<img src="{{url('/')}}/'+res.account.profile_picture+'" />'+
                         '<div class="info">'+
                           '<span class="user">'+res.account.fullname+'</span>'+
@@ -346,7 +347,7 @@
                   idselect = data[0].id_roomchat;
                 }
 
-                listchat();
+                // listchat();
 
                 $('#listroom').html(html);
 
@@ -385,6 +386,7 @@
                 list.forEach((l,i) => {
                   l.addEventListener("click", function() {
                     click(l, i);
+                    // alert("click");
                   });
                 });
 
@@ -394,41 +396,55 @@
                 catch {}
 
                 }
+
                 process();
 
                 //list click
-                function click(l, index) {
-                list.forEach(x => { x.classList.remove("active"); });
-                if(l) {
-                  l.classList.add("active");
-                  document.querySelector("sidebar").classList.remove("opened");
-                  open.innerText="UP";
-                  const img = l.querySelector("img").src,
-                        user = l.querySelector(".user").innerText,
-                        time = l.querySelector(".time").innerText;
-                        id = l.querySelector(".iduser").value;
+                // if (scrolled == true) {
+                  function click(l, index) {
+                  list.forEach(x => { x.classList.remove("active"); });
+                  if(l) {
+                    l.classList.add("active");
+                    document.querySelector("sidebar").classList.remove("opened");
+                    open.innerText="UP";
+                    const img = l.querySelector("img").src,
+                          user = l.querySelector(".user").innerText,
+                          time = l.querySelector(".time").innerText;
+                          id = l.querySelector(".iduser").value;
 
-                  content.querySelector("img").src = img;
-                  content.querySelector(".info .user").innerHTML = user;
-                  content.querySelector(".info .time").innerHTML = time;
+                    content.querySelector("img").src = img;
+                    content.querySelector(".info .user").innerHTML = user;
+                    content.querySelector(".info .time").innerHTML = time;
 
-                  const inputPH = $('#placeholder').data('placeholder');
-                  // input.placeholder = inputPH.replace("{0}", user.split(' ')[0]);
-                  $('#placeholder').attr('placeholder', inputPH.replace("{0}", user.split(' ')[0]));
+                    const inputPH = $('#placeholder').data('placeholder');
+                    // input.placeholder = inputPH.replace("{0}", user.split(' ')[0]);
+                    $('#placeholder').attr('placeholder', inputPH.replace("{0}", user.split(' ')[0]));
 
-                  document.querySelector(".message-wrap").scrollTop = document.querySelector(".message-wrap").scrollHeight;
+                    // document.querySelector(".message-wrap").scrollTop = document.querySelector(".message-wrap").scrollHeight;
 
-                  idselect = id;
 
-                  listchat(idselect);
+                    // alert(prefid);
 
-                  selectedroom = true;
+                    idselect = id;
 
-                  $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+                    // alert(idselect);
 
-                  localStorage.setItem("selected", index);
+                    selectedroom = true;
+
+                    listchat(idselect);
+
+                    // alert(scrolled);
+                    // if (scrolled == true) {
+                    //   $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+                      // scrolled = false
+                    // }
+
+                    localStorage.setItem("selected", index);
+
+                    // window.location.reload();
+                  }
                 }
-                }
+                // }
 
                 open.addEventListener("click", (e) => {
                 const sidebar = document.querySelector("sidebar");
@@ -503,7 +519,11 @@
 
               $('#listchat').html(html);
 
-              $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+              if($('#listchat').scrollTop() + $('#listchat').height() == $('#listchat').height()) {
+                if (scrolled == false) {
+                  $('#listchat').scrollTop($('#listchat')[0].scrollHeight);
+                }
+              }
 
             }
           });
@@ -551,6 +571,16 @@
                 sendmessage();
             }
         });
+
+        function detectScroll() {
+          // alert('asd')
+            scrolled = true;
+        }
+
+        function clicked() {
+            scrolled = false;
+        }
+
     </script>
   </body>
 </html>
