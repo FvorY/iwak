@@ -69,7 +69,7 @@
 									<div class="drop" style="width:100px; font-size:12px">
 										<ul>
 											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{url('/pembeli/profile')}}">My Account</a></li>
-											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Log Out</a></li>
+											<li style="padding-top: 5px; padding-bottom: 5px"><a href="{{ url('/logoutmember') }}">Sign Out</a></li>
 										</ul>
 									</div>
 								</div><!-- mt top lang end here -->
@@ -114,13 +114,13 @@
 									@if (Auth::check())
 										@if (Auth::user()->namatoko == null)
 										<li class="drop">
-											<a class="cart-opener" onclick="opentoko()" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
+											<a class="cart-opener" onclick="opentoko()" data-placement="bottom" data-toggle="tooltip" title="Manage Your Shop?">
 												<span class="fa fa-store"></span>
 											</a>
 										</li>
 										@else
 											<li class="drop">
-												<a class="cart-opener" onclick="location.href = '{{url('/penjual/home')}}';" data-placement="bottom" data-toggle="tooltip" title="Atur toko anda?">
+												<a class="cart-opener" onclick="location.href = '{{url('/penjual/home')}}';" data-placement="bottom" data-toggle="tooltip" title="Manage Your Shop">
 													<span class="fa fa-store"></span>
 													<span class="num numchat" id="countnotif">0</span>
 												</a>
@@ -245,17 +245,17 @@
 							<fieldset>
 								<input type="text" placeholder="Email address" class="input" name="username">
 								 @if (session('username'))
-              	<div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
+              	<div class="red"  style="color: red"><b>Email Not Found</b></div>
             		@endif
 								<input type="password" placeholder="Password" class="input" name="password">
 								 @if (session('password'))
-              	<div class="red"  style="color: red"><b>Passsword Tidak Ada</b></div>
+              	<div class="red"  style="color: red"><b>Wrong Password</b></div>
             		@endif
 								<div class="box">
 									{{-- <span class="left"><input class="checkbox" type="checkbox" id="check1"><label for="check1">Remember Me</label></span> --}}
 									<a onclick="forgotpassword()" style="cursor: pointer;" class="help">Forgot Password?</a>
 								</div>
-								<button type="submit" class="btn-type1">Login</button>
+								<button type="submit" class="btn-type1">Sign In</button>
 							</fieldset>
 						</form>
 					</div>
@@ -285,7 +285,7 @@
 								<input type="password" placeholder="Password" class="input" name="password" id="password" required>
 
 								<input id="password" class="input" type="password" placeholder="Re Type Password" id="password_confirmation" name="password_confirmation" required>
-								<button type="submit" class="btn-type1">Register</button>
+								<button type="submit" class="btn-type1">Sign Up</button>
 							</fieldset>
 						</form>
 					</div>
@@ -550,7 +550,7 @@
 						if (data.status == 1) {
 		          iziToast.success({
 		              icon: 'fa fa-save',
-		              message: 'Produk Berhasil Ditambah Ke Cart!',
+		              message: 'Product Added To Cart Successfully!',
 		          });
 							let count = $('.numcart').text();
 
@@ -558,21 +558,21 @@
 		        }else if(data.status == 2){
 		          iziToast.warning({
 		              icon: 'fa fa-info',
-		              message: 'Produk Gagal Ditambah Ke Cart!, Periksa data dan koneksi anda!',
+		              message: 'Product Failed Added To Cart!, Check your data and connection!',
 		          });
 		        }else if (data.status == 3){
 		          iziToast.success({
 		              icon: 'fa fa-save',
-		              message: 'Produk Berhasil Ditambah Ke Cart!',
+		              message: 'Product Added To Cart Successfully!',
 		          });
 		        }else if (data.status == 4){
 		          iziToast.warning({
 		              icon: 'fa fa-info',
-		              message: 'Produk Gagal Ditambah Ke Cart!',
+		              message: 'Product Failed Added To Cart!',
 		          });
 		        } else if (data.status == 7) {
 							swal({
-								title: 'Mau ganti cart ke toko lain?',
+								title: 'Do you want to change the cart to another store?',
 							  type: 'question',
 							  showCancelButton: true
 							}).then((result) => {
@@ -584,7 +584,7 @@
 										success: function(data) {
 											iziToast.success({
 						              icon: 'fa fa-save',
-						              message: 'Produk Berhasil Ditambah Ke Cart!',
+						              message: 'Product Added To Cart Successfully!',
 						          });
 											let count = $('.numcart').text();
 
@@ -692,8 +692,8 @@
 		@else
 		function addtocard(id) {
 			swal(
-				'Silahkan login terlebih dahulu untuk menambah cart',
-				'Jika belum mempunyai akun silahkan daftar terlebih dahulu',
+				'Please login to add cart',
+				'If you dont have an account, please create your account',
 				'info'
 			)
 		}
@@ -752,7 +752,7 @@
 
 		function opentoko() {
 			swal({
-				title: 'Mau buka toko anda sendiri?',
+				title: 'Do you want to open your own shop?',
 			  type: 'question',
 			  showCancelButton: true
 			}).then((result) => {
@@ -821,8 +821,8 @@
 						window.location.href = "{{url('/penjual/home')}}"
 	        } else {
 						swal(
-						  'Gagal membuat toko :(',
-						  'Cek kembali data anda, dan silahkan coba lagi nanti',
+						  'Failed to create new shop :(',
+						  'Check your data again, and please try again later',
 						  'info'
 						)
 	        }
@@ -871,14 +871,14 @@
 				$('#modal_forgot').modal('hide');
 				if (data.status == 1) {
 					swal(
-						'Berhasil forgot password :)',
-						'Selamat password sudah berhasil diperbarui',
+						'Successful Forget Password :)',
+						'Congratulations, The password has been successfully updated',
 						'success'
 					)
 				} else {
 					swal(
-						'Gagal forgot password :(',
-						'Periksa kembali data anda, dan silahkan coba lagi nanti',
+						'Failed Forgot Password :(',
+						'Check your data again, and please try again later',
 						'info'
 					)
 				}

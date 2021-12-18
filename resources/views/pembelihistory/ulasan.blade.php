@@ -4,14 +4,14 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Ulasan</h4>
+        <h4 class="modal-title">Form Review</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
           <table class="table table_modalulasan">
           <tr>
-            <td>Star / Bintang</td>
+            <td>Star</td>
             <input type="hidden" id="id_transaction" name="id" value="">
             <td>
               <form class="rating">
@@ -49,7 +49,7 @@
             </td>
           </tr>
           <tr>
-            <td>Masukkan Ulasan</td>
+            <td>Input Review</td>
             <td>
                 <textarea class="form-control form-control-sm address" name="ulasan" id="txtulasan" rows="8" cols="80"></textarea>
             </td>
