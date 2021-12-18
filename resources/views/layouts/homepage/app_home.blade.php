@@ -59,7 +59,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 hidden-xs">
-								<a href="mailto:webmaster@example.com" class="tel mailto"> <i aria-hidden="true" class="fa fa-envelope-o"></i> <span class="mailtotext"> info@schon.chairs <span> </a>
+								{{-- <a href="mailto:webmaster@example.com" class="tel mailto"> <i aria-hidden="true" class="fa fa-envelope-o"></i> <span class="mailtotext"> info@schon.chairs <span> </a> --}}
 							</div>
 							<div class="col-xs-12 col-sm-6 text-right" >
 								<!-- mt top lang start here -->
@@ -318,18 +318,18 @@
 				<div class="footer-holder dark">
 					<div class="container">
 						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-3 mt-paddingbottomsm">
+							<div class="col-xs-12 col-sm-6 col-md-6 mt-paddingbottomsm">
 								<!-- F Widget About of the Page -->
 								<div class="f-widget-about">
 									<div class="logo">
 										<a href="{{url('/')}}">iWak</a>
 									</div>
-									<p class="desctext">Exercitation ullamco laboris nisi ut aliquip ex commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+									<p class="desctext"></p>
 
 								</div>
 								<!-- F Widget About of the Page end -->
 							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 mt-paddingbottomxs">
+							{{-- <div class="col-xs-12 col-sm-6 col-md-6 mt-paddingbottomxs">
 								<!-- Footer Tabs of the Page -->
 								<div class="f-widget-tabs">
 									<h3 class="f-widget-heading">Product Tags</h3>
@@ -351,8 +351,8 @@
 									</ul>
 								</div>
 								<!-- Footer Tabs of the Page -->
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-3 text-right">
+							</div> --}}
+							<div class="col-xs-12 col-sm-6 col-md-6 text-right">
 								<!-- F Widget About of the Page -->
 								<div class="f-widget-about">
 									<h3 class="f-widget-heading">Information</h3>
@@ -715,19 +715,19 @@
 					if (data.info[0].email == null) {
 						email = ""
 					} else {
-						email = data.info[0].email ? "" : data.info[0].email
+						email = data.info[0].email
 					}
 
 					if (data.info[0].address == null) {
 						address = ""
 					} else {
-						address = data.info[0].address ? "" : data.info[0].address
+						address = data.info[0].address
 					}
 
 					if (data.info[0].description == null) {
 						description = ""
 					} else {
-						description = data.info[0].description ? "" : data.info[0].description
+						description = data.info[0].description
 					}
 
 					$('.mailto').attr("href", "mailto:"+email+"");

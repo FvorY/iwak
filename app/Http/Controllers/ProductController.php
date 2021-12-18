@@ -244,6 +244,7 @@ class ProductController extends Controller
                         ->orWhere('address', 'like', '%' . $keyword . '%')
                         ->groupby("imageproduk.id_produk")
                         ->orderby('produk.'.$sortfield, $sort)
+                        ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                         ->paginate(10);
             } else {
               $data = DB::table("produk")
@@ -254,6 +255,7 @@ class ProductController extends Controller
                           ->where("account.id_account", '!=', $req->id_account)
                           ->groupby("imageproduk.id_produk")
                           ->orderby('produk.'.$sortfield, $sort)
+                          ->select('produk.*', 'produk.star as starproduk', 'produk.url_segment', 'account.*', 'imageproduk.*')
                           ->paginate(10);
             }
         }

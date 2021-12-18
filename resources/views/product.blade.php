@@ -103,7 +103,7 @@
 												$output = explode(" ",$string);
 												?>
 												<strong class="title"><a><span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-												<strong class="title"><a> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
+												<strong class="title"><a href="{{url('/')}}/toko/{{$value->id_account}}"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
 
 											</div><!-- txt end here -->
 										</div><!-- mt product2 end here -->

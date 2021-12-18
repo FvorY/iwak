@@ -93,6 +93,7 @@
             </div>
           </li> -->
 
+          @if(Auth::user()->role != 'admin')
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               {{-- <img src="{{asset('assets/image/faces1.jpg')}}" alt="image"> --}}
@@ -100,20 +101,21 @@
             </a>
             <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
 
-              @if(Auth::user()->level == 'admin')
-                <a class="dropdown-item" href="{{ url('admin/logout') }}">
+
+                {{-- <a class="dropdown-item" href="{{ url('admin/logout') }}">
                   <i class="mdi mdi-logout mr-2 text-primary"></i>
                   Signout
-                </a>
-              @else
+                </a> --}}
+              {{-- @else --}}
                 <a class="dropdown-item" href="{{ url('/') }}">
                   <i class="mdi mdi-logout mr-2 text-primary"></i>
                   Home
                 </a>
-              @endif
+
             </div>
           </li>
-          @if(Auth::user()->level == 'admin')
+          @endif
+          @if(Auth::user()->role == 'admin')
           <li class="nav-item nav-logout d-none d-lg-block" title="Logout">
             <a class="nav-link" href="{{ url('admin/logout') }}">
               <i class="mdi mdi-power"></i>

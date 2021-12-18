@@ -133,7 +133,7 @@
 															$output = explode(" ",$string);
 															?>
 															<strong class="title"><span class="fa fa-map-marker"></span> {{end($output)}}</strong>
-															<strong class="title"><span class="fa fa-store"></span> {{$value->namatoko}}</strong>
+															<strong class="title"><a href="{{url('/')}}/toko/{{$value->id_account}}"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
 
 
 														</div>
@@ -181,7 +181,7 @@
 															$output = explode(" ",$string);
 															?>
 															<strong class="title"><a href="product-detail.html"> <span class="fa fa-map-marker"></span> {{end($output)}}</a></strong>
-															<strong class="title"><a href="product-detail.html"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
+															<strong class="title"><a href="{{url('/')}}/toko/{{$value->id_account}}"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
 
 														</div>
 													</div>
@@ -246,7 +246,7 @@
 													$output = explode(" ",$string);
 													?>
 													<strong class="title"> <span class="fa fa-map-marker"></span> {{end($output)}}</strong>
-													<strong class="title"> <span class="fa fa-store"></span> {{$value->namatoko}}</strong>
+													<strong class="title"><a href="{{url('/')}}/toko/{{$value->id_account}}"> <span class="fa fa-store"></span> {{$value->namatoko}}</a></strong>
 
 											</div><!-- mt product1 center end here -->
 										</div>

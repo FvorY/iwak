@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <link rel="shortcut icon" href="{{asset('assets/iwak.jpeg')}}">
-    <title>Chat</title>
+    <title>iWak</title>
 
     <style media="screen">
     * {
@@ -48,14 +48,16 @@
       }
       sidebar .logo {
       display: flex;
-      margin: 10px 0 0 0;
-      padding-bottom: 10px;
+      /* margin: 10px 0 0 0; */
+      /* padding-bottom: 10px; */
+      padding: 10px 0 10px 0;
       align-items: center;
       justify-content: center;
-      color: #000;
+      color: #F0C441;
       font-size: 3em;
       letter-spacing: 7px;
       border-bottom: 1px solid #ccc;
+      background-color: #043C87;
       }
       sidebar .list-wrap {
       width: 100%;
@@ -117,7 +119,8 @@
       }
       .content header {
       height: 76px;
-      background: #fff;
+      /* background: #fff; */
+      background-color: #043C87;
       border-bottom: 1px solid #ccc;
       display: flex;
       padding: 10px;
@@ -136,11 +139,13 @@
       }
       .content header .info .user {
       font-weight: 700;
+      color: #F0C441;
       }
       .content header .info .time {
       display: flex;
       margin-top: 3px;
       font-size: 0.85em;
+      color: #F0C441;
       }
       .content header .open {
       display: none;
@@ -170,11 +175,12 @@
       align-self: flex-end;
       }
       .message-wrap .message-list.me .msg {
-      background: #bde2f7;
-      color: #111;
+      background: #F0C441;
+      color: white;
       }
       .message-wrap .message-list .msg {
-      background: #fff;
+      background: #043C87;
+      color: white;
       box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
       padding: 10px 5px;
       margin-bottom: 10px;
@@ -231,7 +237,7 @@
 
     <div class="container">
       <sidebar>
-       <span class="logo">CHAT</span>
+       <span class="logo">iWak</span>
         <div class="list-wrap" id="listroom">
         </div>
       </sidebar>
@@ -537,6 +543,13 @@
               listchat();
             }
           });
+        });
+
+        var placeholder = document.getElementById("placeholder");
+        placeholder.addEventListener("keydown", function (e) {
+            if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                sendmessage();
+            }
         });
     </script>
   </body>

@@ -57,7 +57,7 @@ Route::middleware('api')->group(function () {
 
     Route::any('/addbid', 'LelangController@apiaddbid');
 
-    Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
+    Route::post('/checkoutlelang', 'LelangController@apicheckoutlelang');
 
     //Penjual
     Route::any('/penjual/laporan', 'PenjualHomeController@apilaporan');

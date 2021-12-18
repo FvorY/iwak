@@ -413,6 +413,10 @@ class ChatController extends Controller
 
         DB::beginTransaction();
         try {
+
+            $room = DB::table('roomchat')
+                 ->where("id_roomchat", $req->id)
+                 ->first();
               // dd($req);
               $imgPath = null;
               $tgl = Carbon::now('Asia/Jakarta');
@@ -497,6 +501,11 @@ class ChatController extends Controller
         DB::beginTransaction();
         try {
               // dd($req);
+
+              $room = DB::table('roomchat')
+                   ->where("id_roomchat", $req->id)
+                   ->first();
+                   
               $imgPath = null;
               $tgl = Carbon::now('Asia/Jakarta');
               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
@@ -527,31 +536,46 @@ class ChatController extends Controller
                   }
                 }
 
-                  if ($imgPath != null) {
-                      $chat = DB::table('listchat')
-                              ->where("id_roomchat", $req->id)
-                              ->get();
+                if ($imgPath != null) {
+                    $chat = DB::table('listchat')
+                            ->where("id_roomchat", $req->id)
+                            ->get();
 
-                       DB::table("listchat")
-                          ->insert([
-                            'id_roomchat' => $req->id,
-                            'account' => $req->id_account . "-" . $req->penerima,
-                            'photourl' => $imgPath,
-                            'created_at' => Carbon::now('Asia/Jakarta'),
-                          ]);
+                     DB::table("listchat")
+                        ->insert([
+                          'id_roomchat' => $req->id,
+                          'account' => $req->id_account . "-" . $req->penerima,
+                          'photourl' => $imgPath,
+                          'created_at' => Carbon::now('Asia/Jakarta'),
+                        ]);
 
-                       $count = 0;
-                       foreach ($chat as $key => $value) {
-                         $account = explode("-",$value->account);
+                     $count = 0;
+                     foreach ($chat as $key => $value) {
+                       $account = explode("-",$value->account);
+
+                       if ($account[0] == $req->id_account) {
+
+                         $count = $room->counter1;
 
                          DB::table('roomchat')
                               ->where("id_roomchat", $req->id)
                               ->update([
-                                'counter' => $count,
+                                'counter1' => $count + 1,
+                                'created_at' => Carbon::now('Asia/Jakarta'),
+                              ]);
+                       } else {
+
+                         $count = $room->counter2;
+
+                         DB::table('roomchat')
+                              ->where("id_roomchat", $req->id)
+                              ->update([
+                                'counter2' => $count + 1,
                                 'created_at' => Carbon::now('Asia/Jakarta'),
                               ]);
                        }
-                  }
+                     }
+                }
 
               DB::commit();
             } catch (\Exception $e) {
