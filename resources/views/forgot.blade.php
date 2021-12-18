@@ -11,7 +11,7 @@
         <div class="row">
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
-              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            Please fill in all the data marked with <span style="color:red;">*</span>
             </div>
           {{-- <tr>
             <td>Pilih User</td>
@@ -21,7 +21,7 @@
             </td>
           </tr> --}}
           <tr>
-            <td>Email Anda <span style="color:red;">*</span></td>
+            <td>Your Email <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext email" name="email">
             </td>
@@ -33,7 +33,7 @@
             </td>
           </tr>
           <tr>
-            <td>Password Baru <span style="color:red;">*</span></td>
+            <td>New Password <span style="color:red;">*</span></td>
             <td>
               <input type="password" class="form-control form-control-sm inputtext password" name="password">
             </td>

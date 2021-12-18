@@ -110,24 +110,24 @@
               </div>
               <div class="col-xs-12 col-sm-2">
                 @if($list->pay == 'Y' && $list->deliver == "Y")
-                <strong class="price"><button class="btn btn-sm btn-primary" style="margin-bottom: 20px;" disabled> Pesanan Selesai </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-primary" style="margin-bottom: 20px;" disabled> Order Complete </button></strong>
                 @elseif($list->pay == 'Y')
-                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled> Sudah Dibayar </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled> Already paid </button></strong>
                 @elseif($list->deliver == 'P')
-                <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled=""> Proses Pengiriman </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled=""> Delivery process </button></strong>
                 @elseif($list->deliver == 'Y')
-                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled=""> Sudah Diterima </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-success" style="margin-bottom: 20px;" disabled=""> Received </button></strong>
                 @elseif($list->cancelled == 'Y')
-                <strong class="price"><button class="btn btn-sm btn-danger" style="margin-bottom: 20px;" disabled=""> Pesanan Dibatalkan </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-danger" style="margin-bottom: 20px;" disabled=""> Order Canceled </button></strong>
                 @elseif($list->pay == 'N' && $list->deliver == 'N' && $list->cancelled == 'N')
-                <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled> Pesanan Dibuat </button></strong>
+                <strong class="price"><button class="btn btn-sm btn-warning" style="margin-bottom: 20px;" disabled> Order Made </button></strong>
                 @endif
               </div>
               <div class="col-xs-12 col-sm-1">
                 <strong class="price">
                   <!-- <button type="submit" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</button> -->
                   <a onclick="detail({{$list->id_transaction}})" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i> Detail</a>
-                  <a onclick="showChat({{$list->penjual->id_account}})" class="btn btn-sm btn-info"> <i class="fa fa-comment"></i> Chat Penjual?</a>
+                  <a onclick="showChat({{$list->penjual->id_account}})" class="btn btn-sm btn-info"> <i class="fa fa-comment"></i>Chat Seller?</a>
                 </strong>
               </div>
                 @if($list->pay == 'N' && $list->deliver == 'N' && $list->cancelled == 'N')
@@ -135,16 +135,16 @@
                   <strong class="price"><button type="submit" onclick="cancel({{$list->id_transaction}})" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i> Cancel Order</button></strong>
                 </div>
                 <div class="col-xs-12 col-sm-1">
-                  <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Bukti Bayar</button></strong>
+                  <strong class="price"><button type="submit" onclick="pay(this)" data-id_transaction="{{$list->id_transaction}}" data-namatoko="{{$list->penjual->namatoko}}" data-nomor_rekening="{{$list->penjual->nomor_rekening}}" data-bank="{{$list->penjual->bank}}" class="btn btn-sm btn-success"> <i class="fa fa-money"></i> Upload Payment Proof</button></strong>
                 </div>
                 @else
                   @if($list->pay == 'Y' && $list->deliver == "Y" && $list->ulasan == null)
                     <div class="col-xs-12 col-sm-1">
-                      <strong class="price"><button type="submit" onclick="review({{$list->id_transaction}})" class="btn btn-sm btn-warning"> <i class="fa fa-comment"></i> Kirim Ulasan?</button></strong>
+                      <strong class="price"><button type="submit" onclick="review({{$list->id_transaction}})" class="btn btn-sm btn-warning"> <i class="fa fa-comment"></i> Send Review?</button></strong>
                     </div>
                   @elseif ($list->deliver == "P")
                     <div class="col-xs-12 col-sm-1">
-                      <strong class="price"><button type="submit" onclick="deliverdone({{$list->id_transaction}})" class="btn btn-sm btn-primary"> <i class="fa fa-check"></i> Pesanan Sudah Diterima?</button></strong>
+                      <strong class="price"><button type="submit" onclick="deliverdone({{$list->id_transaction}})" class="btn btn-sm btn-primary"> <i class="fa fa-check"></i> Order Received?</button></strong>
                     </div>
                   @endif
                 @endif
@@ -201,8 +201,8 @@
       close: false,
       overlay: true,
       displayMode: 'once',
-      title: 'Pesanan selesai dikirim',
-      message: 'Apakah anda yakin ?',
+      title: 'Order completed',
+      message: 'Are you sure ?',
       position: 'center',
       buttons: [
         ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -214,7 +214,7 @@
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Sudah Dikirim!',
+                    message: 'Order Sent!',
                 });
                 setTimeout(function(){
                       window.location.reload();
@@ -222,12 +222,12 @@
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Sudah Dikirim!',
+                    message: 'Order Sent!',
                 });
                 setTimeout(function(){
                       window.location.reload();
@@ -235,7 +235,7 @@
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
             }
 
@@ -255,8 +255,8 @@
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Cancel pesanan',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Cancel Order',
+  		message: 'Are You Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -268,7 +268,7 @@
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dicancel!',
+                    message: 'Order Successfully Canceled!',
                 });
                 setTimeout(function(){
                       window.location.reload();
@@ -276,12 +276,12 @@
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dicancel!',
+                    message: 'Order Failed to Cancel!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dicancel!',
+                    message: 'Order Successfully Canceled!',
                 });
                 setTimeout(function(){
                       window.location.reload();
@@ -289,7 +289,7 @@
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dicancel!',
+                    message: 'Order Failed to Cancel!',
                 });
             }
 
@@ -330,24 +330,24 @@
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Bukti Pembayaran Berhasil Disimpan!',
+            message: 'Proof of Payment Successfully Saved',
         });
         $('#pay').modal('hide');
       }else if(data.status == 2){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Bukti Pembayaran Gagal disimpan!, Periksa data dan koneksi anda!',
+            message: 'Payment Proof Failed to save!, Check your data and connection!',
         });
       }else if (data.status == 3){
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Bukti Pembayaran Berhasil Disimpan!',
+            message: 'Proof of Payment Successfully Saved',
         });
         $('#pay').modal('hide');
       }else if (data.status == 4){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Bukti Pembayaran Gagal Disimpan!',
+            message: 'Payment Proof Failed to Save!',
         });
       } else if (data.status == 7) {
         iziToast.warning({
@@ -422,7 +422,7 @@ $(".uploadGambar").on('change', function () {
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Ulasan Berhasil Disimpan!',
+            message: 'Review Successfully Saved!',
         });
         setTimeout(function(){
               window.location.reload();
@@ -430,12 +430,12 @@ $(".uploadGambar").on('change', function () {
       }else if(data.status == 2){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Ulasan Gagal disimpan!, Periksa data dan koneksi anda!',
+            message: 'Review Failed to save!, Check your data and connection!',
         });
       }else if (data.status == 3){
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Ulasan Berhasil Disimpan!',
+            message: 'Review Successfully Saved!',
         });
         setTimeout(function(){
               window.location.reload();
@@ -443,7 +443,7 @@ $(".uploadGambar").on('change', function () {
       }else if (data.status == 4){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Ulasan Gagal Disimpan!',
+            message: 'Review Failed to save!',
         });
       } else if (data.status == 7) {
         iziToast.warning({

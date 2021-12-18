@@ -5,27 +5,27 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Upload Bukti Bayar</h4>
+        <h4 class="modal-title">Payment Proof of Upload Form</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
           <tr>
-            <td>Nama Toko</td>
+            <td>Store Name</td>
             <td>
               <b id="namatoko">  </b>
               <input type="hidden" id="id_transaction" name="id" value="">
             </td>
           </tr>
           <tr>
-            <td>Nomor Rekening</td>
+            <td>Account Number</td>
             <td>
               <b id="nomor_rekening">  </b>
             </td>
           </tr>
           <tr>
-            <td>Nama Bank</td>
+            <td>Bank Name</td>
             <td>
               <b id="bank">  </b>
             </td>

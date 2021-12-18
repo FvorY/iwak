@@ -47,8 +47,8 @@
 												<ul class="list-unstyled">
 													<li><a href="{{url('/')}}/product?sort=ASC&sortfield=name&category={{$category}}&keyword={{$keyword}}">ASC</a></li>
 													<li><a href="{{url('/')}}/product?sort=DESC&sortfield=name&category={{$category}}&keyword={{$keyword}}">DESC</a></li>
-													<li><a href="{{url('/')}}/product?sort=DESC&sortfield=price&category={{$category}}&keyword={{$keyword}}">Harga Tertinggi</a></li>
-													<li><a href="{{url('/')}}/product?sort=ASC&sortfield=price&category={{$category}}&keyword={{$keyword}}">Harga Terendah</a></li>
+													<li><a href="{{url('/')}}/product?sort=DESC&sortfield=price&category={{$category}}&keyword={{$keyword}}">Highest Price</a></li>
+													<li><a href="{{url('/')}}/product?sort=ASC&sortfield=price&category={{$category}}&keyword={{$keyword}}">Lowest Price</a></li>
 												</ul>
 											</div>
 										</li>
