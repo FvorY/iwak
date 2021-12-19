@@ -207,7 +207,7 @@
             @else
               <li class="nav-item {{Request::is('penjual/home') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/home')}}">
-                  <span class="menu-title">Laporan Performa Toko</span>
+                  <span class="menu-title">Store Performance Report</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-chart-areaspline menu-icon"></i>
                 </a>
@@ -215,7 +215,7 @@
 
               <li class="nav-item {{Request::is('penjual/toko') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/toko')}}">
-                  <span class="menu-title">Toko</span>
+                  <span class="menu-title">Store</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-store menu-icon"></i>
                 </a>
@@ -223,7 +223,7 @@
 
               <li class="nav-item {{Request::is('penjual/produk') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/produk')}}">
-                  <span class="menu-title">Manage Produk</span>
+                  <span class="menu-title">Manage Product</span>
                   {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                   <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                 </a>
@@ -231,7 +231,7 @@
 
               <li class="nav-item {{Request::is('penjual/lelang') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/lelang')}}">
-                  <span class="menu-title">Manage Lelang</span>
+                  <span class="menu-title">Manage Action</span>
                   <span class="menu-sub-title" id="lelangnotif">( 0 new )</span>
                   <i class="mdi mdi-sale menu-icon"></i>
                 </a>
@@ -239,7 +239,7 @@
 
               <li class="nav-item {{Request::is('penjual/listorder') ? 'active' : ''}}">
                 <a class="nav-link" href="{{url('penjual/listorder')}}">
-                  <span class="menu-title">List Pesanan</span>
+                  <span class="menu-title">List Order</span>
                   <span class="menu-sub-title" id="pesanannotif">( 0 new )</span>
                   <i class="mdi mdi-cart-outline menu-icon"></i>
                 </a>
@@ -258,7 +258,7 @@
 
             {{-- <li class="nav-item {{Request::is('mutasi') ? 'active' : ''}}">
               <a class="nav-link" href="{{url('/mutasi')}}">
-                <span class="menu-title">Cek Mutasi</span> --}}
+                <span class="menu-title">Mutation Check</span> --}}
                 {{-- <span class="menu-sub-title">( 2 new updates )</span> --}}
                 {{-- <i class="fa fa-history"></i>
               </a>
@@ -267,10 +267,10 @@
                 <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
                   <span class="menu-title">Setup</span>
                   <span class="d-none">
-                    Setting Level Account
-                    Setting Account
-                    Setting Hak Akses
-                    Setting Daftar Menu
+                    Level Account Setting
+                    Account Setting
+                    Permission Setting
+                    Menu List Setting
                   </span>
                   <i class="menu-arrow"></i>
                   <i class="mdi mdi-settings menu-icon mdi-spin"></i>
