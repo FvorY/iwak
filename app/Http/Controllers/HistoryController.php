@@ -341,10 +341,16 @@ class HistoryController extends Controller
           }
 
           DB::commit();
-          return response()->json(["status" => 3]);
+          return response()->json([
+            "code" => 200,
+            "message" => "Sukses",
+          ]);
         } catch (\Exception $e) {
           DB::rollback();
-          return response()->json(["status" => 4]);
+          return response()->json([
+            "code" => 400,
+            "message" => $e->getMessage(),
+          ]);
         }
     }
 

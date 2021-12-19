@@ -150,23 +150,23 @@ class ChatController extends Controller
     }
 
     public function apicountchat(Request $req) {
-       $chat = DB::table('roomchat')
-                ->where('account', 'like', '%' . $req->id_account . '%')
-                ->get();
+      $chat = DB::table('roomchat')
+               ->where('account', 'like', '%' . $req->id_account . '%')
+               ->get();
 
-        $count = 0;
+       $count = 0;
 
-        foreach ($chat as $key => $value) {
-          $account = explode("-",$value->account);
+       foreach ($chat as $key => $value) {
+         $account = explode("-",$value->account);
 
-          if ($account[0] == $req->id_account) {
-              $count += $chat->counter1;
-          } else {
-              $count += $chat->counter2;
-          }
-        }
+         if ($account[0] == $req->id_account) {
+             $count += $value->counter1;
+         } else {
+             $count += $value->counter2;
+         }
+       }
 
-        return Response()->json($count);
+       return Response()->json($count);
     }
 
     public function listroom(Request $req) {
@@ -505,7 +505,7 @@ class ChatController extends Controller
               $room = DB::table('roomchat')
                    ->where("id_roomchat", $req->id)
                    ->first();
-                   
+
               $imgPath = null;
               $tgl = Carbon::now('Asia/Jakarta');
               $folder = $tgl->year . $tgl->month . $tgl->timestamp;
