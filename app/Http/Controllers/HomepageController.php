@@ -285,7 +285,7 @@ class HomepageController extends Controller
           'forauction' => $forauction,
           'latest' => $latest,
           'promo' => $promo,
-        ])
+        ]);
     }
 
     public function getinfo() {
