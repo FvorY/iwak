@@ -127,10 +127,11 @@ class MemberController extends Controller
     }
     public function logout(){
 
-      Account::where('id_account', Auth::user()->id_account)->update([
-           'last_online' => Carbon::now(),
-           'islogin' => "N",
-      ]);
+      // dd(Auth::user());
+      // Account::where('id_account', Auth::user()->id_account)->update([
+      //      'last_online' => Carbon::now(),
+      //      'islogin' => "N",
+      // ]);
 
       Auth::logout();
 
@@ -139,10 +140,10 @@ class MemberController extends Controller
 
     public function logoutjson(){
 
-      Account::where('id_account', Auth::user()->id_account)->update([
-           'last_online' => Carbon::now(),
-           'islogin' => "N",
-      ]);
+      // Account::where('id_account', Auth::user()->id_account)->update([
+      //      'last_online' => Carbon::now(),
+      //      'islogin' => "N",
+      // ]);
 
       Auth::logout();
 
