@@ -91,24 +91,29 @@ class FeedController extends Controller
     }
 
     public function apifeed(Request $req) {
-      $data = DB::table('feedback')
-        ->join('transaction', 'transaction.id_transaction', '=', 'feedback.id_transaction')
-        ->select("feedback.star", "feedback.image", 'transaction.nota', "feedback.id_feedback", "feedback.id_user as akun", "feedback.feedback", "feedback.id_toko as toko")
-        ->orderBy("feedback.created_at", "desc")
-        ->where("id_toko", $req->id_account)
+      $data = DB::table('produk')
+        ->join('imageproduk', 'imageproduk.id_produk', '=', 'produk.id_produk')
+        ->select('imageproduk.*', 'produk.*', 'produk.star as feedback')
+        ->groupBy('produk.id_produk')
+        ->where("id_account", $req->id_account)
         ->get();
 
         foreach ($data as $key => $value) {
-          $data[$key]->akun = DB::table("account")->where("id_account", $data[$key]->akun)->first();
-          $data[$key]->toko = DB::table("account")->where("id_account", $data[$key]->toko)->first();
+          $value->star = DB::table("transaction_detail")
+                      ->join('feedback', 'feedback.id_transaction','transaction_detail.id_transaction')
+                      ->join("account", 'account.id_account', 'feedback.id_user')
+                      ->where("transaction_detail.id_produk", $value->id_produk)
+                      ->groupBy('feedback.id_feedback')
+                      ->select('transaction_detail.id_produk','transaction_detail.price','feedback.id_feedback','feedback.id_user','feedback.id_toko','feedback.star','feedback.image','feedback.feedback','feedback.created_at','account.id_account','account.fullname','account.email')
+                      // ->having('feedback.created_at')
+                      ->avg('feedback.star');
 
-          if ($data[$key]->akun == null) {
-            $data[$key]->akun->fullname = "User tidak ditemukan (Dihapus dari sistem)";
-          }
-
-          if ($data[$key]->toko == null) {
-            $data->toko->namatoko = "Toko tidak ditemukan (Dihapus dari sistem)";
-          }
+          $value->feedback = DB::table('transaction_detail')
+                                ->leftjoin('feedback', 'feedback.id_transaction', '=', 'transaction_detail.id_transaction')
+                                ->where("id_produk", '=', $value->id_produk)
+                                ->groupBy('feedback.id_feedback')
+                                ->orderBy('feedback.created_at', 'desc')
+                                ->get();
         }
 
         return response()->json([
