@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Buka Toko</h4>
+        <h4 class="modal-title">Bidding</h4>
       </div>
       <div class="modal-body">
         <div class="row">
