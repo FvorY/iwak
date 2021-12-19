@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::middleware('api')->group(function () {
 
+    Route::any('/homepage', 'MemberController@apilogin');
+
     Route::any('/login', 'MemberController@apilogin');
     Route::any('/register', 'MemberController@apiregister');
     Route::any('/logout', 'MemberController@apilogout');
