@@ -472,6 +472,7 @@ class ChatController extends Controller
                            DB::table('roomchat')
                                 ->where("id_roomchat", $req->id)
                                 ->update([
+                                  'last_message' => "Sending Photo",
                                   'counter1' => $count + 1,
                                   'created_at' => Carbon::now('Asia/Jakarta'),
                                 ]);
@@ -482,6 +483,7 @@ class ChatController extends Controller
                            DB::table('roomchat')
                                 ->where("id_roomchat", $req->id)
                                 ->update([
+                                  'last_message' => "Sending Photo",
                                   'counter2' => $count + 1,
                                   'created_at' => Carbon::now('Asia/Jakarta'),
                                 ]);
@@ -560,6 +562,7 @@ class ChatController extends Controller
                          DB::table('roomchat')
                               ->where("id_roomchat", $req->id)
                               ->update([
+                                'last_message' => "Sending Photo",
                                 'counter1' => $count + 1,
                                 'created_at' => Carbon::now('Asia/Jakarta'),
                               ]);
@@ -570,6 +573,7 @@ class ChatController extends Controller
                          DB::table('roomchat')
                               ->where("id_roomchat", $req->id)
                               ->update([
+                                'last_message' => "Sending Photo",
                                 'counter2' => $count + 1,
                                 'created_at' => Carbon::now('Asia/Jakarta'),
                               ]);

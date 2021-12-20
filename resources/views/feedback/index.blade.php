@@ -1,6 +1,8 @@
 @extends('main')
 @section('content')
 
+@include('penjualfeedback.detail')
+
 <style type="text/css">
 
 </style>
@@ -149,6 +151,36 @@ var table = $('#table-data').DataTable({
 
   function reloadall() {
     table.ajax.reload();
+  }
+
+  function detail(id) {
+    var html = "";
+    $.ajax({
+      url: "{{url('/')}}" + '/feed/detail',
+      data:{id_transaction: id},
+      dataType:'json',
+      success:function(response){
+
+        var subtotal = 0
+        for (var i = 0; i < response.data.length; i++) {
+
+          let detail = response.data[i];
+
+          html += "<tr>"+
+                  "<td> "+(i+1)+" </td>"+
+                  "<td> <img src='{{url('/')}}/"+detail.imageproduk+"' style='width: 40px; height: 40px;'> </td>"+
+                  "<td> "+detail.name+" </td>"+
+                  "<td> <img src='{{url('/')}}/"+detail.image+"' style='width: 40px; height: 40px;'> </td>"+
+                  "<td> "+detail.feedback+" </td>"+
+                  "<td> "+detail.star+" </td>"+
+                  "<tr>";
+        }
+
+        $('#bodydetail').html(html);
+        $('#detailfeed').modal('show');
+
+      }
+    })
   }
 
 </script>

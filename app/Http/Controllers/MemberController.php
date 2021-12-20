@@ -462,6 +462,7 @@ class MemberController extends Controller
                      "address" => $req['address'],
                      "nomor_rekening" => $req['norek'],
                      "bank" => $req['bank'],
+                     "codeforgot" => $req['code'],
                      "last_online" => Carbon::now(),
                      "updated_at" => Carbon::now('Asia/Jakarta'),
                 ]);
@@ -477,6 +478,7 @@ class MemberController extends Controller
                      "profile_picture" => $imgPath,
                      "nomor_rekening" => $req['norek'],
                      "bank" => $req['bank'],
+                     "codeforgot" => $req['code'],
                      "last_online" => Carbon::now(),
                      "updated_at" => Carbon::now('Asia/Jakarta'),
                 ]);
@@ -522,6 +524,41 @@ class MemberController extends Controller
           } else {
             return response()->json([
               'status' => 2
+            ]);
+          }
+        }
+
+    }
+
+    public function apiforgot(Request $req) {
+
+        $cek = DB::table('account')
+                ->where("email", $req->email)
+                ->first();
+
+        if ($cek == null) {
+          return response()->json([
+            "code" => 400,
+            "message" => "User not registered!",
+          ]);
+        } else {
+          if ($cek->codeforgot == $req->code) {
+            DB::table("account")
+                ->where("email", $req->email)
+                ->update([
+                  'password' => $req->password,
+                  'confirm_password' => $req->password,
+                  'updated_at' => Carbon::now('Asia/Jakarta')
+                ]);
+
+              return response()->json([
+                "code" => 200,
+                "message" => "Successfully forgot password!",
+              ]);
+          } else {
+            return response()->json([
+              "code" => 400,
+              "message" => "Code forgot is not the same!",
             ]);
           }
         }

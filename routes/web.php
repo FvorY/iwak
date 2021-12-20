@@ -64,6 +64,8 @@ Route::post('/checkoutlelang', 'LelangController@checkoutlelang');
 
 Route::get('/notif', 'HomeController@notif');
 
+Route::get('/feed/detail', 'FeedController@detailfeed');
+
 //Route untuk umum
 Route::group(['middleware' => 'guest'], function () {
 

@@ -406,10 +406,10 @@ class CartController extends Controller
                   return 'already exist';
               }
           } else {
-            return response()->json([
-              "code" => 400,
-              "message" => "Upload bukti pembayaran terlebih dahulu!",
-            ]);
+            // return response()->json([
+            //   "code" => 400,
+            //   "message" => "Upload bukti pembayaran terlebih dahulu!",
+            // ]);
           }
 
           $index = str_pad($max, 3, '0', STR_PAD_LEFT);
@@ -430,12 +430,14 @@ class CartController extends Controller
               "created_at" => Carbon::now('Asia/Jakarta'),
             ]);
 
-          DB::table("payment")
-              ->insert([
-              "id_transaction" => $max,
-              "image" => $imgPath,
-              "created_at" => Carbon::now('Asia/Jakarta'),
-            ]);
+          if ($imgPath != null) {
+            DB::table("payment")
+                ->insert([
+                "id_transaction" => $max,
+                "image" => $imgPath,
+                "created_at" => Carbon::now('Asia/Jakarta'),
+              ]);
+          }
 
           for ($i=0; $i < count($arridproduk); $i++) {
               $price = str_replace('.','',$arrprice[$i]);
