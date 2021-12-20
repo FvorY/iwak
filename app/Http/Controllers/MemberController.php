@@ -528,4 +528,39 @@ class MemberController extends Controller
 
     }
 
+    public function apiforgot(Request $req) {
+
+        $cek = DB::table('account')
+                ->where("email", $req->email)
+                ->first();
+
+        if ($cek == null) {
+          return response()->json([
+            "code" => 400,
+            "message" => "User not registered!",
+          ]);
+        } else {
+          if ($cek->codeforgot == $req->code) {
+            DB::table("account")
+                ->where("email", $req->email)
+                ->update([
+                  'password' => $req->password,
+                  'confirm_password' => $req->password,
+                  'updated_at' => Carbon::now('Asia/Jakarta')
+                ]);
+
+              return response()->json([
+                "code" => 200,
+                "message" => "Successfully forgot password!",
+              ]);
+          } else {
+            return response()->json([
+              "code" => 400,
+              "message" => "Code forgot is not the same!",
+            ]);
+          }
+        }
+
+    }
+
 }
