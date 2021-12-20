@@ -12,7 +12,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
+          {{-- <li class="breadcrumb-item">Billing Master Setup</li> --}}
           <li class="breadcrumb-item active" aria-current="page">User</li>
         </ol>
       </nav>
@@ -164,24 +164,24 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Berhasil Disimpan!',
+              message: 'Data Saved Successfully!',
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Gagal disimpan!, Periksa data dan koneksi anda!',
+              message: 'Data failed to save!, Check your data and connection!',
           });
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Berhasil Diubah!',
+              message: 'Data Modified Successfully!',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Gagal Diubah!',
+              message: 'Data Failed to Change!',
           });
         } else if (data.status == 7) {
           iziToast.warning({
@@ -201,8 +201,8 @@ var table = $('#table-data').DataTable({
         timeout: false,
     		overlay: true,
     		displayMode: 'once',
-    		title: 'Hapus data',
-    		message: 'Apakah anda yakin ?, data toko yang terkait dengan akun akan hilang',
+    		title: 'Delete Data',
+    		message: 'Are you sure?, the store data associated with the account will be lost',
     		position: 'center',
     		buttons: [
     			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -215,14 +215,14 @@ var table = $('#table-data').DataTable({
                 if (data.status == 3) {
                   iziToast.success({
                       icon: 'fa fa-trash',
-                      message: 'Data Berhasil Dihapus!',
+                      message: 'Data Deleted Successfully!',
                   });
 
                   reloadall();
                 }else if(data.status == 4){
                   iziToast.warning({
                       icon: 'fa fa-info',
-                      message: 'Data Gagal Dihapus!',
+                      message: 'Data Failed to Delete!',
                   });
                 }
 

@@ -12,7 +12,7 @@
         <div class="row">
           <table class="table table_modal">
             <div class="alert alert-warning" role="alert">
-              Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+            Please fill in all the data marked with <span style="color:red;">*</span>
             </div>
           <tr>
             <td>Fullname <span style="color:red;">*</span></td>
@@ -22,13 +22,13 @@
             </td>
           </tr>
           <tr>
-            <td>Nomor Rekening</td>
+            <td>Account number</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext nomor_rekening" name="nomor_rekening">
             </td>
           </tr>
           <tr>
-            <td>Nama Bank</td>
+            <td>Bank Name</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext bank" name="bank">
             </td>
@@ -66,7 +66,7 @@
             <td>
               <textarea class="form-control form-control-sm address" name="address" rows="8" cols="80"></textarea>
               <div class="alert alert-warning" role="alert">
-                Alamat ini juga akan digunakan untuk alamat toko (Format : nama jalan dan nomor rumah (spasi) kecamatan (spasi) kota)
+              This address will also be used for the shop address (Format: street name and house number (space) sub-district (space) city)
               </div>
             </td>
           </tr>
@@ -74,9 +74,9 @@
             <td>Gender <span style="color:red;">*</span></td>
             <td>
               <select class="form-control gender" name="gender">
-                <option value="" selected>- Pilih -</option>
-                <option value="L"> Laki - Laki </option>
-                <option value="P"> Perempuan </option>
+                <option value="" selected>- Choose -</option>
+                <option value="L"> Male </option>
+                <option value="P"> Female </option>
               </select>
             </td>
           </tr>

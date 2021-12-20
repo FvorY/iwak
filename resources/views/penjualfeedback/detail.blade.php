@@ -15,7 +15,7 @@
                 <tr>
                   <th>No</th>
                   <th>Image Produk</th>
-                  <th>Nama Produk</th>
+                  <th>Product Name</th>
                   <th>Image Feedback</th>
                   <th>Feedback</th>
                   <th>Star</th>

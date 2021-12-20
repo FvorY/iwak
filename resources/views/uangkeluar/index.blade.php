@@ -12,15 +12,15 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="/home">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
-          <li class="breadcrumb-item active" aria-current="page">Uang Keluar</li>
+          {{-- <li class="breadcrumb-item">Billing Master Setup</li> --}}
+          <li class="breadcrumb-item active" aria-current="page">Money Out</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Uang Keluar</h4>
+                    <h4 class="card-title">Money Out</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                     	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
@@ -33,7 +33,7 @@
                                 <th>No</th>
                                 <th>Nominal</th>
                                 <th>Note</th>
-                                <th>Tanggal</th>
+                                <th>Date</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -133,24 +133,24 @@ var table = $('#table-data').DataTable({
         if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Berhasil Disimpan!',
+              message: 'Data Saved Successfully!',
           });
           reloadall();
         }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Gagal disimpan!',
+              message: 'Data failed to save!',
           });
         }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
-              message: 'Data Berhasil Diubah!',
+              message: 'Data Modified Successfully!',
           });
           reloadall();
         }else if (data.status == 4){
           iziToast.warning({
               icon: 'fa fa-info',
-              message: 'Data Gagal Diubah!',
+              message: 'Data Failed to Change!',
           });
         }
 
@@ -164,8 +164,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Hapus data',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Delete Data',
+  		message: 'Are You Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -176,7 +176,7 @@ var table = $('#table-data').DataTable({
             success:function(data){
               iziToast.success({
                   icon: 'fa fa-trash',
-                  message: 'Data Berhasil Dihapus!',
+                  message: 'Data Deleted Successfully!',
               });
 
               reloadall();

@@ -132,7 +132,7 @@
 												<h2>{{$list->namatoko}}</h2>
 											</div>
 											<div class="col-xs-12">
-												<a href="{{route('profilToko', $list->id_account)}}" class="btn btn-md btn-success">Kunjungi Toko</a>
+												<a href="{{route('profilToko', $list->id_account)}}" class="btn btn-md btn-success">Visit Store</a>
 											</div>
 										</div>
 									</div>
@@ -218,7 +218,7 @@
           }
 
           if (data.pemenang.id_account == "{{Auth::user()->id_account}}") {
-              $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">Anda pemenang, Beli sekarang?</button>')
+              $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">You are the winner, Buy it now?</button>')
           }
         @endif
     }
@@ -241,7 +241,7 @@
             }
 
             if (data.pemenang.id_account == "{{Auth::user()->id_account}}") {
-                $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">Anda pemenang, Beli sekarang?</button>')
+                $('#btnbid').html('<button type="button" onclick="buylelang({{$list->id_lelang}})">You are the winner, Buy it now?</button>')
             }
           @endif
       }
@@ -274,24 +274,24 @@
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Data Berhasil Disimpan!',
+            message: 'Data Saved Successfully!',
         });
         $('#formbid').modal('hide');
       }else if(data.status == 2){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Data Gagal disimpan!, Periksa data dan koneksi anda!',
+            message: 'Data failed to save!, Check your data and connection!',
         });
       }else if (data.status == 3){
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Data Berhasil Diubah!',
+            message: 'Data Modified Successfully!',
         });
         $('#formbid').modal('hide');
       }else if (data.status == 4){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Data Gagal Diubah!',
+            message: 'Data Failed to Change!',
         });
       } else if (data.status == 7) {
         iziToast.warning({
@@ -326,7 +326,7 @@ $.ajax({
     if (data.status == 1) {
       iziToast.success({
           icon: 'fa fa-save',
-          message: 'Pesanan Berhasil Disimpan!',
+          message: 'Data Failed to Change!',
       });
 
       setTimeout(function(){
@@ -335,12 +335,12 @@ $.ajax({
     }else if(data.status == 2){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Pesanan Gagal disimpan!, Periksa data dan koneksi anda!',
+          message: 'Order failed to save!, Check your data and connection!',
       });
     }else if (data.status == 3){
       iziToast.success({
           icon: 'fa fa-save',
-          message: 'Pesanan Berhasil Disimpan!',
+          message: 'Order Saved Successfully!',
       });
 
       setTimeout(function(){
@@ -349,7 +349,7 @@ $.ajax({
     }else if (data.status == 4){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Pesanan Gagal Disimpan!',
+          message: 'Order Failed to Save!',
       });
     } else if (data.status == 7) {
       iziToast.warning({

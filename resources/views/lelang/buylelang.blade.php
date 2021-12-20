@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Beli Langsung</h4>
+        <h4 class="modal-title">Buy Direct</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -14,7 +14,7 @@
             <!-- Panel Group of the Page -->
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               <div class="alert alert-warning" role="alert">
-                <h4> Mohon upload bukti pembayaran dengan benar, dan transfer sesuai dengan informasi bank dibawah ini dan transfer sesuai dengan total pembelian. </h4>
+                <h4> Please upload proof of payment correctly, and transfer according to the bank information below and transfer according to the total purchase. </h4>
               </div>
               <!-- Panel Panel Default of the Page -->
 

@@ -20,13 +20,13 @@
 
                     @if (session('sukses'))
                     <div class="alert alert-success" role="alert">
-                      Success, Info Berhasil Disimpan
+                    Success, Info Successfully Saved
                     </div>
                     @endif
 
                     @if (session('gagal'))
                     <div class="alert alert-danger" role="alert">
-                      Gagal, Info Gagal Disimpan
+                    Failed, Info Failed to Save
                     </div>
                     @endif
 
@@ -73,8 +73,8 @@
 
                     <hr>
                     <div class="text-right w-100">
-                      <button class="btn btn-primary save" type="submit">Simpan</button>
-                      <a href="" class="btn btn-secondary">Kembali</a>
+                      <button class="btn btn-primary save" type="submit">Save</button>
+                      <a href="" class="btn btn-secondary">Back</a>
                     </div>
                   </div>
                 </div>

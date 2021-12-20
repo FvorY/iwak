@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Master Tagihan</h4>
+        <h4 class="modal-title">Billing Master Form</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -30,10 +30,10 @@
             </td>
           </tr>
           <tr>
-            <td>Berulang</td>
+            <td>Repeat</td>
             <td>
               <select class="form-control form-control-sm" name="looptype" id="looptype" style="width: 100%;">
-                  <option value=""> -- Select Berulang -- </option>
+                  <option value=""> -- Repeat Select -- </option>
                   @foreach ($looptype as $key => $value)
                     <option value="{{$value->looptype_id}}">{{$value->looptype_name}}</option>
                   @endforeach
@@ -44,14 +44,14 @@
             <td>Auto Debit</td>
             <td>
               <select class="form-control form-control-sm" name="autodebit" id="autodebit" style="width: 100%;">
-                  <option value=""> -- Select Berulang -- </option>
+                  <option value=""> -- Repeat Select -- </option>
                   <option value="Y"> Yes </option>
                   <option value="N"> No </option>
               </select>
             </td>
           </tr>
           <tr>
-            <td>Date Jatuh Tempo</td>
+            <td>Due Date</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext datepicker" name="date" value="{{Carbon\Carbon::now()->format('d-m-Y')}}">
             </td>

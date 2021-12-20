@@ -11,7 +11,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
+          {{-- <li class="breadcrumb-item">Billing Master Setup</li> --}}
           <li class="breadcrumb-item active" aria-current="page">Manage Social</li>
         </ol>
       </nav>
@@ -111,7 +111,7 @@ function dosave() {
           if (response.status == "sukses") {
             iziToast.success({
                 icon: 'fa fa-save',
-                message: 'Data Berhasil Disimpan!',
+                message: 'Data Saved Successfully!',
             });
               setTimeout(function(){
                     window.location.reload();
@@ -119,7 +119,7 @@ function dosave() {
           } else {
             iziToast.success({
                 icon: 'fa fa-save',
-                message: 'Data Gagal Disimpan!',
+                message: 'Data Failed to Save!',
             });
           }
         }
@@ -161,7 +161,7 @@ function dosave() {
           if (response.status == "sukses") {
             iziToast.success({
                 icon: 'fa fa-save',
-                message: 'Data Berhasil Diupdate!',
+                message: 'Data Updated Successfully!',
             });
             setTimeout(function(){
                   window.location.reload();
@@ -169,7 +169,7 @@ function dosave() {
           } else {
             iziToast.success({
                 icon: 'fa fa-save',
-                message: 'Data Gagal Diupdate!',
+                message: 'Data Failed to Update!',
             });
           }
         }
@@ -181,8 +181,8 @@ function dosave() {
         close: false,
     		overlay: true,
     		displayMode: 'once',
-    		title: 'Hapus data',
-    		message: 'Apakah anda yakin ?',
+    		title: 'Delete Data',
+    		message: 'Are You Sure ?',
     		position: 'center',
     		buttons: [
     			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -194,7 +194,7 @@ function dosave() {
                 if (response.status == "sukses") {
                   iziToast.success({
                       icon: 'fa fa-save',
-                      message: 'Data Berhasil Dihapus!',
+                      message: 'Data Deleted Successfully!',
                   });
                     setTimeout(function(){
                           window.location.reload();
@@ -202,7 +202,7 @@ function dosave() {
                 } else {
                   iziToast.success({
                       icon: 'fa fa-save',
-                      message: 'Data Berhasil Dihapus!',
+                      message: 'Data Deleted Successfully!',
                   });
                 }
               }

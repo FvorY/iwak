@@ -11,15 +11,15 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="/home">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
-          <li class="breadcrumb-item active" aria-current="page">Tagihan</li>
+          {{-- <li class="breadcrumb-item">Billing Master Setup</li> --}}
+          <li class="breadcrumb-item active" aria-current="page">Bill</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Tagihan</h4>
+                    <h4 class="card-title">Bill</h4>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
                             <thead class="bg-gradient-info">
@@ -27,11 +27,11 @@
                                 <th>No</th>
                                 <th>Nominal</th>
                                 <th>Type</th>
-                                <th>Berlangsung</th>
+                                <th>Ongoing</th>
                                 <th>Auto Debit</th>
                                 <th>Note</th>
-                                <th>Jatuh Tempo</th>
-                                <th>Status Bayar</th>
+                                <th>Due date</th>
+                                <th>Pay Status</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -64,7 +64,7 @@
         <div class="row">
           <table class="table table_modal">
           <tr>
-            <td>Tanggal dibayar</td>
+            <td>Paid date</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext datepicker" name="date">
             </td>
@@ -167,8 +167,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Bayar Tagihan',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Pay Bill',
+  		message: 'Are You Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -180,18 +180,18 @@ var table = $('#table-data').DataTable({
               if (data.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Data Berhasil Dibayar!',
+                    message: 'Data Successfully Paid!',
                 });
                 reloadall();
               }else if(data.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Data Gagal Dibayar!',
+                    message: 'Data Failed to Paid!',
                 });
               }else if (data.status == 3){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Saldo tidak cukup!',
+                    message: 'Not enough balance!',
                 });
             }
           }

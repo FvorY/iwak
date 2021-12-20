@@ -12,22 +12,22 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="/home">Home</a></li>
-          {{-- <li class="breadcrumb-item">Setup Master Tagihan</li> --}}
-          <li class="breadcrumb-item active" aria-current="page">Uang Masuk</li>
+          {{-- <li class="breadcrumb-item">Billing Master Setup</li> --}}
+          <li class="breadcrumb-item active" aria-current="page">Admission Fee</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <label for="">Pilih Tahun : </label> &nbsp; <input type="text" class="btn btn-primary" id="filteryear" onchange="reloadstatistik()" name="filteryear" value="{{date('Y')}}">
+                    <label for="">Choose Year : </label> &nbsp; <input type="text" class="btn btn-primary" id="filteryear" onchange="reloadstatistik()" name="filteryear" value="{{date('Y')}}">
                     {{-- <canvas id="tagihanchart" width="400" height="150"></canvas> --}}
                     <div id="tagihanchart">
 
                     </div>
 
                     <br>
-                    <h4 for="">Note: Untuk statistik tagihan, statistik tersebut berdasarkan daftar tagihan dalam periode yang belun dibayar maupun sudah dibayar</h4>
+                    <h4 for="">Note: For billing statistics, these statistics are based on a list of bills in the period that have not been paid or have been paid</h4>
                   </div>
                 </div>
     </div>
@@ -92,10 +92,10 @@ function renderChart(tagihan, masuk, keluar) {
           type: 'column'
       },
       title: {
-          text: 'Statistik keuangan anda'
+          text: 'Your financial statistics'
       },
       subtitle: {
-          text: 'Tahun '+$('#filteryear').val()
+          text: 'Year '+$('#filteryear').val()
       },
       xAxis: {
           categories: [
@@ -135,17 +135,17 @@ function renderChart(tagihan, masuk, keluar) {
           }
       },
       series: [{
-          name: 'Uang Masuk',
+          name: 'Admission fee',
           color: 'rgba(68, 129, 235, 0.9)',
           data: masuk
 
       }, {
-          name: 'Uang Keluar',
+          name: 'Money Out',
           color: 'rgba(255, 88, 88, 0.9)',
           data: keluar
 
       }, {
-          name: 'Tagihan',
+          name: 'Bill',
           color: 'rgba(80, 204, 127, 0.9)',
           data: tagihan
 
