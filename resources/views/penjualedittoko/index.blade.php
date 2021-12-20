@@ -8,28 +8,28 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/penjual/home')}}">Home</a></li>
-          <li class="breadcrumb-item">Penjual</li>
-          <li class="breadcrumb-item active" aria-current="page">Toko</li>
+          <li class="breadcrumb-item">Seller</li>
+          <li class="breadcrumb-item active" aria-current="page">Store</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Toko</h4>
+                    <h4 class="card-title">Store</h4>
                     <div class="alert alert-warning" role="alert">
-                      Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+                    Please fill in all the data marked with <span style="color:red;">*</span>
                     </div>
 
                     @if (session('sukses'))
                     <div class="alert alert-success" role="alert">
-                      Success, Info Berhasil Disimpan
+                      Success, Info Saved Successfully
                     </div>
                     @endif
 
                     @if (session('gagal'))
                     <div class="alert alert-danger" role="alert">
-                      Gagal, Cek Kembali Data Anda, Info Gagal Disimpan
+                    Failed, Check Your Data Again, Failed to Save Info
                     </div>
                     @endif
 
@@ -43,16 +43,16 @@
                               <div class="row">
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Nama Toko <span style="color:red;">*</span></label>
+                                  <label>Store Name <span style="color:red;">*</span></label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                      <input type="text" class="form-control form-control-sm inputtext namatoko" placeholder="Isi nama toko" name="namatoko" value="@isset($data){{$data->namatoko}}@endisset">
+                                      <input type="text" class="form-control form-control-sm inputtext namatoko" placeholder="Input Store Name" name="namatoko" value="@isset($data){{$data->namatoko}}@endisset">
                                   </div>
                                 </div>
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Rating Toko Anda</label>
+                                  <label>Your Store Rating</label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
@@ -68,33 +68,33 @@
                                 </div>
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Nomor Rekening</label>
+                                  <label>Account Number</label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                    <input type="text" class="form-control form-control-sm inputtext nomor_rekening" placeholder="Isi nomor rekening" name="nomor_rekening" value="@isset($data){{$data->nomor_rekening}}@endisset">
+                                    <input type="text" class="form-control form-control-sm inputtext nomor_rekening" placeholder="Input Account Number" name="nomor_rekening" value="@isset($data){{$data->nomor_rekening}}@endisset">
                                       <br>
                                     <div class="alert alert-warning" role="alert">
-                                      Mohon isi nomor rekening untuk kelancaran pembayaran
+                                    Please fill in the account number for successful payment
                                     </div>
                                   </div>
                                 </div>
 
                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                  <label>Nama Bank</label>
+                                  <label>Bank Name</label>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                    <input type="text" class="form-control form-control-sm inputtext bank" placeholder="Isi nama bank" name="bank" value="@isset($data){{$data->bank}}@endisset">
+                                    <input type="text" class="form-control form-control-sm inputtext bank" placeholder="Input Bank Name" name="bank" value="@isset($data){{$data->bank}}@endisset">
                                       <br>
                                     <div class="alert alert-warning" role="alert">
-                                      Mohon isi nama bank untuk kelancaran pembayaran
+                                    Please fill in the account number for successful payment
                                     </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                  <label>Aktifkan Toko ? </label>
+                                  <label>Activate Store ? </label>
                                 </div>
 
                                 <div class="col-md-2 col-sm-6 col-xs-12" style="padding-left: 40px">
@@ -147,8 +147,8 @@
 
                     <hr>
                     <div class="text-right w-100">
-                      <button class="btn btn-primary save" type="submit">Simpan</button>
-                      <a href="" class="btn btn-secondary">Kembali</a>
+                      <button class="btn btn-primary save" type="submit">Save</button>
+                      <a href="" class="btn btn-secondary">Back</a>
                     </div>
                   </div>
                 </div>

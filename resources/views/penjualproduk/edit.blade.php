@@ -25,18 +25,18 @@
                   <div class="card-body">
                     <h4 class="card-title">Form Product</h4>
                     <div class="alert alert-warning" role="alert">
-                      Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+                    Please fill in all the data marked with <span style="color:red;">*</span>
                     </div>
 
                     @if (session('sukses'))
                     <div class="alert alert-success" role="alert">
-                      Success, Data berhasil disimpan
+                    Success, Data saved successfully
                     </div>
                     @endif
 
                     @if (session('gagal'))
                     <div class="alert alert-danger" role="alert">
-                      Gagal, Data gagal disimpan
+                    Failed, Data failed to save
                     </div>
                     @endif
 
@@ -54,7 +54,7 @@
 
                           <div class="col-md-10 col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" placeholder="Nama Produk" name="name" id="name">
+                                <input type="text" class="form-control form-control-sm" placeholder="Product Name" name="name" id="name">
                             </div>
                           </div>
 
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm rp" placeholder="Price" name="price" id="price">
                                 <div class="alert alert-warning" role="alert">
-                                  Mohon isi dengan harga yang sebenarnya sebelum dikurang diskon
+                                Please fill in with the original price before deducting the discount
                                 </div>
                             </div>
                           </div>
@@ -82,7 +82,7 @@
                           </div>
 
                           <div class="col-md-2 col-sm-6 col-xs-12">
-                            <label>Diskon (%)</label>
+                            <label>Discount (%)</label>
                           </div>
 
                           <div class="col-md-10 col-sm-6 col-xs-12">
@@ -92,17 +92,17 @@
                           </div>
 
                           <div class="col-md-3 col-sm-6 col-xs-12">
-                            <label>Aktifkan Diskon ? </label>
+                            <label>Activate Discount ? </label>
                           </div>
 
                           <div class="col-md-2 col-sm-6 col-xs-12" style="padding-left: 40px">
                             <div class="form-group">
-                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="Y">Ya
+                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="Y">Yes
                             </div>
                           </div>
                           <div class="col-md-7 col-sm-6 col-xs-12" style="padding-left: 40px">
                             <div class="form-group">
-                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="N">Tidak
+                              <input class="form-check-input isdiskon" type="radio" name="isdiskon" value="N">No
                             </div>
                           </div>
 
@@ -150,7 +150,7 @@
                     <div id="formuploadimage">
                       <h4 class="card-title">Upload Image</h4>
                       <div class="alert alert-warning" role="alert">
-                        Jika Remove File Diklik Maka Foto / Image Akan Otomatis Hilang
+                      If you click on Remove File, then the photo / image will automatically disappear
                       </div>
                       <form action="{{url('/penjual/produk/simpanproductcontent')}}" class="dropzone">
 
@@ -205,7 +205,7 @@ var myDropzone = new Dropzone(".dropzone", {
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Data Berhasil Disimpan!',
+                    message: 'Data Saved Successfully!',
                 });
                 setTimeout(function () {
                   window.location.href = baseUrlChange;
@@ -213,12 +213,12 @@ var myDropzone = new Dropzone(".dropzone", {
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Data Gagal disimpan!',
+                    message: 'Data failed to save!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Data Berhasil Diubah!',
+                    message: 'Data Modified Successfully!',
                 });
                 setTimeout(function () {
                   window.location.href = baseUrlChange;
@@ -226,7 +226,7 @@ var myDropzone = new Dropzone(".dropzone", {
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Data Gagal Diubah!',
+                    message: 'Data Failed to Change!',
                 });
               }
             })
@@ -291,7 +291,7 @@ $('#btnsubmit').click(function(){
             if (response.status == 1) {
               iziToast.success({
                   icon: 'fa fa-save',
-                  message: 'Data Berhasil Disimpan!',
+                  message: 'Data Saved Successfully!',
               });
               setTimeout(function () {
                 window.location.href = baseUrlChange;
@@ -299,12 +299,12 @@ $('#btnsubmit').click(function(){
             }else if(response.status == 2){
               iziToast.warning({
                   icon: 'fa fa-info',
-                  message: 'Data Gagal Disimpan!',
+                  message: 'Data failed to save!',
               });
             }else if (response.status == 3){
               iziToast.success({
                   icon: 'fa fa-save',
-                  message: 'Data Berhasil Disimpan!',
+                  message: 'Data Modified Successfully!',
               });
               setTimeout(function () {
                 window.location.href = baseUrlChange;
@@ -312,7 +312,7 @@ $('#btnsubmit').click(function(){
             }else if (response.status == 4){
               iziToast.warning({
                   icon: 'fa fa-info',
-                  message: 'Data Gagal Disimpan!',
+                  message: 'Data Failed to Change!',
               });
           }
         }
