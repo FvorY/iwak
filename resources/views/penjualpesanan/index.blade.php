@@ -14,15 +14,15 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/penjual/home')}}">Home</a></li>
-          <li class="breadcrumb-item">Penjual</li>
-          <li class="breadcrumb-item active" aria-current="page">List Pesanan</li>
+          <li class="breadcrumb-item">Seller</li>
+          <li class="breadcrumb-item active" aria-current="page">List Order</li>
         </ol>
       </nav>
     </div>
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List Pesanan</h4>
+                    <h4 class="card-title">List Order</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       {{-- @if(Auth::user()->akses('MASTER DATA STATUS','tambah')) --}}
                     	{{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button> --}}
@@ -34,7 +34,7 @@
                               <tr>
                                 <th>No</th>
                                 <th>Nota</th>
-                                <th>Pembeli</th>
+                                <th>Buyer</th>
                                 <th>Subtotal</th>
                                 <th>Status</th>
                                 <th>Date</th>
@@ -122,8 +122,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Cancel pesanan',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Cancel Order',
+  		message: 'Are You Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -135,24 +135,24 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dicancel!',
+                    message: 'Order Successfully Canceled!',
                 });
               reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dicancel!',
+                    message: 'Order Failed Canceled!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dicancel!',
+                    message: 'Order Successfully Canceled!',
                 });
                 reloadall();
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dicancel!',
+                    message: 'Order Failed Canceled!',
                 });
             }
 
@@ -172,8 +172,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Pesanan dihapus',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Delete Order',
+  		message: 'Are You Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -185,24 +185,24 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dihapus!',
+                    message: 'Order Deleted Successfully!',
                 });
                 reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dihapus!',
+                    message: 'Order Failed to Delete!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dihapus!',
+                    message: 'Order Deleted Successfully!',
                 });
                 reloadall();
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dihapus!',
+                    message: 'Order Failed to Delete!',
                 });
             }
 
@@ -222,8 +222,8 @@ var table = $('#table-data').DataTable({
       close: false,
       overlay: true,
       displayMode: 'once',
-      title: 'Pesanan selesai dikirim',
-      message: 'Apakah anda yakin ?',
+      title: 'Order completed',
+      message: 'Are You Sure ?',
       position: 'center',
       buttons: [
         ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -235,24 +235,24 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Sudah Dikirim!',
+                    message: 'Order Sent!',
                 });
                 reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Sudah Dikirim!',
+                    message: 'Order Sent!',
                 });
                 reloadall();
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
             }
 
@@ -272,8 +272,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Pesanan dikirim',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Order sent',
+  		message: 'Are Your Sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -285,24 +285,24 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dikirim!',
+                    message: 'Order Sent Successfully!',
                 });
                 reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pesanan Berhasil Dikirim!',
+                    message: 'Order Sent Successfully!',
                 });
                 reloadall();
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pesanan Gagal Dikirim!',
+                    message: 'Order Failed to Deliver!',
                 });
             }
 
@@ -322,8 +322,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Konfirmasi pembayaran',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Payment confirmation',
+  		message: 'Are you sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -335,24 +335,24 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pembayaran Berhasil Dikonfirmasi!',
+                    message: 'Payment Successfully Confirmed!',
                 });
                 reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pembayaran Gagal Dikonfirmasi!',
+                    message: 'Payment Failed to Confirm!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Pembayaran Berhasil Dikonfirmasi!',
+                    message: 'Payment Successfully Confirmed!',
                 });
                 reloadall();
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pembayaran Gagal Dikonfirmasi!',
+                    message: 'Payment Failed to Confirm!',
                 });
             }
 

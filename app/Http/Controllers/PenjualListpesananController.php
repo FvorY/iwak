@@ -42,22 +42,22 @@ class PenjualListpesananController extends Controller
             return FormatRupiahFront($data->subtotal);
           })
           ->addColumn("status", function($data) {
-              $stat = '<span class="badge badge-warning"> Pesanan Dibuat </span>';
+              $stat = '<span class="badge badge-warning"> Order Made </span>';
 
               if ($data->pay == "Y") {
-                $stat = '<span class="badge badge-success"> Sudah Dibayar </span>';
+                $stat = '<span class="badge badge-success"> Already paid </span>';
               }
 
               if ($data->deliver == "P") {
-                $stat = '<span class="badge badge-warning"> Proses Pengiriman </span>';
+                $stat = '<span class="badge badge-warning"> Delivery process </span>';
               }
 
               if ($data->deliver == "Y") {
-                $stat = '<span class="badge badge-success"> Sudah Dikirim </span>';
+                $stat = '<span class="badge badge-success"> It has been sent </span>';
               }
 
               if ($data->cancelled == "Y") {
-                $stat = '<span class="badge badge-danger"> Pesanan Dibatalkan </span>';
+                $stat = '<span class="badge badge-danger"> Order Canceled </span>';
               }
 
               return $stat;

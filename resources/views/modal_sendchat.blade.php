@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Kirim Chat</h4>
+        <h4 class="modal-title">Send Chat</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
