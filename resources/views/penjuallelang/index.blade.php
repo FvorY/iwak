@@ -16,8 +16,8 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/penjual/home')}}">Home</a></li>
-          <li class="breadcrumb-item">Penjual</li>
-          <li class="breadcrumb-item active" aria-current="page">Manage Lelang</li>
+          <li class="breadcrumb-item">Seller</li>
+          <li class="breadcrumb-item active" aria-current="page">Manage Auction</li>
         </ol>
       </nav>
     </div>
@@ -36,11 +36,11 @@
                             <thead class="bg-gradient-info">
                               <tr>
                                 <th>No</th>
-                                <th>Image Utama</th>
-                                <th>Nama Produk</th>
-                                <th>Harga Diawal</th>
+                                <th>Main Image</th>
+                                <th>Product Name</th>
+                                <th>Initial price</th>
                                 <th>Status</th>
-                                <th>Pemenang</th>
+                                <th>Winner</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -217,24 +217,24 @@ var table = $('#table-data').DataTable({
       if (data.status == 1) {
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Data Berhasil Disimpan!',
+            message: 'Data Saved Successfully!',
         });
         reloadall();
       }else if(data.status == 2){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Data Gagal disimpan!',
+            message: 'Data failed to save!',
         });
       }else if (data.status == 3){
         iziToast.success({
             icon: 'fa fa-save',
-            message: 'Data Berhasil Diubah!',
+            message: 'Data Modified Successfully!',
         });
         reloadall();
       }else if (data.status == 4){
         iziToast.warning({
             icon: 'fa fa-info',
-            message: 'Data Gagal Diubah!',
+            message: 'Data Failed to Change!',
         });
       } else if (data.status == 7) {
         iziToast.warning({
@@ -259,24 +259,24 @@ $.ajax({
     if (data.status == 1) {
       iziToast.success({
           icon: 'fa fa-save',
-          message: 'Data Berhasil Disimpan!',
+          message: 'Data Saved Successfully!',
       });
       reloadall();
     }else if(data.status == 2){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Data Gagal disimpan!',
+          message: 'Data failed to save!',
       });
     }else if (data.status == 3){
       iziToast.success({
           icon: 'fa fa-save',
-          message: 'Data Berhasil Diubah!',
+          message: 'Data Modified Successfully!',
       });
       reloadall();
     }else if (data.status == 4){
       iziToast.warning({
           icon: 'fa fa-info',
-          message: 'Data Gagal Diubah!',
+          message: 'Data Failed to Change',
       });
     } else if (data.status == 7) {
       iziToast.warning({
@@ -295,8 +295,8 @@ function hapus(id) {
     timeout: false,
     overlay: true,
     displayMode: 'once',
-    title: 'Hapus Lelang',
-    message: 'Apakah anda yakin ?, menghapus lelang?',
+    title: 'Delete Auction',
+    message: 'Are you sure?, delete the auction?',
     position: 'center',
     buttons: [
       ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -309,14 +309,14 @@ function hapus(id) {
             if (data.status == 3) {
               iziToast.success({
                   icon: 'fa fa-trash',
-                  message: 'Lelang Berhasil Dihapus!',
+                  message: 'Auction Removed Successfully!',
               });
 
               reloadall();
             }else if(data.status == 4){
               iziToast.warning({
                   icon: 'fa fa-info',
-                  message: 'Lelang Gagal Dihapus!',
+                  message: 'Auction Failed to Delete!',
               });
             }else if (data.status == 7) {
               iziToast.warning({
@@ -342,8 +342,8 @@ function hapus(id) {
       timeout: false,
       overlay: true,
       displayMode: 'once',
-      title: 'Aktifkan Lelang',
-      message: 'Apakah anda yakin ?, mengaktifkan Lelang?',
+      title: 'Activate Auction',
+      message: 'Are you sure?, activate Auction?',
       position: 'center',
       buttons: [
         ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -356,14 +356,14 @@ function hapus(id) {
               if (data.status == 3) {
                 iziToast.success({
                     icon: 'fa fa-trash',
-                    message: 'Lelang Berhasil Diaktifkan!',
+                    message: 'Auction Activated Successfully!',
                 });
 
                 reloadall();
               }else if(data.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Lelang Gagal Diaktifkan!',
+                    message: 'Auction Failed to Activate!',
                 });
               }else if (data.status == 7) {
                 iziToast.warning({
@@ -388,8 +388,8 @@ function hapus(id) {
       timeout: false,
       overlay: true,
       displayMode: 'once',
-      title: 'Nonaktifkan Lelang',
-      message: 'Apakah anda yakin ?, menonaktifkan Lelang?',
+      title: 'Deactivate Auction',
+      message: 'Are you sure?, disable Auction?',
       position: 'center',
       buttons: [
         ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -402,14 +402,14 @@ function hapus(id) {
               if (data.status == 3) {
                 iziToast.success({
                     icon: 'fa fa-trash',
-                    message: 'Lelang Berhasil Dinonaktifkan!',
+                    message: 'Auction Successfully Deactivated!',
                 });
 
                 reloadall();
               }else if(data.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Lelang Gagal Dinonaktifkan!',
+                    message: 'Auction Failed Disabled!',
                 });
               }
 
@@ -429,8 +429,8 @@ function hapus(id) {
       timeout: false,
       overlay: true,
       displayMode: 'once',
-      title: 'Pilih Pemenang',
-      message: 'Apakah anda yakin ?, pilih pemenang ini?',
+      title: 'Choose Winner',
+      message: 'Are you sure?, choose this winner?',
       position: 'center',
       buttons: [
         ['<button><b>Ya</b></button>', function (instance, toast) {
@@ -443,7 +443,7 @@ function hapus(id) {
               if (data.status == 3) {
                 iziToast.success({
                     icon: 'fa fa-trash',
-                    message: 'Pemenang Berhasil Dipilih!',
+                    message: 'Winner Successfully Chosen!',
                 });
 
                 $('#listbid').modal('hide');
@@ -451,7 +451,7 @@ function hapus(id) {
               }else if(data.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Pemenang Gagal Dipilih!',
+                    message: 'Winner Failed to be Chosen!',
                 });
               }else if (data.status == 7) {
                 iziToast.warning({

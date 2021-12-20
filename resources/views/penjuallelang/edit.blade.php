@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         <div class="alert alert-warning" role="alert">
-          Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+        Please fill in all the data marked with <span style="color:red;">*</span>
         </div>
         <div class="row">
           <table class="table table_modalupdate">
@@ -23,14 +23,14 @@
             </td>
           </tr> --}}
           <tr>
-            <td>Nama Produk </td>
+            <td>Product Name </td>
             <td>
               <b class="modal-title namaproduk"></b>
               <input type="hidden" class="form-control form-control-sm id" name="id">
             </td>
           </tr>
           <tr>
-            <td>Harga Awal <span style="color:red;">*</span></td>
+            <td>Initial Price <span style="color:red;">*</span></td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext rp hargawal" name="price">
             </td>

@@ -5,20 +5,20 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form User</h4>
+        <h4 class="modal-title">Form Lelang</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="alert alert-warning" role="alert">
-          Mohon isi semua data yang bertanda <span style="color:red;">*</span>
+        Please fill in all the data marked with <span style="color:red;">*</span>
         </div>
         <div class="row">
           <table class="table table_modal">
           <tr>
-            <td>Pilih Produk <span style="color:red;">*</span></td>
+            <td>Select Product <span style="color:red;">*</span></td>
             <td>
               <select class="form-control produk" name="id_produk">
-                <option value="" selected>- Pilih -</option>
+                <option value="" selected>- Choose -</option>
                 @foreach ($produk as $key => $value)
                   <option value="{{$value->id_produk}}">{{$value->name}}</option>
                 @endforeach

@@ -11,7 +11,7 @@
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/penjual/home')}}">Home</a></li>
-          <li class="breadcrumb-item">Penjual</li>
+          <li class="breadcrumb-item">Seller</li>
           <li class="breadcrumb-item active" aria-current="page">Product</li>
         </ol>
       </nav>
@@ -133,8 +133,8 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: 'Hapus data',
-  		message: 'Apakah anda yakin ?',
+  		title: 'Delete Product',
+  		message: 'Are you sure ?',
   		position: 'center',
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
@@ -146,18 +146,18 @@ var table = $('#table-data').DataTable({
               if (response.status == 1) {
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Data Berhasil Disimpan!',
+                    message: 'Product Removed Successfully!',
                 });
                 reloadall();
               }else if(response.status == 2){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Data Gagal Disimpan!',
+                    message: 'Product Failed to Delete!',
                 });
               }else if (response.status == 3){
                 iziToast.success({
                     icon: 'fa fa-save',
-                    message: 'Data Berhasil Disimpan!',
+                    message: 'Product Removed Successfully!',
                 });
                 setTimeout(function () {
                   window.location.href = baseUrlChange;
@@ -165,7 +165,7 @@ var table = $('#table-data').DataTable({
               }else if (response.status == 4){
                 iziToast.warning({
                     icon: 'fa fa-info',
-                    message: 'Data Gagal Disimpan!',
+                    message: 'Product Failed to Delete!',
                 });
             }
 

@@ -14,8 +14,8 @@
               <thead class="bg-gradient-info">
                 <tr>
                   <th>No</th>
-                  <th>Nama User</th>
-                  <th>Harga</th>
+                  <th>Username</th>
+                  <th>Price</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
