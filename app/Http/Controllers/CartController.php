@@ -406,10 +406,10 @@ class CartController extends Controller
                   return 'already exist';
               }
           } else {
-            return response()->json([
-              "code" => 400,
-              "message" => "Upload bukti pembayaran terlebih dahulu!",
-            ]);
+            // return response()->json([
+            //   "code" => 400,
+            //   "message" => "Upload bukti pembayaran terlebih dahulu!",
+            // ]);
           }
 
           $index = str_pad($max, 3, '0', STR_PAD_LEFT);
