@@ -462,6 +462,7 @@ class MemberController extends Controller
                      "address" => $req['address'],
                      "nomor_rekening" => $req['norek'],
                      "bank" => $req['bank'],
+                     "codeforgot" => $req['code'],
                      "last_online" => Carbon::now(),
                      "updated_at" => Carbon::now('Asia/Jakarta'),
                 ]);
@@ -477,6 +478,7 @@ class MemberController extends Controller
                      "profile_picture" => $imgPath,
                      "nomor_rekening" => $req['norek'],
                      "bank" => $req['bank'],
+                     "codeforgot" => $req['code'],
                      "last_online" => Carbon::now(),
                      "updated_at" => Carbon::now('Asia/Jakarta'),
                 ]);
