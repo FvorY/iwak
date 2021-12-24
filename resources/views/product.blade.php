@@ -86,7 +86,7 @@
 													$diskonval = $value->price * $value->diskon / 100;
 													$res = $value->price - $diskonval;
 													?>
-													<span class="price"><span>{{FormatRupiahFront($res)}}</span></span>
+													<span class="price"><span>{{FormatRupiahFront($res)}}</span></span> <del>{{$value->price}}</del>
 												@else
 													<span class="price"><span>{{FormatRupiahFront($value->price)}}</span></span>
 												@endif

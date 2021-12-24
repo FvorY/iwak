@@ -74,17 +74,12 @@
 											$diskon = ($list->diskon/100)*$list->price;
 											$total = $list->price - $diskon
 											?>
-										<span class="price">{{FormatRupiahFront($total)}}
+										<span class="price">{{FormatRupiahFront($total)}} <del>{{$list->price}}</del>
 
 										@else
-										<span class="price">{{FormatRupiahFront($list->price)}}
+										<span class="price">{{FormatRupiahFront($list->price)}} </span>
 										@endif
-											@if($list->isdiskon == "Y")
-											<del>{{FormatRupiahFront($list->price)}}</del>
-											@else
 
-											@endif
-										</span>
 									</div>
 									<!-- Product Form of the Page -->
 									<form action="#" class="product-form" style="margin-bottom: 40px">
